@@ -1,0 +1,46 @@
+<div class="parent">
+<mat-card>
+  <div class="posts" *ngIf="userPost; else noPosts">
+    <h1>Posts</h1>
+    <div *ngFor="let post of userPost">
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.body }}</p>
+  
+      <button (click)="selectPost(post.id)">View Comments</button>
+  
+      <div class="comments" *ngIf="commentVisibility[post.id]">
+          <h1>Comments</h1>
+          <div *ngFor="let comment of comments">
+            <h2>{{ comment.name }}</h2>
+            <p>{{ comment.body }}</p>
+            <p>{{ comment.email }}</p>
+          </div>
+        </div>
+        <ng-template #noComments>
+          <p>No comments present.</p>
+        </ng-template>
+    </div>
+  </div> 
+  <ng-template #noPosts>
+    <p>No posts present.</p>
+  </ng-template>
+</mat-card>
+
+<mat-form-field>
+  <mat-label>Input</mat-label>
+  <input matInput>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Select</mat-label>
+  <mat-select>
+    <mat-option value="one">First option</mat-option>
+    <mat-option value="two">Second option</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Textarea</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
+
+</div>
+

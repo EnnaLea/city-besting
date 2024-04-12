@@ -1,0 +1,29 @@
+.container{
+
+
+    mat-accordion{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        // background-color: black;
+        
+
+        mat-card{
+            display: flex;
+            width: 900px;
+            justify-content: center;
+            flex-direction: column;
+            margin: 2rem 1rem;
+            
+
+            // mat-expansion-panel{
+                // background-color: red;
+                
+            // }
+        }
+    }
+
+
+}
+
+

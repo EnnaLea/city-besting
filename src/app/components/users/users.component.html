@@ -1,0 +1,28 @@
+<div class="parent">
+  <h1>List of users</h1>
+  <div class="container-cards">
+    <mat-card class="user-cards" *ngFor="let user of users">
+      <div class="single-cards">
+        <div>
+          <div>
+            <h3>{{ user.name }}</h3>
+            <p>{{ user.email }}</p>
+            <p>{{ user.gender }}</p>
+            <p>{{ user.status }}</p>
+          </div>
+        </div>
+        <div class="example-button-row">
+          <button
+            mat-fab
+            extended
+            color="primary"
+            (click)="user.id !== undefined ? onDetailsClick(user.id) : null"
+          >
+            <mat-icon>favorite</mat-icon>
+            Details
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+
+<div class="parent">
+    <h2 class="header-token">Get your Token <a href="https://gorest.co.in/consumer/login" target="_blank">Here</a></h2>
+    <div class="container">
+        
+        <div class="login-box">
+            <h2>Login</h2>
+            <form action="#">
+                <div class="input-box">
+                    <input type="email" [(ngModel)]="email" name="EmailId" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" [(ngModel)]="password" name="Password" required>
+                    <label>Password</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" [(ngModel)]="token" name="Token" required>
+                    <label>Token</label>
+                </div>
+                
+                <button type="button" class="btn" (click)="onLogin()" >Login</button>
+                 
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+    <div class="text-center mb-5">
+        <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div>
+        <label for="email1" class="block text-900 font-medium mb-2">Email</label>
+        <input id="email1" type="text" placeholder="Email address" pInputText class="w-full mb-3">
+
+        <label for="password1" class="block text-900 font-medium mb-2">Password</label>
+        <input id="password1" type="password" placeholder="Password" pInputText class="w-full mb-3">
+
+        <div class="flex align-items-center justify-content-between mb-6">
+
+        </div>
+
+        <button pButton pRipple label="Login" icon="pi pi-user" class="w-full"  routerLink="landing"></button>
+    </div>
+</div> -->
+
