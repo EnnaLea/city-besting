@@ -4,6 +4,7 @@ import { User } from '../../interfaces/user.model';
 import { UserService } from '../../services/user.service';
 import { MaterialModule } from '../../module/material/material.module';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
@@ -20,10 +21,14 @@ name!: string;
 status!: string;
 gender!: string;
 
-  constructor(private authService: AuthService, private userService: UserService) { }
+  constructor(private authService: AuthService, private userService: UserService, private route: Router) { }
 
   ngOnInit(): void {
    this.getUser();
+  }
+
+  onDetailsClick(id: number){
+    this.route.navigateByUrl('/landing/new-post/' + id);
   }
 
   onCancel() {
@@ -51,6 +56,10 @@ gender!: string;
         console.error('User ID is undefined');
       }
       return;
+    }
+
+    onClick(){
+      this.route.navigateByUrl('/landing/');
     }
 
   getUser(){

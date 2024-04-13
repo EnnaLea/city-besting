@@ -20,7 +20,7 @@ export const routes: Routes = [
         {path:'comments', loadComponent: ()=> import('./components/comments/comments.component').then(m => m.CommentsComponent) },
         {path:'user-info', loadComponent: ()=> import('./components/user-info/user-info.component').then(m => m.UserInfoComponent) },
         {path:'add-user', loadComponent: ()=> import('./components/create-user/create-user.component').then(m => m.CreateUserComponent) },
-
+        {path:'new-post/:id', loadComponent: ()=> import('./components/new-post/new-post.component').then(m => m.NewPostComponent) },
     ]
 },
 

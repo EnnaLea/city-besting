@@ -1,0 +1,21 @@
+.parent{
+    background-color: #1f293a;
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+        .create-post{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 600px;
+            margin: 2rem 2rem;
+            padding: 1.5rem;
+        }
+    }
+}
+

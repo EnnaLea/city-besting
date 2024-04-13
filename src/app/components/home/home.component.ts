@@ -8,13 +8,15 @@ import { UsersDetailsComponent } from "../users-details/users-details.component"
 import { UserService } from '../../services/user.service';
 import { UserInfoComponent } from "../user-info/user-info.component";
 import { UserPostsComponent } from "../user-posts/user-posts.component";
+import { Router } from '@angular/router';
+import { NewPostComponent } from '../new-post/new-post.component';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
-    imports: [MaterialModule, CommonModule, UsersComponent, UsersDetailsComponent, UserInfoComponent, UserPostsComponent]
+    imports: [MaterialModule, CommonModule, UsersComponent, UsersDetailsComponent, UserInfoComponent, UserPostsComponent, NewPostComponent]
 })
 export class HomeComponent implements OnInit {
 
@@ -24,10 +26,14 @@ name!: string;
 staus!: string;
 gender!: string;
 
-  constructor(private authService: AuthService, private userService: UserService) { }
+  constructor(private authService: AuthService, private userService: UserService, private route: Router) { }
 
   ngOnInit(): void {
    this.getUser();
+  }
+
+  onDetailsClick(id: number) {
+    this.route.navigateByUrl('/landing/users-detail/' + id);
   }
 
   onCancel() {
