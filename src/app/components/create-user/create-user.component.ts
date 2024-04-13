@@ -4,17 +4,18 @@ import { AuthService } from '../../auth/auth.service';
 import { User } from '../../interfaces/user.model';
 import { MaterialModule } from '../../module/material/material.module';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { UserInfoComponent } from "../user-info/user-info.component";
 
 @Component({
-  selector: 'app-create-user',
-  standalone: true,
-  imports: [MaterialModule, ],
-  templateUrl: './create-user.component.html',
-  styleUrl: './create-user.component.scss'
+    selector: 'app-create-user',
+    standalone: true,
+    templateUrl: './create-user.component.html',
+    styleUrl: './create-user.component.scss',
+    imports: [MaterialModule, UserInfoComponent]
 })
 export class CreateUserComponent {
-
-  user!: User;
+user!: User;
 
 email!: string;
 name!: string;
@@ -29,13 +30,12 @@ selectedValue!: string;
 
 registerForm!: FormGroup;
 
-constructor(private authService: AuthService, private router : Router, private fb: FormBuilder){
+constructor(private authService: AuthService, private userService: UserService, private router : Router, private fb: FormBuilder){
   this.registerForm = this.fb.group({
     name: new FormControl('', [Validators.required]),  
     email: new FormControl('', [Validators.required]), 
     gender: new FormControl('', [Validators.required]), 
     status: new FormControl('', [Validators.required]), 
-    password: new FormControl('', [Validators.required]),
     token: new FormControl('', [Validators.required]),
   }) ; 
 }
@@ -54,15 +54,63 @@ onSubmit() {
       status: this.registerForm.value.status,
     }
 
-    this.authService.createUser(newUser).subscribe({
+    this.userService.createUser(newUser).subscribe({
       next: (response) => {
-        this.authService.setCachedUser(response);
-        localStorage.removeItem('token');
-        this.router.navigateByUrl('/login');
+        this.user = response;
+        alert("User created successfully");
+        console.log(response);
+        // this.authService.setCachedUser(response);
+        // localStorage.removeItem('token');
+        // this.router.navigateByUrl('/login');
       }
     });
   } 
 }
+
+onSave() {
+  const userId = this.getUserId();
+  let changeUser : User = {
+    name : this.name,
+    email : this.email,
+    gender : this.gender,
+    status : this.status
+  }
+
+  console.log(changeUser);
+  console.log(userId);
+  if (userId !== undefined){
+    return this.userService.updateUser(userId, changeUser).subscribe((_user) => {
+      this.user = _user;
+      this.authService.setCachedUser(this.user);
+      alert('Changes saved');
+      // window.location.reload();
+    });
+  } else {
+    console.error('User ID is undefined');
+  }
+  return;
+}
+
+
+  onCancel() {
+  throw new Error('Method not implemented.');
+  }
+
+  getUser(){
+    const cachedUser = this.authService.getCachedUser();
+    if (cachedUser !== null) {
+        this.user = cachedUser;
+    }
+    return this.user;
+  }
+
+  getUserId(){
+    const cachedUser = this.authService.getCachedUser();
+    if (cachedUser !== null) {
+        this.user = cachedUser;
+    }
+    return this.user.id;
+  }
 
 
 }

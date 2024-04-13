@@ -19,6 +19,7 @@ export const routes: Routes = [
         {path:'posts', loadComponent: ()=> import('./components/posts/posts.component').then(m => m.PostsComponent) },
         {path:'comments', loadComponent: ()=> import('./components/comments/comments.component').then(m => m.CommentsComponent) },
         {path:'user-info', loadComponent: ()=> import('./components/user-info/user-info.component').then(m => m.UserInfoComponent) },
+        {path:'add-user', loadComponent: ()=> import('./components/create-user/create-user.component').then(m => m.CreateUserComponent) },
 
     ]
 },

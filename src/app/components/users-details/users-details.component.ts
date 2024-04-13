@@ -9,13 +9,15 @@ import { Posts } from '../../interfaces/user-post';
 import { Comments } from '../../interfaces/comments';
 import { PostsComponent } from '../posts/posts.component';
 import { CommentsComponent } from "../comments/comments.component";
+import { UserPostsComponent } from '../user-posts/user-posts.component';
+
 
 @Component({
     selector: 'app-users-details',
     standalone: true,
     templateUrl: './users-details.component.html',
     styleUrl: './users-details.component.scss',
-    imports: [CommonModule, MaterialModule, PostsComponent, CommentsComponent]
+    imports: [CommonModule, MaterialModule, PostsComponent, CommentsComponent, UserPostsComponent]
 })
 export class UsersDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 

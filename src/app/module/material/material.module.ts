@@ -13,6 +13,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 
 
 
@@ -23,7 +24,7 @@ import {MatTabsModule} from '@angular/material/tabs';
   imports:[],
   exports: [
     CommonModule, FormsModule, MatCardModule, MatGridListModule, MatButtonModule, MatIconModule, MatSidenavModule, ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule, MatToolbarModule, MatInputModule, MatSelectModule,
-    MatExpansionModule, MatTabsModule
+    MatExpansionModule, MatTabsModule, MatProgressSpinnerModule
   ]
 })
 export class MaterialModule { }

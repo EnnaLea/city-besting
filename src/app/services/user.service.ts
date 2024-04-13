@@ -38,12 +38,19 @@ export class UserService {
     return this.httpService.get<UserDetail>(url, {headers: this.getHeaders()});
   }
 
+//   getUserPosts(id: number): Observable<Array<Posts>> {
+//     const url = `${this.url}/users/${id}/posts?page=1&per_page=10`;
+//     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(tap(data => this.userPost = data));
+        
+// }
   getUserPosts(id: number): Observable<Array<Posts>> {
     const url = `${this.url}/users/${id}/posts?page=1&per_page=10`;
-    return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
-        shareReplay(1)
-    );
+    return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()});
 }
+//   getUserPosts(id: number): Observable<Array<Posts>> {
+//     const url = `${this.url}/users/${id}/posts?page=1&per_page=10`;
+//     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(map(data => this.userPost = data));
+// }
 
   getPostComments(post_id: number): Observable<Array<Comments>>{
     const url = `${this.url}/posts/${post_id}/comments?page=1&per_page=10`;
@@ -64,6 +71,15 @@ export class UserService {
 
   //METODI POST
 
+  createUser(user: User): Observable<User> {
+    const url = `${this.url}/users`;
+    const header = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${this.getToken()}`
+    );
+    return this.httpService.post<User>(url, user, { headers: header });
+  }
+
   createPost(id: number, post: Posts): Observable<Posts> {
     const url = `${this.url}/${id}/posts`;
     let postBody ={
@@ -74,10 +90,11 @@ export class UserService {
     return this.httpService.post<Posts>(url, postBody, {headers: this.getHeaders()});
   }
 
-  createComment(comment: Comments): Observable<Comments> {
-    const url = `${this.url}/comments`;
+  createUserComment(postId: number, comment: Comments): Observable<Comments> {
+    const url = `${this.url}/posts/${postId}/comments`;
+    
     let commentBody = {
-      post_id: comment.post_id,
+      postId: postId,
       name: comment.name,
       email: comment.email,
       body: comment.body,
@@ -99,6 +116,11 @@ export class UserService {
     return this.httpService.delete<User>(url, {headers: this.getHeaders()});
   }
 
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+  
   getHeaders(){
     const header = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
     return header;

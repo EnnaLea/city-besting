@@ -17,7 +17,7 @@ export class UserInfoComponent {
 @Input() user!: User;
 mail!: string;
 name!: string;
-staus!: string;
+status!: string;
 gender!: string;
 
   constructor(private authService: AuthService, private userService: UserService) { }
@@ -37,11 +37,9 @@ gender!: string;
         name : this.name,
         email : this.mail,
         gender : this.gender,
-        status : this.staus
+        status : this.status
       }
-
-      console.log(changeUser);
-      console.log(userId);
+      
       if (userId !== undefined){
         return this.userService.updateUser(userId, changeUser).subscribe((_user) => {
           this.user = _user;

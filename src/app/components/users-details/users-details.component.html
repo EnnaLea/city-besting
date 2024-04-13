@@ -1,15 +1,10 @@
-<h1>User Detail</h1>
+
 <div class="container">
 
-  <button (click)="goBack()">Back</button>
-  <div class="user-detail" *ngIf="userDetail">
-    <!-- Access userDetail properties here -->
-    <p>{{ userDetail.name }}</p>
-    <p>{{ userDetail.gender }}</p>
-    <p>{{ userDetail.email }}</p>
-  </div>
+  <button mat-button (click)="goBack()">Back</button>
+
   
-  <app-posts></app-posts>
+  <app-user-posts></app-user-posts>
   
   <ng-template #loading>Loading...</ng-template>
 

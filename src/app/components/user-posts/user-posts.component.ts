@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Posts } from '../../interfaces/user-post';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -8,6 +8,9 @@ import { CommentsComponent } from '../comments/comments.component';
 import { Comments } from '../../interfaces/comments';
 import { User } from '../../interfaces/user.model';
 import { AuthService } from '../../auth/auth.service';
+import { NgForm } from '@angular/forms';
+import { Observable, map, tap } from 'rxjs';
+import { OnLoginFunc } from 'tinacms';
 
 @Component({
   selector: 'app-user-posts',
@@ -16,50 +19,75 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './user-posts.component.html',
   styleUrl: './user-posts.component.scss'
 })
-export class PostsComponent implements AfterViewInit {
+export class UserPostsComponent implements OnInit, AfterViewInit {
+isSpinnerActive: any;
 
   @Input() userPost!: Array<Posts>;
   @Input() comments!: Array<Comments>;
   @Input() user!: User;
-  selectedPost: any;
+  @Input() comment!: Comments;
 
+  selectedPost: any;
   commentVisibility: { [postId: number]: boolean } = {};
+  newComment!: string;
+  commentName!: string;
+  commentEmail!: string;
+ 
+  isPost: boolean= true;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService) {}
 
+  ngOnInit(): void {
+
+  }
+
+  /* 
+  This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
+  */
   ngAfterViewInit(): void {
-    this.getUserPosts();
-    // this.getAllPosts
-    console.log(this.getUserPosts())
-     
+         this.getUserPosts();     
   }
 
+
+/*
+ This TypeScript code defines a method getUserPosts that retrieves a user ID, then calls a service to fetch posts for that user and subscribes to the result to assign it to userPost.
+*/
   getUserPosts(){
-    const id = this.getUserId();
-    // const id = this.route.snapshot.paramMap.get('id');
-    if(id !== undefined){
-      return this.userService.getUserPosts(id)
-      .subscribe((_userPostSubscription)=> this.userPost = _userPostSubscription);
+    const id = Number(this.getUserId());        
+      return this.userService.getUserPosts(Number(id))
+      .subscribe((_userPostSubscription)=> 
+        this.userPost = _userPostSubscription);  
+  }
+
+  /* 
+  This code defines a method createComment that creates a new comment for a specific post. It toggles the visibility of the comment, creates a new comment object with post ID, email, name, and body, then calls the createUserComment method from the userService to send the new comment to the server. It also subscribes to the response and updates the local comment object.
+  */
+  createComment(postId: number){
+    this.commentVisibility[postId] = !this.commentVisibility[postId];
+    let insertComment : Comments ={
+      post_id: postId,
+      email: this.commentEmail,
+      name: this.commentName,
+      body: this.newComment, 
     }
-     return;
+    return this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription);
+    
   }
 
-  getAllPosts(){
-    return this.userService.getAllPosts();
-  }
-
-  
+/* 
+This code defines a function selectPost that toggles the visibility of comments for a specific post by updating the commentVisibility property. It then fetches comments for that post through the userService, subscribes to the response, and assigns the comments to the local comments property.
+*/  
   selectPost(postId: number){
     this.commentVisibility[postId] = !this.commentVisibility[postId];
-    this.userService.getPostComments(postId).subscribe((_commentsSubscription)=> this.comments = _commentsSubscription);
+    return this.userService.getPostComments(postId).subscribe((_commentsSubscription)=> this.comments = _commentsSubscription);
   }
 
+  /* 
+  This TypeScript code defines a method getUserId that retrieves the value of the 'id' parameter from the current route snapshot and returns it.
+  */
   getUserId(){
-    const cachedUser = this.authService.getCachedUser();
-    if (cachedUser !== null) {
-        this.user = cachedUser;
-    }
-    return this.user.id;
+    const id = this.route.snapshot.paramMap.get('id');
+    return id;
   }
 
   ngOnDestroy(): void {

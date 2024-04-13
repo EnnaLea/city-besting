@@ -73,14 +73,14 @@ export class AuthService {
   //   }
   // }
 
-  createUser(user: User): Observable<User> {
-    const url = `${this.url}/users`;
-    const header = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${this.getToken()}`
-    );
-    return this.httpService.post<User>(url, user, { headers: header });
-  }
+  // createUser(user: User): Observable<User> {
+  //   const url = `${this.url}/users`;
+  //   const header = new HttpHeaders().set(
+  //     'Authorization',
+  //     `Bearer ${this.getToken()}`
+  //   );
+  //   return this.httpService.post<User>(url, user, { headers: header });
+  // }
 
 
 

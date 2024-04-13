@@ -17,6 +17,7 @@ import { User } from '../../interfaces/user.model';
   styleUrl: './landing.component.scss'
 })
 export class LandingComponent{
+
   user!: User;
   post!: Posts;
   comment!: Comments;
@@ -33,11 +34,20 @@ export class LandingComponent{
     this.route.navigateByUrl('/landing/home');
     }
 
-  onCreateUserClick(){}
+  onCreateUserClick(){
+    this.route.navigate(['/landing/add-user']);
+  }
 
   onCreatePostClick(post: Posts) {
     this.route.navigateByUrl('/landing/posts')
 
   }
+
+  onLogoutClick() {
+    throw new Error('Method not implemented.');
+    }
+    onDeleteUserClick() {
+    throw new Error('Method not implemented.');
+    }
 
 }

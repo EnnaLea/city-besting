@@ -21,7 +21,6 @@
 
   .container-cards{
     display: flex;
-    // flex-wrap: wrap;
     flex-direction: column;
     margin: 2rem 2rem;
     padding: 1rem;
@@ -35,10 +34,10 @@
     flex-direction: column;
     margin: 2rem 1rem;
     padding: 1.5rem;
-    // width:30%;
-    // height:30%;
+  }
 
-
+  button{
+    margin-right: 2rem;
   }
 }
 

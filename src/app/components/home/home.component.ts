@@ -7,14 +7,14 @@ import { UsersComponent } from '../users/users.component';
 import { UsersDetailsComponent } from "../users-details/users-details.component";
 import { UserService } from '../../services/user.service';
 import { UserInfoComponent } from "../user-info/user-info.component";
-import { PostsComponent } from "../user-posts/user-posts.component";
+import { UserPostsComponent } from "../user-posts/user-posts.component";
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
-    imports: [MaterialModule, CommonModule, UsersComponent, UsersDetailsComponent, UserInfoComponent, PostsComponent]
+    imports: [MaterialModule, CommonModule, UsersComponent, UsersDetailsComponent, UserInfoComponent, UserPostsComponent]
 })
 export class HomeComponent implements OnInit {
 

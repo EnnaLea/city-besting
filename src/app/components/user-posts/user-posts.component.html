@@ -1,5 +1,14 @@
+
+
+
+
+
 <div class="parent">
 <mat-card>
+  <div class="not-found" *ngIf="!isPost">
+    <h1>There are no posts on this page</h1>
+    <mat-icon>sentiment_dissatisfied</mat-icon>
+  </div>
   <div class="posts" *ngIf="userPost; else noPosts">
     <h1>Posts</h1>
     <div *ngFor="let post of userPost">
@@ -15,32 +24,41 @@
             <p>{{ comment.body }}</p>
             <p>{{ comment.email }}</p>
           </div>
-        </div>
+          <form (submit)="createComment(post.id)">
+            <mat-form-field>
+              <input type="text" matInput placeholder="Title" [(ngModel)]="commentName" name="commentName">
+            </mat-form-field>
+            <mat-form-field>
+              <input type="text" matInput placeholder="email" [(ngModel)]="commentEmail" name="commentEmail">
+            </mat-form-field>
+            <mat-form-field>
+              <textarea matInput placeholder="Add a new comment" [(ngModel)]="newComment" name="newComment"></textarea>
+            </mat-form-field>
+            <button type="submit" [disabled]="!newComment">Add Comment</button>
+          </form>
+       </div>
         <ng-template #noComments>
           <p>No comments present.</p>
         </ng-template>
     </div>
   </div> 
   <ng-template #noPosts>
-    <p>No posts present.</p>
+    <h1>There are no posts on this page</h1>
+    <mat-icon>sentiment_dissatisfied</mat-icon>
   </ng-template>
 </mat-card>
 
-<mat-form-field>
+
+
+<!-- <mat-form-field>
   <mat-label>Input</mat-label>
   <input matInput>
 </mat-form-field>
-<mat-form-field>
-  <mat-label>Select</mat-label>
-  <mat-select>
-    <mat-option value="one">First option</mat-option>
-    <mat-option value="two">Second option</mat-option>
-  </mat-select>
-</mat-form-field>
+
 <mat-form-field>
   <mat-label>Textarea</mat-label>
   <textarea matInput></textarea>
-</mat-form-field>
+</mat-form-field> -->
 
-</div>
+
 

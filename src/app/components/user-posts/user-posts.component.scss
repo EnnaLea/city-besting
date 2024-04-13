@@ -14,6 +14,10 @@
         background-color: bisque;
         margin-top: 2rem;
         margin-bottom: 2rem;
+
+        .not-found{
+            color: green($color: #009621);
+        }
     }
     
     :host {

@@ -36,7 +36,7 @@ selectedValue!: string;
 
 registerForm!: FormGroup;
 
-constructor(private authService: AuthService, private router : Router, private fb: FormBuilder){
+constructor(private authService: AuthService, private userService: UserService, private router : Router, private fb: FormBuilder){
   this.registerForm = this.fb.group({
     name: new FormControl('', [Validators.required]),  
     email: new FormControl('', [Validators.required]), 
@@ -61,7 +61,7 @@ onSubmit() {
       status: this.registerForm.value.status,
     }
 
-    this.authService.createUser(newUser).subscribe({
+    this.userService.createUser(newUser).subscribe({
       next: (response) => {
         this.authService.setCachedUser(response);
         localStorage.removeItem('token');
