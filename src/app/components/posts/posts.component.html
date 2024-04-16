@@ -3,29 +3,21 @@
   <div class="posts" *ngIf="userPost; else noPosts">
     <mat-accordion>
       <mat-card *ngFor="let post of userPost">
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Read Post
-            </mat-panel-title>
             <mat-panel-description>
             </mat-panel-description>
-          </mat-expansion-panel-header>
           <h2>{{ post.title }}</h2>
           <p>{{ post.body }}</p>
-        </mat-expansion-panel>
         
-        <!-- comments -->
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               Comments
             </mat-panel-title>
             <mat-panel-description>
-              <button (click)="selectPost(post.id)">View Comments</button>
+              <button (click)="selectPost(post.id!)">View Comments</button>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div class="comments" *ngIf="commentVisibility[post.id]">
+          <div class="comments" *ngIf="commentVisibility[post.id!]">
             <div *ngFor="let comment of comments">
               <h2>{{ comment.name }}</h2>
               <p>{{ comment.body }}</p>

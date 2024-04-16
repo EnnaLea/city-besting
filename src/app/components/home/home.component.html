@@ -2,17 +2,37 @@
 
 <mat-tab-group animationDuration="1500ms">
     <mat-tab label="Community">
-    <div>
-    <app-users></app-users>
-     </div>
-    </mat-tab>
+        <mat-tab-group animationDuration="1500ms">
+            <mat-tab label="Users">
+                <div>
+                    <app-users></app-users>
+                </div>
+            </mat-tab>
+            <mat-tab label="Create User">
+              <div >
+                <app-create-user></app-create-user>
+              </div>
+            </mat-tab>
+          </mat-tab-group>          
+        </mat-tab>
 
-    <mat-tab class="detail-container"  label="User Detail">
+    <mat-tab class="detail-container"  label="Admin Detail">
      <app-user-info></app-user-info>
     </mat-tab>
 
-    <mat-tab label="User Posts" (click)="user.id !== undefined ? onDetailsClick(user.id) : null">
-        <app-new-post></app-new-post>
-        <app-user-posts></app-user-posts>       
-    </mat-tab>
+    <mat-tab label="Admin Posts">
+
+        <mat-tab-group animationDuration="1500ms">
+            <mat-tab label="New Post">
+              <div>
+                <app-new-post></app-new-post>
+              </div>
+            </mat-tab>
+            <mat-tab label="All Post">
+              <div >
+                <app-user-posts></app-user-posts> 
+              </div>
+            </mat-tab>
+          </mat-tab-group>          
+        </mat-tab>
   </mat-tab-group>

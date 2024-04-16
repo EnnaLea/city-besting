@@ -19,13 +19,33 @@ export class UsersComponent implements OnInit, OnDestroy{
   @Input() users!: Array<User>;
   @Input() fullWidthMode = false;
   userSubscription!: Subscription | undefined;
+  search : String ="";
+  filteredUserList: Array<User> = [];
  
 
-  constructor(private userService: UserService, private route: Router){}
+  constructor(private userService: UserService, private route: Router){
+    this.filteredUserList=this.users;
+  }
 
   ngOnInit(): void {
     this.userSubscription = this.userService.getUsers().subscribe((_users)=> this.users = _users);
 
+  }
+
+
+  filterResults(filter: string){
+    for(let user of this.users){
+      if(user.name.toLowerCase().includes(filter.toLowerCase())){
+        this.filteredUserList.push(user);
+      }
+    } 
+    this.filteredUserList.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  onDeleteClick(id: number){
+    this.userService.deleteUser(id).subscribe(()=> this.users = this.users.filter(user => user.id !== id));
+    this.route.navigateByUrl('/landing/'); //TODO: Redirect to the page where the user was deleted
+  
   }
 
   onDetailsClick(id: number){

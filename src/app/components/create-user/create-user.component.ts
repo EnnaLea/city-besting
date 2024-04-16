@@ -58,7 +58,7 @@ onSubmit() {
       next: (response) => {
         this.user = response;
         alert("User created successfully");
-        console.log(response);
+        window.location.reload();
         // this.authService.setCachedUser(response);
         // localStorage.removeItem('token');
         // this.router.navigateByUrl('/login');

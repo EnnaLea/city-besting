@@ -10,13 +10,14 @@ import { UserInfoComponent } from "../user-info/user-info.component";
 import { UserPostsComponent } from "../user-posts/user-posts.component";
 import { Router } from '@angular/router';
 import { NewPostComponent } from '../new-post/new-post.component';
+import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
-    imports: [MaterialModule, CommonModule, UsersComponent, UsersDetailsComponent, UserInfoComponent, UserPostsComponent, NewPostComponent]
+    imports: [MaterialModule, CommonModule, UsersComponent, UsersDetailsComponent, UserInfoComponent, UserPostsComponent, NewPostComponent, UsersDetailsComponent, CreateUserComponent]
 })
 export class HomeComponent implements OnInit {
 

@@ -1,9 +1,84 @@
-
-
-
-
-
 <div class="parent">
+<div class="container">
+
+  <div class="posts" *ngIf="userPost; else noPosts">
+    <mat-accordion>
+      <mat-card *ngFor="let post of userPost">
+            <mat-panel-description>
+            </mat-panel-description>
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.body }}</p>
+        
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+              <button (click)="selectPost(post.id!)">View Comments</button>
+              <mat-panel-title >
+              Comments
+            </mat-panel-title>
+            <mat-panel-description>
+              <!-- <button (click)="selectPost(post.id!)">View Comments</button> -->
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="comments" *ngIf="commentVisibility[post.id!]">
+            <div *ngFor="let comment of comments">
+              <h2>{{ comment.name }}</h2>
+              <p>{{ comment.body }}</p>
+              <p>{{ comment.email }}</p>
+            </div>          
+          </div>
+          <!-- <div>
+            <app-comments></app-comments>
+          </div> -->
+          <ng-template #noComments>
+            <p>No comments present.</p>
+          </ng-template>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Add Comment
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+              <button (click)="selectPost(post.id!)">Add Comment</button>
+            </mat-panel-description> -->
+          </mat-expansion-panel-header><div class="parent">
+            <div class="container">
+                <form hideToggle (submit)="createComment(post.id!)">
+                        <div class="create-comment">
+                        <mat-form-field>
+                            <mat-label>Title</mat-label>
+                            <input matInput type="text" name="commentName" [(ngModel)]="commentName" required>
+                          </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Email</mat-label>
+                            <input matInput type="text" name="commentEmail" [(ngModel)]="commentEmail" required>
+                          </mat-form-field>
+                          <mat-form-field>
+                            <mat-label>Textarea</mat-label>
+                            <textarea matInput name="newComment" [(ngModel)]="newComment" required></textarea>            
+                          </mat-form-field>
+                          <button mat-raised-button color="accent" type="submit" >Add Comment</button>
+                        </div>    
+                 </form>
+            </div>
+        </div>
+        </mat-expansion-panel>
+      </mat-card> 
+    </mat-accordion>
+  </div>
+  <ng-template #noPosts>
+    <p>No posts present.</p>
+  </ng-template> 
+  
+</div>
+</div>
+
+
+
+
+<!-- <div class="parent">
 <mat-card>
   <div class="not-found" *ngIf="!isPost">
     <h1>There are no posts on this page</h1>
@@ -15,16 +90,16 @@
       <h2>{{ post.title }}</h2>
       <p>{{ post.body }}</p>
   
-      <button (click)="selectPost(post.id)">View Comments</button>
+      <button (click)="selectPost(post.id!)">View Comments</button>
   
-      <div class="comments" *ngIf="commentVisibility[post.id]">
+      <div class="comments" *ngIf="commentVisibility[post.id!]">
           <h1>Comments</h1>
           <div *ngFor="let comment of comments">
             <h2>{{ comment.name }}</h2>
             <p>{{ comment.body }}</p>
             <p>{{ comment.email }}</p>
           </div>
-          <form (submit)="createComment(post.id)">
+          <form (submit)="createComment(post.id!)">
             <mat-form-field>
               <input type="text" matInput placeholder="Title" [(ngModel)]="commentName" name="commentName">
             </mat-form-field>
@@ -46,19 +121,9 @@
     <h1>There are no posts on this page</h1>
     <mat-icon>sentiment_dissatisfied</mat-icon>
   </ng-template>
-</mat-card>
+</mat-card> -->
 
 
-
-<!-- <mat-form-field>
-  <mat-label>Input</mat-label>
-  <input matInput>
-</mat-form-field>
-
-<mat-form-field>
-  <mat-label>Textarea</mat-label>
-  <textarea matInput></textarea>
-</mat-form-field> -->
 
 
 

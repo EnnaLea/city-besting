@@ -1,22 +1,18 @@
 <div class="parent">
     <div class="container">
-        <form>
+        <form (submit)="newPost()">
                 <div class="create-post">
                 <mat-form-field>
-                    <mat-label>Input</mat-label>
-                    <input matInput>
-                  </mat-form-field>
-                  <mat-form-field>
-                    <mat-label>Input</mat-label>
-                    <input matInput>
+                    <mat-label>Title</mat-label>
+                    <input matInput type="text" name="title" [(ngModel)]="title" required>
                   </mat-form-field>
                   <mat-form-field>
                     <mat-label>Textarea</mat-label>
-                    <textarea matInput></textarea>            
+                    <textarea matInput name="body" [(ngModel)]="body" required></textarea>            
                   </mat-form-field>
                   <button mat-raised-button color="accent" type="submit">Add Post</button>
                 </div>    
-                </form>
+         </form>
     </div>
 </div>
 

@@ -15,6 +15,7 @@ export class UserService {
   url: string = 'https://gorest.co.in/public/v2';
   userDetail!: UserDetail;
   userPost!: Array<Posts>;
+  // newPost!: Array<newPosts>;
   comments!: Array<Comments>;
   user!: User;
   post!: Posts;
@@ -45,8 +46,21 @@ export class UserService {
 // }
   getUserPosts(id: number): Observable<Array<Posts>> {
     const url = `${this.url}/users/${id}/posts?page=1&per_page=10`;
-    return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()});
+    return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
+      shareReplay(1)
+  );
 }
+//   getAdminPosts(id: number): Observable<Array<newPosts>> {
+//     const url = `${this.url}/users/${id}/posts`;
+//     return this.httpService.get<Array<newPosts>>(url, {headers: this.getHeaders()});
+// }
+
+//   getAllAdminPosts(id: number): Observable<Array<newPosts>> {
+//     const url = `${this.url}/users/${id}/posts`;
+//     return this.httpService.get<Array<newPosts>>(url, {headers: this.getHeaders()}).pipe(
+//       shareReplay(1)
+//   );
+// }
 //   getUserPosts(id: number): Observable<Array<Posts>> {
 //     const url = `${this.url}/users/${id}/posts?page=1&per_page=10`;
 //     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(map(data => this.userPost = data));
@@ -60,7 +74,7 @@ export class UserService {
   }
 
   getAllPosts(): Observable<Array<Posts>>{
-    const url = `${this.url}/posts?page=1&per_page=10`;
+    const url = `${this.url}/posts?page=1&per_page=40`;
     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
         shareReplay(1)
     );
@@ -80,8 +94,8 @@ export class UserService {
     return this.httpService.post<User>(url, user, { headers: header });
   }
 
-  createPost(id: number, post: Posts): Observable<Posts> {
-    const url = `${this.url}/${id}/posts`;
+  createUserPost(id: number, post: Posts): Observable<Posts> {
+    const url = `${this.url}/users/${id}/posts`;
     let postBody ={
       user_id:post.user_id,
       title:post.title,

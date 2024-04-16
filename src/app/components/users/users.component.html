@@ -1,5 +1,17 @@
 <div class="parent">
   <h1>List of users</h1>
+
+  <h5><u><i>Demo to create search bar in Angular material!! </i></u></h5>
+  <form class="example-form">
+  <mat-form-field class="example-full-width">
+  <span matPrefix> </span>
+  <input type="tel" matInput placeholder="Search" name= "search" [(ngModel)]= "search" #filter>
+  <button matSuffix mat-button (click)="filterResults(filter.value)"><mat-icon >search</mat-icon></button>
+  </mat-form-field>
+  <br/>
+  {{search}}
+  </form>
+
   <div class="container-cards">
     <mat-card class="user-cards" *ngFor="let user of users">
       <div class="single-cards">
@@ -25,7 +37,7 @@
             mat-fab
             extended
             color="warn"
-            (click)="user.id !== undefined ? onDetailsClick(user.id) : null"
+            (click)="user.id !== undefined ? onDeleteClick(user.id) : null"
           >
             <!-- <mat-icon>favorite</mat-icon> -->
             Delete User

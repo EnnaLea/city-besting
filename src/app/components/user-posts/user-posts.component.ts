@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Posts } from '../../interfaces/user-post';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -19,10 +19,11 @@ import { OnLoginFunc } from 'tinacms';
   templateUrl: './user-posts.component.html',
   styleUrl: './user-posts.component.scss'
 })
-export class UserPostsComponent implements OnInit, AfterViewInit {
+export class UserPostsComponent implements OnInit, AfterViewInit, AfterContentInit {
 isSpinnerActive: any;
 
   @Input() userPost!: Array<Posts>;
+  // @Input() adminPost!: Array<newPosts>;
   @Input() comments!: Array<Comments>;
   @Input() user!: User;
   @Input() comment!: Comments;
@@ -32,21 +33,30 @@ isSpinnerActive: any;
   newComment!: string;
   commentName!: string;
   commentEmail!: string;
+
  
   isPost: boolean= true;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService) {}
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    // this.getAdminPosts();
+    // this.getUserPosts();
   }
 
   /* 
   This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
   */
   ngAfterViewInit(): void {
-         this.getUserPosts();     
+
+  }  
+  
+  ngAfterContentInit(): void {
+    // this.getAdminPosts();
+    // this.getUserPosts();
   }
+  
 
 
 /*
@@ -59,17 +69,25 @@ isSpinnerActive: any;
         this.userPost = _userPostSubscription);  
   }
 
+  getAdminPosts(){   
+    const id: number = Number(this.getAdminId());     
+      return this.userService.getUserPosts(id)
+      .subscribe((_userPostSubscription)=> 
+        this.userPost = _userPostSubscription);  
+  }
+
   /* 
   This code defines a method createComment that creates a new comment for a specific post. It toggles the visibility of the comment, creates a new comment object with post ID, email, name, and body, then calls the createUserComment method from the userService to send the new comment to the server. It also subscribes to the response and updates the local comment object.
   */
   createComment(postId: number){
-    this.commentVisibility[postId] = !this.commentVisibility[postId];
+    // this.commentVisibility[postId] = !this.commentVisibility[postId];
     let insertComment : Comments ={
       post_id: postId,
       email: this.commentEmail,
       name: this.commentName,
       body: this.newComment, 
     }
+    console.log(this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription));
     return this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription);
     
   }
@@ -90,10 +108,22 @@ This code defines a function selectPost that toggles the visibility of comments 
     return id;
   }
 
+    /* 
+    This TypeScript code defines a method getAdminId which retrieves the cached user's ID from this.authService and returns it. The ?. is the optional chaining operator, which avoids errors if this.authService.getCachedUser() is null or undefined.
+  */
+  getAdminId(){
+    const id = this.authService.getCachedUser()?.id;
+    return id;
+  }
+
+  /*
+  This code is executing in the ngOnDestroy lifecycle hook. It's checking if getUserPosts and getAdminPosts return truthy values and then calls unsubscribe on the result of these two functions. This is a common pattern for unsubscribing from observables to prevent memory leaks.
+  */
   ngOnDestroy(): void {
-    // if(this.getUserPosts()){
-    //   this.getUserPosts().unsubscribe();
-    // }
+    if(this.getUserPosts() && this.getAdminPosts()){
+      this.getUserPosts().unsubscribe();
+      this.getAdminPosts().unsubscribe();
+    }
   }
 
 }

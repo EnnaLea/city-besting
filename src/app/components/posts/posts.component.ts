@@ -21,7 +21,7 @@ export class PostsComponent implements AfterViewInit {
   @Input() comments!: Array<Comments>;
   selectedPost: any;
 
-  commentVisibility: { [postId: number]: boolean } = {};
+  commentVisibility: { [postId: number | string]: boolean } = {};
 
   constructor(private route: ActivatedRoute, private userService: UserService) {}
 
