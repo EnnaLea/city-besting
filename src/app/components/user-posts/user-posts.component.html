@@ -1,37 +1,48 @@
 <div class="parent">
+  
 <div class="container">
+
+  <!-- <button mat-button (click)="onDetailsClick()">Add post</button> -->
 
   <div class="posts" *ngIf="userPost; else noPosts">
     <mat-accordion>
       <mat-card *ngFor="let post of userPost">
-            <mat-panel-description>
-            </mat-panel-description>
+        <div class="content">
           <h2>{{ post.title }}</h2>
           <p>{{ post.body }}</p>
+        </div>
+
         
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
+            
               <button (click)="selectPost(post.id!)">View Comments</button>
               <mat-panel-title >
-              Comments
+              <!-- Comments -->
             </mat-panel-title>
             <mat-panel-description>
               <!-- <button (click)="selectPost(post.id!)">View Comments</button> -->
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div class="comments" *ngIf="commentVisibility[post.id!]">
-            <div *ngFor="let comment of comments">
-              <h2>{{ comment.name }}</h2>
-              <p>{{ comment.body }}</p>
-              <p>{{ comment.email }}</p>
-            </div>          
+            @if(comments){
+              <div *ngFor="let comment of comments">
+                <h2>{{ comment.name }}</h2>
+                <p>{{ comment.body }}</p>
+                <p>{{ comment.email }}</p>
+              </div> 
+            }
+            @else{
+              <p>No comments present.</p>
+            }
+         
           </div>
           <!-- <div>
             <app-comments></app-comments>
           </div> -->
-          <ng-template #noComments>
+          <!-- <ng-template #noComments>
             <p>No comments present.</p>
-          </ng-template>
+          </ng-template> -->
         </mat-expansion-panel>
 
 

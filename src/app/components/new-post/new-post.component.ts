@@ -25,11 +25,15 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
   }
 
   ngOnInit(): void {
-
+    console.log(this.getUserId());
   }
 
   ngAfterViewInit(): void {
   
+  }
+
+  goBack(){
+    this.router.navigate(['/landing/user-info']);
   }
 
   newPost(){
@@ -40,8 +44,9 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
       body: this.body
     }
 
-    const data =this.userService.createUserPost(userId, postBody).subscribe((_post) => this.post = _post);
-    console.log(data);
+    this.userService.createUserPost(userId, postBody).subscribe((_post) => this.post = _post);
+    window.location.reload();
+    
   }
 
 

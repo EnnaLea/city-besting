@@ -33,13 +33,31 @@ export class UsersComponent implements OnInit, OnDestroy{
   }
 
 
+  // filterResults(filter: string){
+  //   for(let user of this.users){
+  //     if(user.name.toLowerCase().includes(filter.toLowerCase())){
+  //       this.filteredUserList.push(user);
+  //     }
+  //   } 
+  //   this.filteredUserList.sort((a, b) => a.name.localeCompare(b.name));
+  // }
+
   filterResults(filter: string){
-    for(let user of this.users){
-      if(user.name.toLowerCase().includes(filter.toLowerCase())){
-        this.filteredUserList.push(user);
+    this.filteredUserList = []; // Clear the array before pushing new items
+    if(filter === ''){
+      this.filteredUserList = this.users;
+    } else {
+      for(let user of this.users){
+        if(user.name.toLowerCase().includes(filter.toLowerCase()) ||
+           user.email.toLowerCase().includes(filter.toLowerCase()) ||
+           user.gender.toLowerCase().includes(filter.toLowerCase()) ||
+           user.status.toLowerCase().includes(filter.toLowerCase())){
+          this.filteredUserList.push(user);
+        }
       }
-    } 
+    }
     this.filteredUserList.sort((a, b) => a.name.localeCompare(b.name));
+    
   }
 
   onDeleteClick(id: number){

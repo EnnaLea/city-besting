@@ -31,7 +31,7 @@ export class UserService {
 
 
   getUsers(): Observable<Array<User>>{
-    return this.httpService.get<Array<User>>(`${this.url}/users?page=1&per_page=10`);
+    return this.httpService.get<Array<User>>(`${this.url}/users?page=1&per_page=50&sort=-created_at`);
   }
 
   getUserDetail(id: number): Observable<UserDetail>{
@@ -45,7 +45,7 @@ export class UserService {
         
 // }
   getUserPosts(id: number): Observable<Array<Posts>> {
-    const url = `${this.url}/users/${id}/posts?page=1&per_page=10`;
+    const url = `${this.url}/users/${id}/posts?page=1&per_page=50`;
     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
       shareReplay(1)
   );
@@ -67,14 +67,14 @@ export class UserService {
 // }
 
   getPostComments(post_id: number): Observable<Array<Comments>>{
-    const url = `${this.url}/posts/${post_id}/comments?page=1&per_page=10`;
+    const url = `${this.url}/posts/${post_id}/comments?page=1&per_page=50`;
     return this.httpService.get<Array<Comments>>(url, {headers: this.getHeaders()}).pipe(
       shareReplay(1)
   );
   }
 
   getAllPosts(): Observable<Array<Posts>>{
-    const url = `${this.url}/posts?page=1&per_page=40`;
+    const url = `${this.url}/posts?page=1&per_page=50`;
     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
         shareReplay(1)
     );
@@ -89,9 +89,9 @@ export class UserService {
     const url = `${this.url}/users`;
     const header = new HttpHeaders().set(
       'Authorization',
-      `Bearer ${this.getToken()}`
+      `Bearer ${this.token}`
     );
-    return this.httpService.post<User>(url, user, { headers: header });
+    return this.httpService.post<User>(url, user, { headers: header});
   }
 
   createUserPost(id: number, post: Posts): Observable<Posts> {
@@ -131,9 +131,9 @@ export class UserService {
   }
 
 
-  getToken() {
-    return localStorage.getItem('token');
-  }
+  // getToken() {
+  //   return localStorage.getItem('token');
+  // }
   
   getHeaders(){
     const header = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);

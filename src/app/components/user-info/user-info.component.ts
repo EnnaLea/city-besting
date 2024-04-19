@@ -5,11 +5,13 @@ import { UserService } from '../../services/user.service';
 import { MaterialModule } from '../../module/material/material.module';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserPostsComponent } from '../user-posts/user-posts.component';
+import { NewPostComponent } from '../new-post/new-post.component';
 
 @Component({
   selector: 'app-user-info',
   standalone: true,
-  imports: [MaterialModule, CommonModule,],
+  imports: [MaterialModule, CommonModule, UserPostsComponent, NewPostComponent],
   templateUrl: './user-info.component.html',
   styleUrl: './user-info.component.scss'
 })
@@ -27,12 +29,16 @@ gender!: string;
    this.getUser();
   }
 
+  onSeePost(){
+    this.route.navigateByUrl('/landing/user-post');
+  }
+
   onDetailsClick(id: number){
     this.route.navigateByUrl('/landing/new-post/' + id);
   }
 
   onCancel() {
-    
+    window.location.reload();
     }
 
 

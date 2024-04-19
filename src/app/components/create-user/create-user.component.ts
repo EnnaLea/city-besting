@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../interfaces/user.model';
@@ -6,13 +6,20 @@ import { MaterialModule } from '../../module/material/material.module';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { UserInfoComponent } from "../user-info/user-info.component";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogTitle, MatDialogContent } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { DIALOG_DATA } from '@angular/cdk/dialog';
+
+// export interface DialogData {
+//   message: string;
+// }
 
 @Component({
     selector: 'app-create-user',
     standalone: true,
     templateUrl: './create-user.component.html',
     styleUrl: './create-user.component.scss',
-    imports: [MaterialModule, UserInfoComponent]
+    imports: [MaterialModule, UserInfoComponent, MatDialogTitle, MatDialogContent]
 })
 export class CreateUserComponent {
 user!: User;
@@ -30,13 +37,13 @@ selectedValue!: string;
 
 registerForm!: FormGroup;
 
-constructor(private authService: AuthService, private userService: UserService, private router : Router, private fb: FormBuilder){
+constructor(private authService: AuthService, private userService: UserService, private router : Router, private fb: FormBuilder, public dialog: MatDialog){
   this.registerForm = this.fb.group({
     name: new FormControl('', [Validators.required]),  
     email: new FormControl('', [Validators.required]), 
     gender: new FormControl('', [Validators.required]), 
     status: new FormControl('', [Validators.required]), 
-    token: new FormControl('', [Validators.required]),
+    // token: new FormControl('', [Validators.required]),
   }) ; 
 }
 
@@ -45,27 +52,36 @@ constructor(private authService: AuthService, private userService: UserService, 
 This code defines an onSubmit method that saves a token to local storage, creates a new user object based on form values, and sends the user data to the authService to create a new user. After creating the user, it sets the user in the cache.
 */
 onSubmit() {
- localStorage.setItem('token', this.registerForm.value.token);
+//  localStorage.setItem('token', this.registerForm.value.token);
   if (!this.user) {  
+    this.token = this.authService.getToken() || ''
     let newUser : User = {
       name : this.registerForm.value.name,
       email: this.registerForm.value.email,
       gender: this.registerForm.value.gender,
       status: this.registerForm.value.status,
+      token: this.token,
     }
 
     this.userService.createUser(newUser).subscribe({
       next: (response) => {
         this.user = response;
-        alert("User created successfully");
-        window.location.reload();
-        // this.authService.setCachedUser(response);
-        // localStorage.removeItem('token');
-        // this.router.navigateByUrl('/login');
+        alert("User created successfully:  " + JSON.stringify(response));
+        // this.openDialog("User created successfully:  " + JSON.stringify(response))
+        // window.location.reload();
       }
     });
   } 
 }
+
+// openDialog(text: string) {
+//   this.dialog.open(DialogDataExampleDialog, {
+//     data: {
+//       message: text,
+//     },
+//   });
+// }
+
 
 onSave() {
   const userId = this.getUserId();
@@ -112,5 +128,24 @@ onSave() {
     return this.user.id;
   }
 
+  // getToken(){
+  //   return this.authService.getToken();
+  // }
+
 
 }
+
+
+// @Component({
+//   selector: 'dialog-data-example-dialog',
+//   template: `<h2 mat-dialog-title>Alert</h2>
+//   <!-- <mat-dialog-content> -->
+//     <p>{{ data.message }}</p>
+//   <!-- </mat-dialog-content>  -->
+//   `,
+//   standalone: true,
+//   imports: [MaterialModule, CommonModule],
+// })
+// export class DialogDataExampleDialog {
+//   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+// }

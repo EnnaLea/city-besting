@@ -19,7 +19,7 @@ import { MaterialModule } from '../../module/material/material.module';
 export class LoginComponent {
 
 email!: string;
-password!: string;
+// password!: string;
 token!: string;
 toasterService = inject(ToastrService);
 
@@ -30,21 +30,15 @@ toasterService = inject(ToastrService);
   }
 
   ngOnInit(){
-    if(this.authService.IsLoggedIn){
-      this.router.navigateByUrl('/landing');
-    }
+    // if(this.authService.IsLoggedIn(this.token, this.email, this.password)){
+    //   this.router.navigateByUrl('/landing');
+    // }
   }
 
 
 onLogin() {
-  if(!this.email ||!this.password || !this.token){
-    this.toasterService.error("Please enter email, password and token ");
-    return;
-  }
-  this.authService.login(this.email, this.password, this.token);
-  this.toasterService.success("Login Successful");
-  this.router.navigateByUrl('/landing');
+ this.authService.login(this.email, this.token);
 }
 
-}
 
+}

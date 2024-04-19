@@ -1,12 +1,15 @@
+<nav>
+  <app-header></app-header>
+</nav>
 <mat-sidenav-container class="example-container">
   <mat-sidenav #sidenav mode="side" opened class="example-sidenav"
                [fixedInViewport]="options.value.fixed" [fixedTopGap]="options.value.top"
                [fixedBottomGap]="options.value.bottom">
                <div class="sidebar-container">
                 <button mat-fab extended  (click)="onClick()">Home</button>
-                <button mat-fab extended (click)="onCreatePostClick(post)">Posts</button>
-                <button mat-fab extended (click)="onCreateUserClick()">Manage User</button>
-                <button mat-fab extended (click)="onDeleteUserClick()">Delete User</button>
+                <button mat-fab extended (click)="onViewPostsClick()">Posts</button>
+                <button mat-fab extended (click)="onAdminClick()">Admin</button>
+                <button mat-fab extended (click)="onCreatePostClick()">NewPost</button>
                 <button mat-fab extended (click)="onLogoutClick()">Logout</button>
                </div>
   </mat-sidenav>

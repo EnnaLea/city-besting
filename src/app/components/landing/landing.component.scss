@@ -2,6 +2,7 @@
 
 
 
+@import url(../../../styles.scss);
 
 .example-container {
   position: absolute;
@@ -12,9 +13,9 @@
 
 
   button{
-    background-color: #0ef;
+    background-color: #F3EDC8;
     margin-bottom: 2rem;
-    color: #1f293a;
+    color: #674903;
     width: 150px;
     font-size: 1rem;
     font-weight: bold;
@@ -26,8 +27,8 @@
     justify-content: center;
     width: 200px;
     height: 100vh;
-    background: #1f293a;
-    border-right: #2c4766 6px solid;
+    background: #BF3131;
+    border-right: #7D0A0A 6px solid;
     
   }
 

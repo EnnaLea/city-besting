@@ -1,41 +1,57 @@
-<div class="container">
+<div class="parent">
+  <div class="container">
 
-  <div class="posts" *ngIf="userPost; else noPosts">
-    <mat-accordion>
-      <mat-card *ngFor="let post of userPost">
-            <mat-panel-description>
-            </mat-panel-description>
-          <h2>{{ post.title }}</h2>
-          <p>{{ post.body }}</p>
-        
-        <mat-expansion-panel hideToggle>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Comments
-            </mat-panel-title>
-            <mat-panel-description>
-              <button (click)="selectPost(post.id!)">View Comments</button>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div class="comments" *ngIf="commentVisibility[post.id!]">
-            <div *ngFor="let comment of comments">
-              <h2>{{ comment.name }}</h2>
-              <p>{{ comment.body }}</p>
-              <p>{{ comment.email }}</p>
-            </div>          
+    <div class="posts" >
+      <mat-accordion>
+        <mat-card *ngFor="let post of userPost">
+          @if(userPost){
+          <div class="content">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.body }}</p>
           </div>
-          <ng-template #noComments>
-            <p>No comments present.</p>
-          </ng-template>
-        </mat-expansion-panel>
-      </mat-card> 
-    </mat-accordion>
+
+          
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <!-- <mat-panel-title>
+                Comments
+              </mat-panel-title> -->
+              <mat-panel-description>
+                <button (click)="selectPost(post.id!)">View Comments</button>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="comments" *ngIf="commentVisibility[post.id!]">
+              <div *ngFor="let comment of comments">
+                @if(comments){
+                  
+               
+                <h2>{{ comment.name }}</h2>
+                <p>{{ comment.body }}</p>
+                <p>{{ comment.email }}</p>
+              }
+              @else{
+                <p>No comments present.</p>
+              }
+              </div>          
+            </div>
+            <!-- <ng-template #noComments>
+              <p>No comments present.</p>
+            </ng-template> -->
+          </mat-expansion-panel>
+        }
+        @else{
+          <p>No posts present.</p>
+        }
+        </mat-card> 
+      </mat-accordion>
+    </div>
+    <!-- <ng-template #noPosts>
+      <p>No posts present.</p>
+    </ng-template>  -->
+    
   </div>
-  <ng-template #noPosts>
-    <p>No posts present.</p>
-  </ng-template> 
-  
 </div>
+
 
 
 

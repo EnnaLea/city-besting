@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Posts } from '../../interfaces/user-post';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../module/material/material.module';
@@ -37,7 +37,7 @@ isSpinnerActive: any;
  
   isPost: boolean= true;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService) {}
+  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router) {}
 
 
   ngOnInit(): void {
@@ -53,10 +53,13 @@ isSpinnerActive: any;
   }  
   
   ngAfterContentInit(): void {
-    // this.getAdminPosts();
-    // this.getUserPosts();
+    this.getAdminPosts();
+    this.getUserPosts();
   }
   
+  onDetailsClick(){
+    this.router.navigateByUrl('/landing/new-post');
+  }
 
 
 /*

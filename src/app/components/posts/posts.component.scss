@@ -1,31 +1,46 @@
-.container{
+.parent{
+    background-color: #BF3131;
 
 
-    mat-accordion{
+    .container{
         display: flex;
-        width: 900px;
-        justify-content: center;
         flex-direction: column;
-        margin: 2rem 1rem;
-        // background-color: black;
-        
+        justify-content: center;
+        align-items: center;
 
-        mat-card{
+        mat-accordion{
             display: flex;
             width: 900px;
             justify-content: center;
+            align-items: center;
             flex-direction: column;
-            margin: 2rem 1rem;
+            // margin: 2rem 1rem;
+            // background-color: black;
             
+    
+            mat-card{
+                display: flex;
+                width: 900px;
+                justify-content: center;
+                flex-direction: column;
+                margin: 2rem 1rem;
 
-            // mat-expansion-panel{
-                // background-color: red;
+                .content{
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    margin: 2rem 1rem;
+                }
                 
-            // }
+
+            }
         }
+    
+    
     }
 
-
 }
+
+
 
 

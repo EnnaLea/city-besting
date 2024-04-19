@@ -12,7 +12,7 @@ import { User } from '../../interfaces/user.model';
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [ HeaderComponent, RouterOutlet, MaterialModule, UsersComponent],
+  imports: [ HeaderComponent, RouterOutlet, MaterialModule, UsersComponent,HeaderComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })
@@ -34,20 +34,22 @@ export class LandingComponent{
     this.route.navigateByUrl('/landing/home');
     }
 
-  onCreateUserClick(){
-    this.route.navigate(['/landing/add-user']);
+  onAdminClick(){
+    this.route.navigate(['/landing/user-info']);
   }
 
-  onCreatePostClick(post: Posts) {
-    this.route.navigateByUrl('/landing/posts')
+  onViewPostsClick() {
+    this.route.navigateByUrl('/landing/posts');
 
+  }
+
+  onCreatePostClick(){
+    this.route.navigateByUrl('/landing/new-post');
   }
 
   onLogoutClick() {
-    throw new Error('Method not implemented.');
-    }
-    onDeleteUserClick() {
-    throw new Error('Method not implemented.');
+    localStorage.removeItem('token');
+    this.route.navigateByUrl('/login');
     }
 
 }

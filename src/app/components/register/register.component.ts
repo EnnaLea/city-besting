@@ -42,7 +42,7 @@ constructor(private authService: AuthService, private userService: UserService, 
     email: new FormControl('', [Validators.required]), 
     gender: new FormControl('', [Validators.required]), 
     status: new FormControl('', [Validators.required]), 
-    password: new FormControl('', [Validators.required]),
+    // password: new FormControl('', [Validators.required]),
     token: new FormControl('', [Validators.required]),
   }) ; 
 }
@@ -52,20 +52,21 @@ constructor(private authService: AuthService, private userService: UserService, 
 This code defines an onSubmit method that saves a token to local storage, creates a new user object based on form values, and sends the user data to the authService to create a new user. After creating the user, it sets the user in the cache.
 */
 onSubmit() {
- localStorage.setItem('token', this.registerForm.value.token);
-  if (!this.user) {  
+  localStorage.setItem('token', this.registerForm.value.token); 
+  if (!this.user) {   
     let newUser : User = {
       name : this.registerForm.value.name,
       email: this.registerForm.value.email,
       gender: this.registerForm.value.gender,
       status: this.registerForm.value.status,
+      token: this.registerForm.value.token,
+      // password: this.registerForm.value.password,
     }
 
     this.userService.createUser(newUser).subscribe({
       next: (response) => {
         this.authService.setCachedUser(response);
-        localStorage.removeItem('token');
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/login');      
       }
     });
   } 

@@ -1,6 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
+$font-family: 'Poppins', sans-serif;
+$base-color: #7D0A0A;
+$theme-color: #BF3131;
+$secondary-color: #c20707;
+$button-color: #EAD196;
+$font-color: #F3EDC8;
+$border-color:#674903;
 
+// $border-color:
 
 
 * {
@@ -10,11 +19,12 @@
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: $font-family;
+    font-size: 1rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
     
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #1f293a; }
+body { margin: 0; font-family: "Poppins", sans-serif, "Helvetica Neue", sans-serif; background-color: $base-color; }

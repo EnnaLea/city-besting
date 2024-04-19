@@ -8,15 +8,19 @@
   width: 100%;
   height: 100vh;
   overflow: scroll;
-  background-color: #1f293a;
+  background-color: #BF3131;
 
 
 
   h1{
     text-align: center;
     margin: 2rem 2rem;
-    color: #0ef;
+    color: #F3EDC8;
 
+  }
+
+  h5, .search{
+    color: white;
   }
 
   .container-cards{

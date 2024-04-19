@@ -8,6 +8,14 @@
         justify-content: center;
         align-items: center;
         width: 800px;
+        margin-left: 150px;
+
+        h1{
+            color: #F3EDC8;
+            font-size: 2rem;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 3rem;
+        }
     
         .create-post{
             display: flex;
@@ -17,6 +25,21 @@
             width: 600px;
             margin: 2rem 2rem;
             padding: 1.5rem;
+
+            mat-form-field {
+                width: 600px;
+        
+            }
+
+            .add{
+                font-family: 'Poppins';
+                font-size: 1.2rem;
+                border-radius: 2rem;
+                width: 200px;
+                height: 50px;
+                background-color: #7D0A0A;
+                color: #F3EDC8;
+            }
         }
     }
 }

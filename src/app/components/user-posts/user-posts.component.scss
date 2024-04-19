@@ -1,42 +1,93 @@
 .parent{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
     height: 100vh;
-    overflow: scroll;
-    background-color: #1f293a;
+    background-color: #BF3131;
 
-    mat-card{
+
+    .container{
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: bisque;
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+        background-color: #BF3131;
 
-        .not-found{
-            color: green($color: #009621);
-        }
-    }
+        mat-accordion{
+            display: flex;
+            width: 900px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            // margin: 2rem 1rem;
+            // background-color: black;
+            
     
-    :host {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 300px;
-      }
+            mat-card{
+                display: flex;
+                width: 900px;
+                justify-content: center;
+                flex-direction: column;
+                margin: 2rem 1rem;
 
+                .content{
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    margin: 2rem 1rem;
+                }
+                
 
-      .create-comment{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 600px;
-        margin: 2rem 2rem;
-        padding: 1.5rem;
+            }
+        }
+    
+    
     }
-  
+
 }
+
+
+
+
+
+
+
+// .parent{
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     width: 100%;
+//     height: 100vh;
+//     overflow: scroll;
+//     background-color: #1f293a;
+
+//     mat-card{
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         background-color: bisque;
+//         margin-top: 2rem;
+//         margin-bottom: 2rem;
+
+//         .not-found{
+//             color: green($color: #009621);
+//         }
+//     }
+    
+//     :host {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: flex-start;
+//         width: 300px;
+//       }
+
+
+//       .create-comment{
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: center;
+//         align-items: center;
+//         width: 600px;
+//         margin: 2rem 2rem;
+//         padding: 1.5rem;
+//     }
+  
+// }
 
