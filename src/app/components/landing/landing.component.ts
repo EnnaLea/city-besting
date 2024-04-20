@@ -8,6 +8,7 @@ import { UserService } from '../../services/user.service';
 import { Comments } from '../../interfaces/comments';
 import { Posts } from '../../interfaces/user-post';
 import { User } from '../../interfaces/user.model';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-landing',
@@ -17,7 +18,7 @@ import { User } from '../../interfaces/user.model';
   styleUrl: './landing.component.scss'
 })
 export class LandingComponent{
-
+  
   user!: User;
   post!: Posts;
   comment!: Comments;
@@ -28,7 +29,7 @@ export class LandingComponent{
     top: 0,
   });
 
-  constructor(private _formBuilder: FormBuilder, private route: Router, private userService: UserService) {}
+  constructor(private _formBuilder: FormBuilder, private route: Router, private authService: AuthService) {}
 
   onClick() {
     this.route.navigateByUrl('/landing/home');
@@ -48,8 +49,7 @@ export class LandingComponent{
   }
 
   onLogoutClick() {
-    localStorage.removeItem('token');
-    this.route.navigateByUrl('/login');
+    this.authService.logout();
     }
 
 }

@@ -62,7 +62,6 @@ onSubmit() {
       token: this.registerForm.value.token,
       // password: this.registerForm.value.password,
     }
-
     this.userService.createUser(newUser).subscribe({
       next: (response) => {
         this.authService.setCachedUser(response);

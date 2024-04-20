@@ -17,7 +17,7 @@ export class UserService {
   userPost!: Array<Posts>;
   // newPost!: Array<newPosts>;
   comments!: Array<Comments>;
-  user!: User;
+  // user!: User[];
   post!: Posts;
   comment!: Comments;
 
@@ -30,8 +30,8 @@ export class UserService {
   //METODI GET
 
 
-  getUsers(): Observable<Array<User>>{
-    return this.httpService.get<Array<User>>(`${this.url}/users?page=1&per_page=50&sort=-created_at`);
+  getUsers(): Observable<User[]>{
+    return this.httpService.get<User[]>(`${this.url}/users?page=1&per_page=50&sort=-created_at`);
   }
 
   getUserDetail(id: number): Observable<UserDetail>{

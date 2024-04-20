@@ -2,8 +2,6 @@
   
 <div class="container">
 
-  <!-- <button mat-button (click)="onDetailsClick()">Add post</button> -->
-
   <div class="posts" *ngIf="userPost; else noPosts">
     <mat-accordion>
       <mat-card *ngFor="let post of userPost">
@@ -61,10 +59,6 @@
                         <mat-form-field>
                             <mat-label>Title</mat-label>
                             <input matInput type="text" name="commentName" [(ngModel)]="commentName" required>
-                          </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Email</mat-label>
-                            <input matInput type="text" name="commentEmail" [(ngModel)]="commentEmail" required>
                           </mat-form-field>
                           <mat-form-field>
                             <mat-label>Textarea</mat-label>

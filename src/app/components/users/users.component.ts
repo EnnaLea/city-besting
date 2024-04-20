@@ -16,7 +16,7 @@ import { Route, Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit, OnDestroy{
 
-  @Input() users!: Array<User>;
+  @Input() users!: User[];
   @Input() fullWidthMode = false;
   userSubscription!: Subscription | undefined;
   search : String ="";
@@ -24,23 +24,13 @@ export class UsersComponent implements OnInit, OnDestroy{
  
 
   constructor(private userService: UserService, private route: Router){
-    this.filteredUserList=this.users;
+    this.filteredUserList = this.users;
   }
 
   ngOnInit(): void {
     this.userSubscription = this.userService.getUsers().subscribe((_users)=> this.users = _users);
 
   }
-
-
-  // filterResults(filter: string){
-  //   for(let user of this.users){
-  //     if(user.name.toLowerCase().includes(filter.toLowerCase())){
-  //       this.filteredUserList.push(user);
-  //     }
-  //   } 
-  //   this.filteredUserList.sort((a, b) => a.name.localeCompare(b.name));
-  // }
 
   filterResults(filter: string){
     this.filteredUserList = []; // Clear the array before pushing new items
@@ -50,13 +40,18 @@ export class UsersComponent implements OnInit, OnDestroy{
       for(let user of this.users){
         if(user.name.toLowerCase().includes(filter.toLowerCase()) ||
            user.email.toLowerCase().includes(filter.toLowerCase()) ||
-           user.gender.toLowerCase().includes(filter.toLowerCase()) ||
-           user.status.toLowerCase().includes(filter.toLowerCase())){
+           user.gender.toLowerCase().match(filter.toLowerCase()) ||
+           user.status.toLowerCase().match(filter.toLowerCase())
+          )
+           {
           this.filteredUserList.push(user);
         }
       }
     }
     this.filteredUserList.sort((a, b) => a.name.localeCompare(b.name));
+    this.filteredUserList.sort((a, b) => a.email.localeCompare(b.email));
+    this.filteredUserList.sort((a, b) => a.gender.localeCompare(b.gender));
+    this.filteredUserList.sort((a, b) => a.status.localeCompare(b.status));
     
   }
 

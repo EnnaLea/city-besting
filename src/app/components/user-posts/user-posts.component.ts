@@ -11,6 +11,7 @@ import { AuthService } from '../../auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { Observable, map, tap } from 'rxjs';
 import { OnLoginFunc } from 'tinacms';
+import { Profile } from '../../interfaces/profile-img';
 
 @Component({
   selector: 'app-user-posts',
@@ -33,6 +34,8 @@ isSpinnerActive: any;
   newComment!: string;
   commentName!: string;
   commentEmail!: string;
+  imgProfile!: string;
+  profile!: Array<Profile>;
 
  
   isPost: boolean= true;
@@ -43,20 +46,31 @@ isSpinnerActive: any;
   ngOnInit(): void {
     // this.getAdminPosts();
     // this.getUserPosts();
+
   }
 
   /* 
   This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
   */
   ngAfterViewInit(): void {
-
+    // this.setViewPost();
+    // this.getAdminPosts();
+    // this.getUserPosts();
   }  
   
   ngAfterContentInit(): void {
     this.getAdminPosts();
-    this.getUserPosts();
+    // this.getUserPosts();
+    // this.setViewPost();
   }
   
+  setViewPost(){
+    if(this.getUserPosts == undefined){
+      return this.getAdminPosts();
+    }else{
+      return this.getUserPosts();
+    }
+  }
   onDetailsClick(){
     this.router.navigateByUrl('/landing/new-post');
   }
@@ -79,6 +93,10 @@ isSpinnerActive: any;
         this.userPost = _userPostSubscription);  
   }
 
+  profileImg(){
+    return localStorage.getItem('profile-img');
+  }
+
   /* 
   This code defines a method createComment that creates a new comment for a specific post. It toggles the visibility of the comment, creates a new comment object with post ID, email, name, and body, then calls the createUserComment method from the userService to send the new comment to the server. It also subscribes to the response and updates the local comment object.
   */
@@ -86,13 +104,11 @@ isSpinnerActive: any;
     // this.commentVisibility[postId] = !this.commentVisibility[postId];
     let insertComment : Comments ={
       post_id: postId,
-      email: this.commentEmail,
+      email: this.authService.getCachedUser()?.email,
       name: this.commentName,
       body: this.newComment, 
     }
-    console.log(this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription));
-    return this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription);
-    
+    return this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription); 
   }
 
 /* 

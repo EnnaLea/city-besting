@@ -6,4 +6,5 @@ export interface User{
     status: string;
     password?: string;
     token?: string;
+    img?: string;
 }

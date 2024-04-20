@@ -9,6 +9,7 @@ import { UserInfoComponent } from "../user-info/user-info.component";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogTitle, MatDialogContent } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { Profile } from '../../interfaces/profile-img';
 
 // export interface DialogData {
 //   message: string;
@@ -30,6 +31,7 @@ gender!: string;
 password!: string;
 status!: string;
 token!: string;
+profileImg!: Array<Profile>;
 male!: string;
 female!: string;
 others!: string;
@@ -61,14 +63,26 @@ onSubmit() {
       gender: this.registerForm.value.gender,
       status: this.registerForm.value.status,
       token: this.token,
+      img: ''
+    }
+    if(newUser.gender === 'male'){
+      let maleProfile = '';
+      let maleImages = [this.profileImg[1].male.img1, this.profileImg[1].male.img2, this.profileImg[1].male.img3, this.profileImg[1].male.img4,];
+      let randomIndex = Math.floor(Math.random() * maleImages.length);
+      maleProfile = `../../../assets/mlprofile${maleImages[randomIndex]}`;
+      newUser.img = maleProfile;
+    } else {
+      let femaleProfile = '';
+      let femaleImages = [this.profileImg[0].female.img1, this.profileImg[0].female.img2, this.profileImg[0].female.img3, this.profileImg[0].female.img4,];
+      let randomIndex = Math.floor(Math.random() * femaleImages.length);
+      femaleProfile = `../../../assets/fmprofile${femaleImages[randomIndex]}`;
+      newUser.img = femaleProfile;
     }
 
     this.userService.createUser(newUser).subscribe({
       next: (response) => {
         this.user = response;
         alert("User created successfully:  " + JSON.stringify(response));
-        // this.openDialog("User created successfully:  " + JSON.stringify(response))
-        // window.location.reload();
       }
     });
   } 

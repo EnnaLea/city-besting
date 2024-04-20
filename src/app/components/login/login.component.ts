@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { MaterialModule } from '../../module/material/material.module';
+
 
 
 
@@ -18,9 +19,11 @@ import { MaterialModule } from '../../module/material/material.module';
 })
 export class LoginComponent {
 
-email!: string;
+@Input()email!: string;
+@Input() token!: string;
+
 // password!: string;
-token!: string;
+
 toasterService = inject(ToastrService);
 
   // loginObj: Login

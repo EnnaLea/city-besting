@@ -19,8 +19,7 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
    title!: string;
    body!: string;
 
-
-
+   
   constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private cacheService: CacheService){
   }
 
@@ -29,7 +28,6 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-  
   }
 
   goBack(){
@@ -45,11 +43,10 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
     }
 
     this.userService.createUserPost(userId, postBody).subscribe((_post) => this.post = _post);
-    window.location.reload();
+    // console.log(this.userService.createUserPost(userId, postBody).subscribe((_post) => this.post = _post));
+    // window.location.reload();
     
   }
-
-
 
   getUserId(){
     const id = this.cacheService.getUserSaved()?.id;
