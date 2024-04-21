@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserPostsComponent } from '../user-posts/user-posts.component';
 import { NewPostComponent } from '../new-post/new-post.component';
+import { AdminPostComponent } from '../admin-post/admin-post.component';
 
 @Component({
   selector: 'app-user-info',
   standalone: true,
-  imports: [MaterialModule, CommonModule, UserPostsComponent, NewPostComponent],
+  imports: [MaterialModule, CommonModule, NewPostComponent, AdminPostComponent],
   templateUrl: './user-info.component.html',
   styleUrl: './user-info.component.scss'
 })
@@ -30,7 +31,7 @@ gender!: string;
   }
 
   onSeePost(){
-    this.route.navigateByUrl('/landing/user-post');
+    this.route.navigateByUrl('/landing/admin-post');
   }
 
   onDetailsClick(id: number){

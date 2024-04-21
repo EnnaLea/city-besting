@@ -14,14 +14,14 @@ import { OnLoginFunc } from 'tinacms';
 import { Profile } from '../../interfaces/profile-img';
 
 @Component({
-  selector: 'app-user-posts',
+  selector: 'app-admin-post',
   standalone: true,
   imports: [CommonModule, MaterialModule, CommentsComponent],
-  templateUrl: './user-posts.component.html',
-  styleUrl: './user-posts.component.scss'
+  templateUrl: './admin-post.component.html',
+  styleUrl: './admin-post.component.scss'
 })
-export class UserPostsComponent implements OnInit, AfterViewInit, AfterContentInit {
-isSpinnerActive: any;
+export class AdminPostComponent implements OnInit, AfterViewInit{
+  isSpinnerActive: any;
 
   @Input() userPost!: Array<Posts>;
   // @Input() adminPost!: Array<newPosts>;
@@ -44,8 +44,6 @@ isSpinnerActive: any;
 
 
   ngOnInit(): void {
-    // this.getAdminPosts();
-    // this.getUserPosts();
 
   }
 
@@ -53,7 +51,9 @@ isSpinnerActive: any;
   This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
   */
   ngAfterViewInit(): void {
-    this.getUserPosts();
+    // this.setViewPost();
+    this.getAdminPosts();
+    // this.getUserPosts();
   }  
   
   ngAfterContentInit(): void {
@@ -72,22 +72,16 @@ isSpinnerActive: any;
   }
 
 
-/*
- This TypeScript code defines a method getUserPosts that retrieves a user ID, then calls a service to fetch posts for that user and subscribes to the result to assign it to userPost.
-*/
-  getUserPosts(){
-    const id = Number(this.getUserId());        
-      return this.userService.getUserPosts(Number(id))
+  goBack(){
+    this.router.navigate(['/landing/user-info']);
+  }
+
+  getAdminPosts(){   
+    const id: number = Number(this.getAdminId());     
+      return this.userService.getUserPosts(id)
       .subscribe((_userPostSubscription)=> 
         this.userPost = _userPostSubscription);  
   }
-
-  // getAdminPosts(){   
-  //   const id: number = Number(this.getAdminId());     
-  //     return this.userService.getUserPosts(id)
-  //     .subscribe((_userPostSubscription)=> 
-  //       this.userPost = _userPostSubscription);  
-  // }
 
   profileImg(){
     return localStorage.getItem('profile-img');
@@ -135,9 +129,8 @@ This code defines a function selectPost that toggles the visibility of comments 
   This code is executing in the ngOnDestroy lifecycle hook. It's checking if getUserPosts and getAdminPosts return truthy values and then calls unsubscribe on the result of these two functions. This is a common pattern for unsubscribing from observables to prevent memory leaks.
   */
   ngOnDestroy(): void {
-    if(this.getUserPosts()){
-      this.getUserPosts().unsubscribe();
+    if( this.getAdminPosts()){
+      this.getAdminPosts().unsubscribe();
     }
   }
-
 }

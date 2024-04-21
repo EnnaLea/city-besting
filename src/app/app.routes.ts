@@ -23,6 +23,7 @@ export const routes: Routes = [
         {path:'add-user', loadComponent: ()=> import('./components/create-user/create-user.component').then(m => m.CreateUserComponent) },
         {path:'new-post', loadComponent: ()=> import('./components/new-post/new-post.component').then(m => m.NewPostComponent) },
         {path:'user-post', loadComponent: ()=> import('./components/user-posts/user-posts.component').then(m => m.UserPostsComponent) },
+        {path:'admin-post', loadComponent: ()=> import('./components/admin-post/admin-post.component').then(m => m.AdminPostComponent) },
     ]
 },
 

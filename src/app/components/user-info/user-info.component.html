@@ -1,8 +1,8 @@
 
 
-    <!-- <mat-tab-group animationDuration="2000ms">
+    <mat-tab-group animationDuration="1500ms">
 
-        <mat-tab label="Admin Detail"> -->
+        <mat-tab label="Admin Detail">
             <div class="parent">
             <div class="card-container">
                 <mat-card class="example-card">
@@ -37,36 +37,25 @@
                     </mat-card-content>
                     <mat-card-actions>
                         <div class="container-buttons">
-                            <div>
-                            <button mat-button color="primary" (click)="onSave()">Save</button>
-                            <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+                            <div class="button-save">
+                            <button class="save" mat-fab extended  (click)="onSave()">Save</button>
                             </div>
-                            <div><button mat-button color="primary" (click)="onSeePost()">See Posts</button></div>
-                            
-                            
-                            
+                            <div class="button-cancel">
+                            <button class="cancel" mat-fab extended  (click)="onCancel()">Cancel</button>
+                            </div>     
                         </div>
-
                     </mat-card-actions>
                   </mat-card>
             </div>
         </div>
-        <!-- </mat-tab> -->
-<!-- 
-        <mat-tab label="Posts">
-            <div>
-                
-                <app-user-posts></app-user-posts> 
-                
-            </div>
-        </mat-tab> -->
+        </mat-tab>
 
-        <!-- <mat-tab label="New Post">
-            <div>
-                <app-new-post></app-new-post>
+        <mat-tab label="Admin Posts">
+            <div>             
+                <app-admin-post></app-admin-post>                
             </div>
-        </mat-tab> -->
-      <!-- </mat-tab-group> -->
+        </mat-tab> 
+       </mat-tab-group>
 
 
 
