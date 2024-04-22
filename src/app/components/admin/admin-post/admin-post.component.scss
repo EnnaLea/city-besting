@@ -1,0 +1,123 @@
+.parent{
+    height: 100vh;
+    background-color: #BF3131;
+
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #BF3131;
+
+
+        mat-accordion{
+            display: flex;
+            width: 900px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #BF3131;
+            // padding-bottom: 0;
+
+        
+            mat-card{
+                display: flex;
+                width: 900px;
+                justify-content: center;
+                flex-direction: column;
+                margin: 2rem 1rem;
+                background-color: #F3EDC8;
+                color: #674903;
+                padding-bottom: 0;
+
+                .content{
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    margin: 2rem 1rem;
+                    padding-bottom: 0;
+                }
+
+                mat-expansion-panel{
+                    font-family: 'Poppins';
+                    background-color: #F3EDC8;
+                    color: #674903;
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+                }
+
+                mat-expansion-panel-header{
+                    padding-bottom: 0;
+                    margin-bottom: 0;
+                    
+                }
+
+                mat-panel-title{
+                    color: #674903;
+                    padding-bottom: 0;
+                }
+                
+
+            }
+        }
+
+        .view-comment{
+            font-family: 'Poppins';
+            font-size: 0.7rem;
+            font-weight: 800;
+            border-radius: 2rem;
+            width: 150px;
+            height: 30px;
+            background-color: #674903;
+            color: #F3EDC8;
+        }
+
+        .container-form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #F3EDC8;
+            padding-bottom: 0;
+        }
+        
+        .create-comment{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 600px;
+            margin: 2rem 2rem;
+            padding: 1.5rem;
+    
+            mat-form-field {
+                width: 600px;
+        
+            }
+    
+            .add{
+                font-family: 'Poppins';
+                font-size: 1.2rem;
+                border-radius: 2rem;
+                width: 200px;
+                height: 50px;
+                background-color: #F3EDC8;
+                // color: #F3EDC8;
+            }
+
+            .add-comment{
+                background-color: #674903;
+                color: #F3EDC8;
+            }
+        }
+    
+    }
+
+
+
+}
+
+
+
+

@@ -3,14 +3,14 @@ import { MaterialModule } from '../../module/material/material.module';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/auth.service';
 import { User } from '../../interfaces/user.model';
-import { UsersComponent } from '../users/users.component';
-import { UsersDetailsComponent } from "../users-details/users-details.component";
+import { UsersComponent } from '../user/users/users.component';
+import { UsersDetailsComponent } from "../user/users-details/users-details.component";
 import { UserService } from '../../services/user.service';
-import { UserInfoComponent } from "../user-info/user-info.component";
-import { UserPostsComponent } from "../user-posts/user-posts.component";
+import { UserInfoComponent } from "../user/user-info/user-info.component";
+import { UserPostsComponent } from "../user/user-posts/user-posts.component";
 import { Router } from '@angular/router';
-import { NewPostComponent } from '../new-post/new-post.component';
-import { CreateUserComponent } from '../create-user/create-user.component';
+import { NewPostComponent } from '../admin/new-post/new-post.component';
+import { CreateUserComponent } from '../admin/create-user/create-user.component';
 
 @Component({
     selector: 'app-home',

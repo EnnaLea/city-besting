@@ -1,0 +1,82 @@
+
+
+.parent{
+  display: flex;
+  // justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+  background-color: #BF3131;
+
+
+
+  h1{
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 1.4rem 1rem;
+    color: #F3EDC8;
+
+  }
+
+  h5, .search{
+    color: #F3EDC8;
+  }
+
+  .example-full-width{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 600px;
+    margin: 0.5rem 2rem;
+    padding: 1.5rem;
+
+    
+    mat-icon{
+      font-size: 1.4rem;
+    }
+  }
+
+  .container-cards{
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 2rem;
+    padding: 1rem;
+  }
+
+
+  .user-cards {
+    display: flex;
+    width: 800px;
+    justify-content: center;
+    flex-direction: column;
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+    background-color: #f5f1db;
+  }
+
+  button{
+    margin-right: 2rem;
+  }
+
+  .details-btn{
+    background-color: #F3EDC8;
+    color: #674903;
+    font-size: 1rem;
+  }
+  
+  .delete-btn{
+    background-color: #674903;
+    color: #F3EDC8;
+    font-size: 1rem;
+  }
+}
+
+
+
+
+
+  
