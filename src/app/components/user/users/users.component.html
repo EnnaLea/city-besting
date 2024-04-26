@@ -7,7 +7,7 @@
   <form class="example-form">
   <mat-form-field class="example-full-width">
   <!-- <span matPrefix></span> -->
-  <input type="tel" matInput placeholder="Search" name= "search" [(ngModel)]= "search" #filter>
+  <input type="text" matInput placeholder="Search" name= "search" [(ngModel)]= "search" #filter>
   <button matSuffix mat-button (click)="filterResults(filter.value)" (keyup.enter)="filterResults(filter.value)" type="submit"><mat-icon >search</mat-icon></button>
   </mat-form-field>  
   </form>
@@ -69,7 +69,7 @@
             <button
               mat-fab
               extended
-              color="primary"
+              class="details-btn"
               (click)="user.id !== undefined ? onDetailsClick(user.id) : null"
             >
   
@@ -77,8 +77,8 @@
             </button>
             <button
               mat-fab
-              extended
-              color="warn"
+              extended  
+              class="delete-btn"   
               (click)="user.id !== undefined ? onDeleteClick(user.id) : null"
             >
               Delete User

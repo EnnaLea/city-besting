@@ -44,9 +44,9 @@ export class UserService {
 //     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(tap(data => this.userPost = data));
         
 // }
-  getUserPosts(id: number): Observable<Array<Posts>> {
+  getUserPosts(id: number): Observable<Posts[]> {
     const url = `${this.url}/users/${id}/posts?page=1&per_page=50`;
-    return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
+    return this.httpService.get<Posts[]>(url, {headers: this.getHeaders()}).pipe(
       shareReplay(1)
   );
 }
