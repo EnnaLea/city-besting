@@ -10,6 +10,7 @@ import { Comments } from '../../../interfaces/comments';
 import { PostsComponent } from '../../home/posts/posts.component';
 // import { CommentsComponent } from "../comments/comments.component";
 import { UserPostsComponent } from '../user-posts/user-posts.component';
+import { LoaderComponent } from '../../loader/loader.component';
 
 
 @Component({
@@ -17,13 +18,14 @@ import { UserPostsComponent } from '../user-posts/user-posts.component';
     standalone: true,
     templateUrl: './users-details.component.html',
     styleUrl: './users-details.component.scss',
-    imports: [CommonModule, MaterialModule, PostsComponent, UserPostsComponent]
+    imports: [CommonModule, MaterialModule, PostsComponent, UserPostsComponent, LoaderComponent]
 })
 export class UsersDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() userDetail!: UserDetail;
   @Input() userPost!: Posts[];
   userDetailSubscription!: Subscription;
+  loading: boolean = true;
 
 
 
@@ -45,7 +47,9 @@ export class UsersDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getUserDetail(){
     const id = this.route.snapshot.paramMap.get('id');
-    return this.userService.getUserDetail(Number(id)).subscribe((userDetailSubscription)=> this.userDetail = userDetailSubscription);
+    return this.userService.getUserDetail(Number(id))
+    .pipe(tap(() => this.loading = false))
+    .subscribe((userDetailSubscription)=> this.userDetail = userDetailSubscription);
   }
   
   ngOnDestroy(): void {

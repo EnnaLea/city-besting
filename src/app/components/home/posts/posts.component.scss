@@ -8,22 +8,22 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: #BF3131;
+        background-color: #f5f1db;
 
 
         mat-accordion{
             display: flex;
-            width: 900px;
+            // width: 900px;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-color: #BF3131;
+            background-color: #f5f1db;
             // padding-bottom: 0;
 
         
             mat-card{
                 display: flex;
-                width: 900px;
+                width: 650px;
                 justify-content: center;
                 flex-direction: column;
                 margin: 2rem 1rem;

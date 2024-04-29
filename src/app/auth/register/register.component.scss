@@ -4,58 +4,67 @@
     justify-content: start;
     align-items: center;
     min-height: 100vh;
-    background: #BF3131     ;
+    background: #f5f1db;
 
 
     .container {
         position: relative;
-        width: 256px;
-        height: 256px;
+        margin-top: 1rem;
+        padding-top: 0;
+        width: 400px;
+        height: 550px;
         display: flex;
         justify-content: center;
         align-items: center;
+        background: #BF3131;
+        border: #BF3131 solid 1px;
+        border-radius: 70px;
 
-        .container span {
-            position: absolute;
-            left: 0;
-            width: 32px;
-            height: 6px;
-            background: #EAD196;
-            border-radius: 8px;
-            transform-origin: 128px;
-            transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
-            animation: animateBlink 3s linear infinite;
-            animation-delay: calc(var(--i) * (3s / 50));
+        // .container span {
+        //     position: absolute;
+        //     left: 0;
+        //     width: 32px;
+        //     height: 6px;
+        //     background: #EAD196;
+        //     border-radius: 8px;
+        //     transform-origin: 128px;
+        //     transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
+        //     animation: animateBlink 3s linear infinite;
+        //     animation-delay: calc(var(--i) * (3s / 50));
 
-            @keyframes animateBlink {
-                0% {
-                    background: #0ef;
-                }
-                25% {
-                    background: #EAD196
-                }
-            }
-        }
+        //     @keyframes animateBlink {
+        //         0% {
+        //             background: #0ef;
+        //         }
+        //         25% {
+        //             background: #EAD196
+        //         }
+        //     }
+        // }
 
     }
 
     .header-token{
-        margin-top: 1rem;
-        margin-bottom: 9rem;
-    
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+
         a{
             text-decoration: none;
-            color:#674903;
+            color:#c20707;
             cursor: pointer;
         }
     }
 
+    h2 {
+        font-size: 2em;
+        color: #674903;
+        text-align: center;
+    }
+
 
     .login-box {
-        position: absolute;
-        width: 400px;
-
-        
+        // position: absolute;
+        width: 400px;       
 
     }
 
@@ -63,11 +72,7 @@
         width: 100%;
         padding: 0 50px;
     }
-    h2 {
-        font-size: 2em;
-        color: #F3EDC8;
-        text-align: center;
-    }
+
     .input-box {
         position: relative;
         margin: 25px 0;
@@ -102,7 +107,7 @@
     .input-box input:focus,
     .input-box select:focus,
     .input-box input:valid {
-        border-color: #674903;
+        border-color: #EAD196;
     }
     .input-box label {
         position: absolute;

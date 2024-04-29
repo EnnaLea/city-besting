@@ -1,0 +1,28 @@
+.container{
+    width: 250px;;
+    background-color: #f5f1db;
+
+    .check{
+        background-color: rgb(30, 240, 30) ;
+        color: #fff;
+        border: rgb(30, 240, 30) 1px solid;
+        border-radius: 50%;
+        padding: 1rem 1rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+        margin-left: 40%;
+    }
+
+    button {
+        margin-left: 35%;
+      }
+    
+      .btn-ok{
+        background-color: #674903;
+        color: #F3EDC8;
+      }
+   
+  }

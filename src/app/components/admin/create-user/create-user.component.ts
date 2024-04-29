@@ -10,6 +10,8 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogTitle, MatDialogContent } from '@a
 import { CommonModule } from '@angular/common';
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { Profile } from '../../../interfaces/profile-img';
+import { CreatedCommentComponent } from '../../../messages/created-comment/created-comment.component';
+import { CreatedUserComponent } from '../../../messages/created-user/created-user.component';
 
 // export interface DialogData {
 //   message: string;
@@ -49,6 +51,12 @@ constructor(private authService: AuthService, private userService: UserService, 
   }) ; 
 }
 
+openDialog(): void {
+  this.dialog.open(CreatedUserComponent, {
+    width: '250px',
+  });
+}
+
 
 /*
 This code defines an onSubmit method that saves a token to local storage, creates a new user object based on form values, and sends the user data to the authService to create a new user. After creating the user, it sets the user in the cache.
@@ -65,24 +73,25 @@ onSubmit() {
       token: this.token,
       img: ''
     }
-    if(newUser.gender === 'male'){
-      let maleProfile = '';
-      let maleImages = [this.profileImg[1].male.img1, this.profileImg[1].male.img2, this.profileImg[1].male.img3, this.profileImg[1].male.img4,];
-      let randomIndex = Math.floor(Math.random() * maleImages.length);
-      maleProfile = `../../../assets/mlprofile${maleImages[randomIndex]}`;
-      newUser.img = maleProfile;
-    } else {
-      let femaleProfile = '';
-      let femaleImages = [this.profileImg[0].female.img1, this.profileImg[0].female.img2, this.profileImg[0].female.img3, this.profileImg[0].female.img4,];
-      let randomIndex = Math.floor(Math.random() * femaleImages.length);
-      femaleProfile = `../../../assets/fmprofile${femaleImages[randomIndex]}`;
-      newUser.img = femaleProfile;
-    }
+    // if(newUser.gender === 'male'){
+    //   let maleProfile = '';
+    //   let maleImages = [this.profileImg[1].male.img1, this.profileImg[1].male.img2, this.profileImg[1].male.img3, this.profileImg[1].male.img4,];
+    //   let randomIndex = Math.floor(Math.random() * maleImages.length);
+    //   maleProfile = `../../../assets/mlprofile${maleImages[randomIndex]}`;
+    //   newUser.img = maleProfile;
+    // } else {
+    //   let femaleProfile = '';
+    //   let femaleImages = [this.profileImg[0].female.img1, this.profileImg[0].female.img2, this.profileImg[0].female.img3, this.profileImg[0].female.img4,];
+    //   let randomIndex = Math.floor(Math.random() * femaleImages.length);
+    //   femaleProfile = `../../../assets/fmprofile${femaleImages[randomIndex]}`;
+    //   newUser.img = femaleProfile;
+    // }
 
     this.userService.createUser(newUser).subscribe({
       next: (response) => {
         this.user = response;
-        alert("User created successfully:  " + JSON.stringify(response));
+        this.openDialog();
+        // alert("User created successfully:  " + JSON.stringify(response));
       }
     });
   } 

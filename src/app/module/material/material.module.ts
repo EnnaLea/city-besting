@@ -15,6 +15,14 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogTitle,
+  MatDialogContent,
+} from '@angular/material/dialog';
 // import {
 //   MatDialog,
 //   MatDialogTitle,
@@ -31,9 +39,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
   exports: [
     CommonModule, FormsModule, MatCardModule, MatGridListModule, MatButtonModule, MatIconModule, MatSidenavModule, ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule,  MatToolbarModule, MatInputModule, MatSelectModule,
     MatExpansionModule, MatTabsModule, MatProgressSpinnerModule,MatPaginatorModule, 
-    // MatDialog,
-    // MatDialogTitle,
-    // MatDialogContent,
+
+  
   ]
 })
 export class MaterialModule { }

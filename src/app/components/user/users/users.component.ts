@@ -7,6 +7,8 @@ import { MaterialModule } from '../../../module/material/material.module';
 import { Route, Router } from '@angular/router';
 import { LoaderComponent } from '../../loader/loader.component';
 import { filter, map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteComponent } from '../../../messages/delete/delete.component';
 
 
 @Component({
@@ -27,8 +29,11 @@ export class UsersComponent implements OnInit, OnDestroy{
   loading: boolean = true;
  
 
-  constructor(private userService: UserService, private route: Router){
-    this.filteredUserList = this.users;
+  constructor(private userService: UserService, private route: Router, public dialog: MatDialog){
+    
+      this.filteredUserList = this.users;
+  
+    
     // this.filteredUserList = this.allUsers();
     // this.filterResults('');
     
@@ -36,9 +41,9 @@ export class UsersComponent implements OnInit, OnDestroy{
 
 
   ngOnInit(): void {
-    this.userSubscription = this.userService.getUsers()
-    .pipe(tap(() => this.loading = false))
-    .subscribe((_users)=> this.users = _users);
+      this.userSubscription = this.userService.getUsers()
+      .pipe(tap(() => this.loading = false))
+      .subscribe((_users)=> this.users = _users);
   }
 
   filterResults(filter: string){
@@ -92,15 +97,23 @@ export class UsersComponent implements OnInit, OnDestroy{
 
   onDeleteClick(id: number){
     this.userService.deleteUser(id).subscribe(()=> this.users = this.users.filter(user => user.id !== id));
+    this.openDialog();
     // this.userService.deleteUser(id).subscribe(() => {
     //   this.users = this.users.pipe(
     //     map(users => users.filter(user => user.id !== id))
     //   );
     // });
-    window.location.reload();
+    // window.location.reload();
      //TODO: Redirect to the page where the user was deleted
   
   }
+
+  openDialog(): void {
+    this.dialog.open(DeleteComponent, {
+      width: '250px',
+    });
+  }
+
 
   // import { filter } from 'rxjs/operators';
 

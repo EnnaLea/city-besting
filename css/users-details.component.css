@@ -1,1 +1,1 @@
-.container{background-color:#bf3131}.container button{background-color:#674903;color:#f3edc8;margin-top:1rem;margin-left:1rem}
+.parent{background-color:#f5f1db}.parent .container{background-color:#f5f1db}.parent .container button{background-color:#674903;color:#f3edc8;margin-top:1rem;margin-left:1rem}

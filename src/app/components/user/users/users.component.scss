@@ -50,7 +50,7 @@
 
   .user-cards {
     display: flex;
-    width: 800px;
+    width: 650px;
     justify-content: center;
     flex-direction: column;
     margin: 2rem 1rem;
@@ -58,21 +58,28 @@
     background-color: #F3EDC8;
   }
 
-  button{
-    margin-right: 2rem;
-
-    
-  .details-btn{
-    background-color: #F3EDC8;
-    color: #674903;
-    font-size: 1rem;
+  .example-button-row{
+    display: flex;
+    margin-top: 2rem;
+    align-items: center;
+    justify-content: space-between;
   }
-  
-  .delete-btn{
+
+  button{
+
+    margin-right: 2rem;   
+  }
+
+  .details-btn{
     background-color: #674903;
     color: #F3EDC8;
     font-size: 1rem;
   }
+  
+  .delete-btn{
+    background-color: #BF3131;
+    color: #F3EDC8;
+    font-size: 1rem;
   }
 
 }

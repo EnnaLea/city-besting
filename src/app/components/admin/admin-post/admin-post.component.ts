@@ -12,11 +12,12 @@ import { NgForm } from '@angular/forms';
 import { Observable, map, tap } from 'rxjs';
 import { OnLoginFunc } from 'tinacms';
 import { Profile } from '../../../interfaces/profile-img';
+import { LoaderComponent } from '../../loader/loader.component';
 
 @Component({
   selector: 'app-admin-post',
   standalone: true,
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, LoaderComponent],
   templateUrl: './admin-post.component.html',
   styleUrl: './admin-post.component.scss'
 })
@@ -36,6 +37,7 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
   commentEmail!: string;
   imgProfile!: string;
   profile!: Array<Profile>;
+  loading: boolean = true;
 
  
   isPost: boolean= true;
@@ -79,6 +81,7 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
   getAdminPosts(){   
     const id: number = Number(this.getAdminId());     
       return this.userService.getUserPosts(id)
+      .pipe(tap(() => this.loading = false))
       .subscribe((_userPostSubscription)=> 
         this.userPost = _userPostSubscription);  
   }

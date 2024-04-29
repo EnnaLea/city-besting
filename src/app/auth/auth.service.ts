@@ -31,7 +31,7 @@ export class AuthService {
     private router: Router,
    
   ) {
-    console.log(this.profile =[]);
+    // console.log(this.profile =[]);
   }
 
 

@@ -12,11 +12,14 @@ import { NgForm } from '@angular/forms';
 import { Observable, map, tap } from 'rxjs';
 import { OnLoginFunc } from 'tinacms';
 import { Profile } from '../../../interfaces/profile-img';
+import { NoPostsComponent } from '../../../messages/no-posts/no-posts.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CreatedCommentComponent } from '../../../messages/created-comment/created-comment.component';
 
 @Component({
   selector: 'app-user-posts',
   standalone: true,
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, NoPostsComponent],
   templateUrl: './user-posts.component.html',
   styleUrl: './user-posts.component.scss'
 })
@@ -36,11 +39,14 @@ isSpinnerActive: any;
   commentEmail!: string;
   imgProfile!: string;
   profile!: Array<Profile>;
+  usersPost : boolean = false;
 
  
-  isPost: boolean= true;
+  isPost: boolean= false;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, public dialog: MatDialog) {
+    this.getUserPosts();
+  }
 
 
   ngOnInit(): void {
@@ -53,11 +59,17 @@ isSpinnerActive: any;
   This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
   */
   ngAfterViewInit(): void {
-    this.getUserPosts();
+    // this.getUserPosts();
   }  
   
   ngAfterContentInit(): void {
+    // this.getUserPosts();
+  }
 
+  openDialog(): void {
+    this.dialog.open(CreatedCommentComponent, {
+      width: '250px',
+    });
   }
   
   // setViewPost(){
@@ -77,9 +89,11 @@ isSpinnerActive: any;
 */
   getUserPosts(){
     const id = Number(this.getUserId());        
-      return this.userService.getUserPosts(Number(id))
+      this.userService.getUserPosts(Number(id))
+      .pipe(tap(() => this.isPost = true))
       .subscribe((_userPostSubscription)=> 
-        this.userPost = _userPostSubscription);  
+        this.userPost = _userPostSubscription); 
+      // this.isPost = true; 
   }
 
   // getAdminPosts(){   
@@ -104,7 +118,8 @@ isSpinnerActive: any;
       name: this.commentName,
       body: this.newComment, 
     }
-    return this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription); 
+    this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription); 
+    this.openDialog();
   }
 
 /* 
@@ -135,9 +150,9 @@ This code defines a function selectPost that toggles the visibility of comments 
   This code is executing in the ngOnDestroy lifecycle hook. It's checking if getUserPosts and getAdminPosts return truthy values and then calls unsubscribe on the result of these two functions. This is a common pattern for unsubscribing from observables to prevent memory leaks.
   */
   ngOnDestroy(): void {
-    if(this.getUserPosts()){
-      this.getUserPosts().unsubscribe();
-    }
+    // if(this.getUserPosts()){
+    //   this.getUserPosts().unsubscribe();
+    // }
   }
 
 }

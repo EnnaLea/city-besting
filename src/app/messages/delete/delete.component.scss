@@ -1,0 +1,30 @@
+.container{
+
+  background-color: #f5f1db;
+
+  h2{
+      margin-left: 3rem;
+  }
+
+  mat-dialog-actions{
+      display: flex;
+      justify-content: space-between;
+  }
+
+
+  button {
+    margin-right: 8px;
+  }
+
+  .btn-no{
+    background-color: #674903;
+    color: #F3EDC8;
+
+  }
+
+  .btn-ok{
+    background-color: #BF3131;
+    color: #F3EDC8;
+  }
+
+}

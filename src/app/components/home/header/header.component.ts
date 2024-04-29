@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { User } from '../../../interfaces/user.model';
 import { CacheService } from '../../../services/cache.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UnsuscribeComponent } from '../../../messages/unsuscribe/unsuscribe.component';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() user: User | undefined;
 
-  constructor(private router: Router, private cacheService: CacheService) {
+  constructor(private router: Router, private cacheService: CacheService, public dialog: MatDialog) {
     
    }
 
@@ -24,12 +26,17 @@ export class HeaderComponent implements OnInit {
     this.getProfile();
   }
 
-   
+  openDialog(): void {
+    this.dialog.open(UnsuscribeComponent, {
+      width: '250px',
+    });
+  }
 
   onUnsuscribe(){
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('/register');
+    this.openDialog();
+    // localStorage.removeItem('user');
+    // localStorage.removeItem('token');
+    // this.router.navigateByUrl('/register');
   }
 
   getProfile(){

@@ -51,8 +51,8 @@ gender!: string;
         status : this.staus
       }
 
-      console.log(changeUser);
-      console.log(userId);
+      // console.log(changeUser);
+      // console.log(userId);
       if (userId !== undefined){
         return this.userService.updateUser(userId, changeUser).subscribe((_user) => {
           this.user = _user;

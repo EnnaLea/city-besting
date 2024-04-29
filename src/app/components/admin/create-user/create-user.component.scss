@@ -19,27 +19,27 @@
         
         
 
-        .container span {
-            position: absolute;
-            left: 0;
-            width: 32px;
-            height: 6px;
-            background: #674903;
-            border-radius: 8px;
-            transform-origin: 128px;
-            transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
-            animation: animateBlink 3s linear infinite;
-            animation-delay: calc(var(--i) * (3s / 50));
+        // .container span {
+        //     position: absolute;
+        //     left: 0;
+        //     width: 32px;
+        //     height: 6px;
+        //     background: #674903;
+        //     border-radius: 8px;
+        //     transform-origin: 128px;
+        //     transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
+        //     animation: animateBlink 3s linear infinite;
+        //     animation-delay: calc(var(--i) * (3s / 50));
 
-            @keyframes animateBlink {
-                0% {
-                    background: #BF3131;
-                }
-                25% {
-                    background: #c20707;
-                }
-            }
-        }
+        //     @keyframes animateBlink {
+        //         0% {
+        //             background: #BF3131;
+        //         }
+        //         25% {
+        //             background: #c20707;
+        //         }
+        //     }
+        // }
 
     }
 
@@ -60,9 +60,6 @@
         width: 400px;
         margin-top: 0;
         
-
-        
-
     }
 
     .login-box form {
@@ -72,7 +69,7 @@
     }
     h2 {
         font-size: 2em;
-        color: #BF3131;
+        color: #674903;
         text-align: center;
         margin-top: 0;
     }
@@ -85,11 +82,11 @@
         width: 100%;
         height: 50px;
         background: transparent;
-        border: 2px solid #BF3131;
+        border: 2px solid #674903;
         outline: none;
         border-radius: 40px;
         font-size: 1em;
-        color: #fff;
+        color: #674903;
         padding: 0 20px;
         transition: .5s ease;
     }
@@ -97,7 +94,7 @@
         width: 100%;
         height: 50px;
         background: transparent;
-        border: 2px solid #BF3131;
+        border: 2px solid #674903;
         outline: none;
         border-radius: 40px;
         font-size: 1em;
@@ -126,7 +123,7 @@
     mat-label {
         top: 1px;
         font-size: .8em;
-        background: F3EDC8;
+        background: #f5f1db;
         padding: 0 6px;
         color: #674903;
     }
@@ -153,6 +150,18 @@
     button{
         margin-top: 1rem;
     }
+
+    // .check{
+    //     background-color: rgb(30, 240, 30) ;
+    //     color: #fff;
+    //     border: rgb(30, 240, 30) 1px solid;
+    //     border-radius: 50%;
+    //     padding: 1.5rem 1.5rem;
+    //     font-size: 2rem;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
 
 }
 

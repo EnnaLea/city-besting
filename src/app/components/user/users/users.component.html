@@ -16,7 +16,7 @@
 
   @if(filteredUserList == undefined || filteredUserList.length == 0) {
     <div class="container-cards" *ngIf="!loading; else loadingTemplate" >
-      <mat-card class="user-cards" *ngFor="let user of users" >
+      <mat-card class="user-cards" *ngFor="let user of users user" >
         <div class="single-cards">
           <div>
             <div>
@@ -31,8 +31,9 @@
             class="details-btn"
               mat-fab
               extended
-              (click)="user.id !== undefined ? onDetailsClick(user.id) : null"
+              (click)="user.id !== undefined ? onDetailsClick(user.id) : null"            
             >
+             
   
               Posts
             </button>
@@ -40,8 +41,10 @@
             class="delete-btn"
               mat-fab
               extended
-              (click)="user.id !== undefined ? onDeleteClick(user.id) : null"
+              (click)="user.id !== undefined ?  onDeleteClick (user.id) : null"
+              
             >
+            <!-- (click)="user.id !== undefined ? onDeleteClick(user.id) : null" -->
               Delete User
             </button>
           </div>

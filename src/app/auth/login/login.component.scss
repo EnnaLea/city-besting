@@ -4,64 +4,32 @@
     justify-content: start;
     align-items: center;
     min-height: 100vh;
-    background: #BF3131;
+    background: #f5f1db;
 
 
     .container {
         position: relative;
-        width: 256px;
-        height: 256px;
+        margin-top: 4rem;
+        padding-top: 0;
+        width: 400px;
+        height: 450px;
         display: flex;
         justify-content: center;
         align-items: center;
+        background: #BF3131;
+        border: #BF3131 solid 1px;
+        border-radius: 70px;
 
-        .container span {
-            position: absolute;
-            left: 0;
-            width: 32px;
-            height: 6px;
-            background: #2c4766;
-            border-radius: 8px;
-            transform-origin: 128px;
-            transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
-            animation: animateBlink 3s linear infinite;
-            animation-delay: calc(var(--i) * (3s / 50));
 
-            @keyframes animateBlink {
-                0% {
-                    background: #F3EDC8;
-                }
-                25% {
-                    background: #2c4766;
-                }
-            }
-        }
-
-    }
-
-    .header-token{
-        margin-top: 3rem;
-        margin-bottom: 8rem;
-    
-        a{
-            text-decoration: none;
-            color:#F3EDC8;
-            
-
-            &:hover{
-                color: #2c4766;
-                cursor: pointer;
-            }
-        }
     }
 
 
     .login-box {
-        position: absolute;
+        // position: absolute;
         width: 400px;
+        padding: 0;
 
-        
-
+    
     }
 
     .login-box form {
@@ -69,10 +37,10 @@
         padding: 0 50px;
     }
     h2 {
-        font-size: 2em;
+        font-size: 2.5em;
         color: #F3EDC8;
         text-align: center;
-        margin-top: 12rem;
+        margin-top: 1rem;
 
 
     }

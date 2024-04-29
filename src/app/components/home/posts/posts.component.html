@@ -4,34 +4,38 @@
     <div class="posts" >
       <mat-accordion *ngIf="!loading; else loadingTemplate" >
         <mat-card *ngFor="let post of userPost">
-          @if(userPost){
+          <!-- @if(userPost){ -->
           <div class="content">
             <h2>{{ post.title }}</h2>
             <p>{{ post.body }}</p>
           </div>
 
           
-          <mat-expansion-panel hideToggle>
+          <mat-expansion-panel hideToggle >
             <mat-expansion-panel-header>
               <mat-panel-title (click)="selectPost(post.id!)">
                 View Comments
             </mat-panel-title>
+
             </mat-expansion-panel-header>
-            <div class="comments" *ngIf="commentVisibility[post.id!]">
+            <div class="comments" *ngIf="commentVisibility[post.id!]; else noComment" >
               <div *ngFor="let comment of comments">
-                @if(comments){
-                  
-               
-                <h2>{{ comment.name }}</h2>
-                <p>{{ comment.body }}</p>
-                <p>{{ comment.email }}</p>
-              }
-              @else{
-                <p>No comments present.</p>
-              }
+          
+            <h2>{{ comment.name }}</h2>
+            <p>{{ comment.body }}</p>
+            <p>{{ comment.email }}</p>
+          
+
+
+
               </div>          
             </div>
+            <ng-template #noComment>
+              <p>No comments present.</p>
+            </ng-template>
+
           </mat-expansion-panel>
+
 
           <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
@@ -57,10 +61,10 @@
               </div>
   
           </mat-expansion-panel>
-        }
+        <!-- }
         @else{
           <p>No posts present.</p>
-        }
+        } -->
         </mat-card> 
       </mat-accordion>
       <ng-template #loadingTemplate>

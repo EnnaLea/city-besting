@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { CacheService } from '../../../services/cache.service';
 import { Posts } from '../../../interfaces/user-post';
+import { MatDialog } from '@angular/material/dialog';
+import { CreatedPostComponent } from '../../../messages/created-post/created-post.component';
 
 @Component({
   selector: 'app-new-post',
@@ -20,7 +22,8 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
    body!: string;
 
    
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private cacheService: CacheService){
+  
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private cacheService: CacheService, public dialog: MatDialog){
   }
 
   ngOnInit(): void {
@@ -34,6 +37,12 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
     this.router.navigate(['/landing/user-info']);
   }
 
+  openDialog(): void {
+    this.dialog.open(CreatedPostComponent, {
+      width: '250px',
+    });
+  }
+
   newPost(){
     const userId = Number(this.getUserId());
     let postBody: Posts ={
@@ -43,6 +52,7 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
     }
 
     this.userService.createUserPost(userId, postBody).subscribe((_post) => this.post = _post);
+    this.openDialog();
     // console.log(this.userService.createUserPost(userId, postBody).subscribe((_post) => this.post = _post));
     // window.location.reload();
     

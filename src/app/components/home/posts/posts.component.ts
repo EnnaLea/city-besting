@@ -7,7 +7,7 @@ import { MaterialModule } from '../../../module/material/material.module';
 // import { CommentsComponent } from '../comments/comments.component';
 import { Comments } from '../../../interfaces/comments';
 import { LoaderComponent } from '../../loader/loader.component';
-import { finalize } from 'rxjs';
+import { finalize, tap } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
 
 
@@ -29,7 +29,8 @@ export class PostsComponent implements AfterViewInit {
   newComment!: string;
   commentName!: string;
   commentEmail!: string;
-  loading: boolean = false;
+  loading: boolean = true;
+  isComment: boolean = false
 
 
   constructor(private route: ActivatedRoute, private userService: UserService,private authService: AuthService, private router: Router) {}
@@ -57,6 +58,7 @@ export class PostsComponent implements AfterViewInit {
 
   getAllPosts(){
     this.userService.getAllPosts()
+    .pipe(tap(() => this.loading = false))
     .subscribe((_userPostSubscription)=> 
     this.userPost = _userPostSubscription); 
     
@@ -65,7 +67,9 @@ export class PostsComponent implements AfterViewInit {
   
   selectPost(postId: number){
     this.commentVisibility[postId] = !this.commentVisibility[postId];
-    this.userService.getPostComments(postId).subscribe((_commentsSubscription)=> this.comments = _commentsSubscription);
+    this.userService.getPostComments(postId)
+    .pipe(tap(() => this.isComment = true))
+    .subscribe((_commentsSubscription)=> this.comments = _commentsSubscription);
   }
 
   ngOnDestroy(): void {
