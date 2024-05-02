@@ -98,6 +98,39 @@
 
 }
 
+@media screen and (max-width: 380px) {
+    .parent {
+      height: 100vh;
+  
+      .container {
+        width: 300px !important;
+        height: 470px !important;
+        margin-top: 4rem !important;
+  
+        .login-box {
+          h2 {
+            font-size: 1.2rem;
+          }
+  
+          .input-box {
+            width: 200px;
+          }
+  
+          .select {
+            width: 150px;
+          }
+  
+          .btn {
+            width: 90px;
+            height: 30px;
+            margin-left: 3.5rem;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+
 
 
 

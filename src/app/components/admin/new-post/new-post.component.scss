@@ -47,12 +47,12 @@
 
 @media screen and (max-width: 380px){
     .parent{
-        width: 100vw;
+        width: 250px;
         height: 100vh;
 
         .container{
             width: 150px !important;
-            margin-left: 6rem !important;
+            margin-left: 4rem !important;
             padding: 0;
 
             .create-post{
@@ -65,13 +65,17 @@
         
             mat-form-field{
                 width: 150px !important;
+
+                mat-label{
+                    font-size: 0.8rem !important;
+                }
             }
 
             .add{
                 width: 100px !important;
                 height: 30px !important;
                 font-size: 0.8rem !important;
-                margin-top: 4rem !important;
+                margin-top: 2rem !important;
             }
         }
 

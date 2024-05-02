@@ -20,28 +20,6 @@
         border: #BF3131 solid 1px;
         border-radius: 70px;
 
-        // .container span {
-        //     position: absolute;
-        //     left: 0;
-        //     width: 32px;
-        //     height: 6px;
-        //     background: #EAD196;
-        //     border-radius: 8px;
-        //     transform-origin: 128px;
-        //     transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
-        //     animation: animateBlink 3s linear infinite;
-        //     animation-delay: calc(var(--i) * (3s / 50));
-
-        //     @keyframes animateBlink {
-        //         0% {
-        //             background: #0ef;
-        //         }
-        //         25% {
-        //             background: #EAD196
-        //         }
-        //     }
-        // }
-
     }
 
     .header-token{
@@ -149,6 +127,43 @@
     }
 
 }
+
+@media screen and (max-width: 380px) {
+    .parent {
+      height: 100vh;
+
+      h2 {
+        font-size: 1.2rem;
+      }
+  
+      .container {
+        width: 300px !important;
+        height: 470px !important;
+        margin-top: 4rem !important;
+  
+        // .login-box {
+        //   h2 {
+        //     font-size: 1.2rem;
+        //   }
+  
+          .input-box {
+            width: 200px;
+          }
+  
+          .select {
+            width: 200px;
+          }
+  
+          .btn {
+            width: 90px;
+            height: 30px;
+            margin-left: 3.5rem;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  
 
 
 
