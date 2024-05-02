@@ -1,6 +1,7 @@
 .parent{
     background-color: #f5f1db;
     height: 100vh;
+    width: 100vw;
 
     .container{
         display: flex;
@@ -42,5 +43,41 @@
             }
         }
     }
+}
+
+@media screen and (max-width: 380px){
+    .parent{
+        width: 100vw;
+        height: 100vh;
+
+        .container{
+            width: 150px !important;
+            margin-left: 6rem !important;
+            padding: 0;
+
+            .create-post{
+                width: 100px !important;
+            }
+    
+            h1{
+                font-size: 1rem !important;
+            }
+        
+            mat-form-field{
+                width: 150px !important;
+            }
+
+            .add{
+                width: 100px !important;
+                height: 30px !important;
+                font-size: 0.8rem !important;
+                margin-top: 4rem !important;
+            }
+        }
+
+    }
+
+
+
 }
 
