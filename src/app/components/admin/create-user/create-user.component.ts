@@ -5,7 +5,7 @@ import { User } from '../../../interfaces/user.model';
 import { MaterialModule } from '../../../module/material/material.module';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
-import { UserInfoComponent } from "../../user/user-info/user-info.component";
+import { UserInfoComponent } from "../user-info/user-info.component";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogTitle, MatDialogContent } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { DIALOG_DATA } from '@angular/cdk/dialog';

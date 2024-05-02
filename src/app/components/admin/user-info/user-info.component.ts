@@ -5,9 +5,9 @@ import { UserService } from '../../../services/user.service';
 import { MaterialModule } from '../../../module/material/material.module';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { UserPostsComponent } from '../user-posts/user-posts.component';
-import { NewPostComponent } from '../../admin/new-post/new-post.component';
-import { AdminPostComponent } from '../../admin/admin-post/admin-post.component';
+import { UserPostsComponent } from '../../user/user-posts/user-posts.component';
+import { NewPostComponent } from '../new-post/new-post.component';
+import { AdminPostComponent } from '../admin-post/admin-post.component';
 
 @Component({
   selector: 'app-user-info',

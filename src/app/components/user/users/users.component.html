@@ -6,8 +6,8 @@
   <h5><u><i>Search users by name, email or status</i></u></h5>
   <form class="example-form">
   <mat-form-field class="example-full-width">
-  <!-- <span matPrefix></span> -->
-  <input type="text" matInput placeholder="Search" name= "search" [(ngModel)]= "search" #filter>
+  <span matPrefix></span>
+  <input class="search" type="text" matInput placeholder="Search" name= "search" [(ngModel)]= "search" #filter>
   <button matSuffix mat-button (click)="filterResults(filter.value)" (keyup.enter)="filterResults(filter.value)" type="submit"><mat-icon >search</mat-icon></button>
   </mat-form-field>  
   </form>

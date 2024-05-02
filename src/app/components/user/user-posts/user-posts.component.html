@@ -8,7 +8,7 @@
     <ng-template #hasPosts>
       <div class="posts" >
         <mat-accordion>
-          <mat-card *ngFor="let post of userPost">
+          <mat-card class="post" *ngFor="let post of userPost">
             <div class="content">
               <h2>{{ post.title }}</h2>
               <p>{{ post.body }}</p>
@@ -63,8 +63,10 @@
           <h1 class="no-post">No posts present.</h1>
         </div>
       </ng-template> -->
+      
     </ng-template>
   </div>
+  <!-- <app-paginator></app-paginator> -->
 </div>
 
 

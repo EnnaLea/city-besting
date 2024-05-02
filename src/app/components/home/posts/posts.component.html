@@ -3,7 +3,7 @@
 
     <div class="posts" >
       <mat-accordion *ngIf="!loading; else loadingTemplate" >
-        <mat-card *ngFor="let post of userPost">
+        <mat-card class="post" *ngFor="let post of userPost">
           <!-- @if(userPost){ -->
           <div class="content">
             <h2>{{ post.title }}</h2>

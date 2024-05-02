@@ -6,7 +6,7 @@ import { User } from '../../interfaces/user.model';
 import { UsersComponent } from '../user/users/users.component';
 import { UsersDetailsComponent } from "../user/users-details/users-details.component";
 import { UserService } from '../../services/user.service';
-import { UserInfoComponent } from "../user/user-info/user-info.component";
+import { UserInfoComponent } from "../admin/user-info/user-info.component";
 import { UserPostsComponent } from "../user/user-posts/user-posts.component";
 import { Router } from '@angular/router';
 import { NewPostComponent } from '../admin/new-post/new-post.component';

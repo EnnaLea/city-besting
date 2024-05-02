@@ -1,175 +1,160 @@
-@import url(../../../../styles.scss);
+// @import url(../../../../styles.scss);
+
 .parent {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f1db;
+
+  .container {
+    position: relative;
+    margin-top: 4rem;
+    padding-top: 0;
+    width: 400px;
+    height: 550px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #f5f1db;
-    margin-top: -2.4rem;
+    background: #bf3131;
+    border: #bf3131 solid 1px;
+    border-radius: 70px;
+  }
 
+  .header-token {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 
-    .container {
-        position: relative;
-        width: 256px;
-        height: 256px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
-        
-
-        // .container span {
-        //     position: absolute;
-        //     left: 0;
-        //     width: 32px;
-        //     height: 6px;
-        //     background: #674903;
-        //     border-radius: 8px;
-        //     transform-origin: 128px;
-        //     transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
-        //     animation: animateBlink 3s linear infinite;
-        //     animation-delay: calc(var(--i) * (3s / 50));
-
-        //     @keyframes animateBlink {
-        //         0% {
-        //             background: #BF3131;
-        //         }
-        //         25% {
-        //             background: #c20707;
-        //         }
-        //     }
-        // }
-
+    a {
+      text-decoration: none;
+      color: #c20707;
+      cursor: pointer;
     }
+  }
 
-    // .header-token{
-    //     margin-top: 3rem;
-    //     margin-bottom: 10rem;
-    
-    //     a{
-    //         text-decoration: none;
-    //         color:#BF3131;
-    //         cursor: pointer;
-    //     }
-    // }
+  h2 {
+    font-size: 2em;
+    color: #f3edc8;
+    text-align: center;
+  }
 
+  .login-box {
+    // position: absolute;
+    width: 400px;
+  }
 
-    .login-box {
-        position: absolute;
-        width: 400px;
-        margin-top: 0;
-        
-    }
+  .login-box form {
+    width: 100%;
+    padding: 0 50px;
+  }
 
-    .login-box form {
-        // width: 100%;
-        padding: 0 50px;
-        margin-top: 1rem;
-    }
-    h2 {
-        font-size: 2em;
-        color: #674903;
-        text-align: center;
-        margin-top: 0;
-    }
-    .input-box {
-        position: relative;
-        margin: 25px 0;
-    }
+  .input-box {
+    position: relative;
+    margin: 25px 0;
+    border-color: #ead196;
+  }
 
-    .select{
-        width: 100%;
-        height: 50px;
-        background: transparent;
-        border: 2px solid #674903;
-        outline: none;
-        border-radius: 40px;
-        font-size: 1em;
-        color: #674903;
-        padding: 0 20px;
-        transition: .5s ease;
-    }
-    .input-box input {
-        width: 100%;
-        height: 50px;
-        background: transparent;
-        border: 2px solid #674903;
-        outline: none;
-        border-radius: 40px;
-        font-size: 1em;
-        color: #674903;
-        padding: 0 20px;
-        transition: .5s ease;
-    }
+  .select {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #ead196;
+    outline: none;
+    border-radius: 40px;
+    font-size: 1em;
+    color: #fff;
+    padding: 0 20px;
+    transition: 0.5s ease;
+    margin-bottom: 2rem;
+  }
+  .input-box input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #ead196;
+    outline: none;
+    border-radius: 40px;
+    font-size: 1em;
+    color: #fff;
+    padding: 0 20px;
+    transition: 0.5s ease;
+  }
 
-    .input-box input:focus,
-    .input-box select:focus,
-    .input-box input:valid {
-        border-color: #674903;
-    }
-    .input-box label {
-        position: absolute;
-        top: 50%;
-        left: 20px;
-        transform: translateY(-50%);
-        font-size: 1em;
-        color: #674903;
-        pointer-events: none;
-        transition: .5s ease;
-    }
-    .input-box input:focus~label,
-    .input-box input:valid~label,
-    mat-label {
-        top: 1px;
-        font-size: .8em;
-        background: #f5f1db;
-        padding: 0 6px;
-        color: #674903;
-    }
-    
-    .btn {
-        width: 100%;
-        height: 45px;
-        background: #BF3131;
-        border: none;
-        outline: none;
-        border-radius: 40px;
-        cursor: pointer;
-        font-size: 1em;
-        color: #F3EDC8;
-        font-weight: 600;
-    }
+  .input-box input:focus,
+  .input-box select:focus,
+  .input-box input:valid {
+    border-color: #ead196;
+  }
+  .input-box label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #fff;
+    pointer-events: none;
+    transition: 0.5s ease;
+  }
+  .input-box input:focus ~ label,
+  .input-box input:valid ~ label,
+  mat-label {
+    top: 1px;
+    font-size: 0.8em;
+    background: #bf3131;
+    padding: 0 6px;
+    color: #f3edc8;
+  }
 
-    .form-error{
-        color: black;
-        font-size: 0.9em;
-        text-align: center;
-    }
+  .btn {
+    width: 100%;
+    height: 45px;
+    background: #f3edc8;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #674903;
+    font-weight: 600;
+  }
 
-    button{
-        margin-top: 1rem;
-    }
-
-    // .check{
-    //     background-color: rgb(30, 240, 30) ;
-    //     color: #fff;
-    //     border: rgb(30, 240, 30) 1px solid;
-    //     border-radius: 50%;
-    //     padding: 1.5rem 1.5rem;
-    //     font-size: 2rem;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    // }
-
+  .form-error {
+    color: black;
+    font-size: 0.9em;
+    text-align: center;
+  }
 }
 
+@media screen and (max-width: 380px) {
+  .parent {
+    height: 100vh;
 
+    .container {
+      width: 200px !important;
+      height: 470px !important;
+      margin-top: 4rem !important;
 
+      .login-box {
+        h2 {
+          font-size: 1.2rem;
+        }
 
+        .input-box {
+          width: 150px;
+        }
 
+        .select {
+          width: 150px;
+        }
 
-
-
-
+        .btn {
+          width: 90px;
+          height: 30px;
+          margin-left: 2rem;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

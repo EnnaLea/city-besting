@@ -84,6 +84,81 @@
 
 }
 
+@media screen and (max-width: 380px){
+  .parent{
+    width: 100vw !important;
+
+    h1{
+      font-size: 0.9rem;
+      margin-left: -4rem;
+    }
+
+    h5{
+      font-size: 0.5rem;
+      margin-left: -6rem;
+    }
+
+    form{
+      margin-right: -1rem;
+
+      .example-full-width{
+        width: 58%;
+        margin-bottom: 0;
+      }
+      .search{
+        font-size: 0.8rem;
+      }
+      
+    }
+
+    mat-icon{
+      font-size: 1rem !important;
+      margin-left: 6rem;
+    }
+
+    .container-cards{
+      width: 380px !important;
+
+      p{
+        font-size: 0.5rem;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      h2{
+        font-size: 0.8rem;
+        margin: 0 0 0 0 !important;
+        padding: 0;
+      }
+
+      .user-cards{
+        width: 200px !important;
+      }
+    }
+
+    button{
+
+      margin-right: 2rem;   
+    }
+  
+    .details-btn{
+      font-size: 0.5rem;
+      padding: 0.7rem;
+      width: 35%;
+      height: 20%;
+      
+    }
+    
+    .delete-btn{
+      font-size: 0.5rem;
+      padding: 0.7rem;
+      width: 50%;
+      height: 20%;
+    }
+  }
+
+}
+
 
 
 

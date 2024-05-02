@@ -39,8 +39,6 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
   profile!: Array<Profile>;
   loading: boolean = true;
 
- 
-  isPost: boolean= true;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router) {}
 
@@ -53,9 +51,9 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
   This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
   */
   ngAfterViewInit(): void {
-    // this.setViewPost();
+    // console.log(this.getAdminPosts());
+    // console.log(this.getAdminId());
     this.getAdminPosts();
-    // this.getUserPosts();
   }  
   
   ngAfterContentInit(): void {
@@ -80,10 +78,11 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
 
   getAdminPosts(){   
     const id: number = Number(this.getAdminId());     
-      return this.userService.getUserPosts(id)
+      this.userService.getUserPosts(id)
       .pipe(tap(() => this.loading = false))
       .subscribe((_userPostSubscription)=> 
-        this.userPost = _userPostSubscription);  
+        this.userPost = _userPostSubscription);
+      
   }
 
   profileImg(){
@@ -132,8 +131,8 @@ This code defines a function selectPost that toggles the visibility of comments 
   This code is executing in the ngOnDestroy lifecycle hook. It's checking if getUserPosts and getAdminPosts return truthy values and then calls unsubscribe on the result of these two functions. This is a common pattern for unsubscribing from observables to prevent memory leaks.
   */
   ngOnDestroy(): void {
-    if( this.getAdminPosts()){
-      this.getAdminPosts().unsubscribe();
-    }
+    // if( this.getAdminPosts()){
+    //   this.getAdminPosts().unsubscribe();
+    // }
   }
 }

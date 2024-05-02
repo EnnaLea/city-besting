@@ -4,7 +4,7 @@
   
     <div class="posts" *ngIf="userPost; else noPosts">
       <mat-accordion *ngIf="!loading; else loadingTemplate">
-        <mat-card *ngFor="let post of userPost">
+        <mat-card class="post" *ngFor="let post of userPost">
           <div class="content">
             <h2>{{ post.title }}</h2>
             <p>{{ post.body }}</p>
@@ -68,10 +68,12 @@
           </mat-expansion-panel>
         </mat-card> 
       </mat-accordion>
+      
       <ng-template #loadingTemplate>
         <app-loader></app-loader>
       </ng-template>
     </div>
+
     <ng-template #noPosts>
       <p>No posts present.</p>
     </ng-template> 

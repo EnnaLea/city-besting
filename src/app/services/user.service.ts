@@ -31,7 +31,7 @@ export class UserService {
 
 
   getUsers(): Observable<User[]>{
-    return this.httpService.get<User[]>(`${this.url}/users?page=1&per_page=50&sort=-created_at`);
+    return this.httpService.get<User[]>(`${this.url}/users?page=1&per_page=20&sort=-created_at`);
   }
 
   getUserDetail(id: number): Observable<UserDetail>{
@@ -44,9 +44,9 @@ export class UserService {
 //     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(tap(data => this.userPost = data));
         
 // }
-  getUserPosts(id: number): Observable<Posts[]> {
-    const url = `${this.url}/users/${id}/posts?page=1&per_page=50`;
-    return this.httpService.get<Posts[]>(url, {headers: this.getHeaders()}).pipe(
+  getUserPosts(id: number): Observable<Array<Posts>>{
+    const url = `${this.url}/users/${id}/posts?page=1&per_page=20`;
+    return this.httpService.get<Array<Posts>> (url, {headers: this.getHeaders()}).pipe(
       shareReplay(1)
   );
 }
@@ -74,7 +74,7 @@ export class UserService {
   }
 
   getAllPosts(): Observable<Array<Posts>>{
-    const url = `${this.url}/posts?page=1&per_page=50`;
+    const url = `${this.url}/posts?page=1&per_page=20`;
     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
         shareReplay(1)
     );
@@ -96,12 +96,16 @@ export class UserService {
 
   createUserPost(id: number, post: Posts): Observable<Posts> {
     const url = `${this.url}/users/${id}/posts`;
+    const header = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${this.token}`
+    );
     let postBody ={
-      user_id:post.user_id,
-      title:post.title,
-      body:post.body
+      user_id: post.user_id,
+      title: post.title,
+      body: post.body,
     }
-    return this.httpService.post<Posts>(url, postBody, {headers: this.getHeaders()});
+    return this.httpService.post<Posts>(url, postBody, {headers: header});
   }
 
   createUserComment(postId: number, comment: Comments): Observable<Comments> {

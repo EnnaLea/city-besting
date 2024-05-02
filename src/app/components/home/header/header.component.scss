@@ -21,29 +21,28 @@
     @media screen and (max-width: 480px) {
      padding: 0 16px;
     }
-    &-menu {
-     display: flex;
-     align-items: center;
-     a {
-      padding: 20px 30px;
-      text-decoration: none;
-      color: var(--inactive-color);
-      border-bottom: 2px solid transparent;
-      transition: 0.3s;
-      @media screen and (max-width: 610px) {
-       &:not(.main-header-link) {
-        display: none;
-       }
-      }
-      &.is-active,
-      &:hover {
-       color: var(--theme-color);
-       border-bottom: 2px solid var(--theme-color);
-      }
-     }
-    }
+   //  &-menu {
+   //   display: flex;
+   //   align-items: center;
+   //   a {
+   //    padding: 20px 30px;
+   //    text-decoration: none;
+   //    color: var(--inactive-color);
+   //    border-bottom: 2px solid transparent;
+   //    transition: 0.3s;
+   //    @media screen and (max-width: 610px) {
+   //     &:not(.main-header-link) {
+   //      display: none;
+   //     }
+   //    }
+   //    &.is-active,
+   //    &:hover {
+   //     color: var(--theme-color);
+   //     border-bottom: 2px solid var(--theme-color);
+   //    }
+   //   }
+   //  }
    }
-
 
      
    .header-profile {
@@ -59,29 +58,6 @@
     }
    }
    
-   // .notification {
-   //  position: relative;
-   //  &-number {
-   //   position: absolute;
-   //   background-color: #3a6df0;
-   //   width: 16px;
-   //   height: 16px;
-   //   border-radius: 50%;
-   //   font-size: 10px;
-   //   display: flex;
-   //   align-items: center;
-   //   justify-content: center;
-   //   color: #fff;
-   //   right: -6px;
-   //   top: -6px;
-   //  }
-   //  & + svg {
-   //   margin-left: 22px;
-   //   @media screen and (max-width: 945px) {
-   //    display: none;
-   //   }
-   //  }
-   // }
    
    .profile-img {
     width: 32px;
@@ -97,25 +73,37 @@
     .header-profile {
      display: none;
     }
-   //  .search-bar {
-   //   max-width: 600px;
-   //   margin: auto;
-   //   transition: 0.4s;
-   //   box-shadow: 0 0 0 1px var(--border-color);
-   //   padding-left: 0;
-   //  }
+
     .menu-circle {
      margin-right: 0;
     }
    }
 
-   button{
-      // background-color: #F3EDC8;
-      // color: #674903;
+   .unsuscribe-btn{
       background-color: #674903;
       color: #F3EDC8;
-      width: 55%;
+      width: 70%;
       font-size: 1rem;
       margin-left: 2rem;
       padding: 1rem 1rem;
    }
+
+
+   @media screen and (max-width: 380px) {
+      .header{
+         width: 300px;
+         height: 60px;
+
+         .logo{
+            width: 150px;
+            margin-left: -20px;
+         }
+      }
+
+      .unsuscribe-btn{
+         width: 70%;
+         font-size: 0.8rem;
+         margin-left: 4rem;
+         padding: 1rem 1rem;
+      }
+     }

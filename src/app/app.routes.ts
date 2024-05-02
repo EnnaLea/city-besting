@@ -20,7 +20,7 @@ export const routes: Routes = [
         {path:'header', loadComponent: ()=> import('./components/home/header/header.component').then(m => m.HeaderComponent), },
         {path:'users-detail/:id', loadComponent: ()=> import('./components/user/users-details/users-details.component').then(m => m.UsersDetailsComponent) },
         {path:'posts', loadComponent: ()=> import('./components/home/posts/posts.component').then(m => m.PostsComponent) },
-        {path:'user-info', loadComponent: ()=> import('./components/user/user-info/user-info.component').then(m => m.UserInfoComponent) },
+        {path:'user-info', loadComponent: ()=> import('./components/admin/user-info/user-info.component').then(m => m.UserInfoComponent) },
         {path:'add-user', loadComponent: ()=> import('./components/admin/create-user/create-user.component').then(m => m.CreateUserComponent) },
         {path:'new-post', loadComponent: ()=> import('./components/admin/new-post/new-post.component').then(m => m.NewPostComponent) },
         {path:'user-post', loadComponent: ()=> import('./components/user/user-posts/user-posts.component').then(m => m.UserPostsComponent) },

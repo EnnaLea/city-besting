@@ -15,11 +15,12 @@ import { Profile } from '../../../interfaces/profile-img';
 import { NoPostsComponent } from '../../../messages/no-posts/no-posts.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatedCommentComponent } from '../../../messages/created-comment/created-comment.component';
+import { PaginatorComponent } from '../../paginator/paginator.component';
 
 @Component({
   selector: 'app-user-posts',
   standalone: true,
-  imports: [CommonModule, MaterialModule, NoPostsComponent],
+  imports: [CommonModule, MaterialModule, NoPostsComponent, PaginatorComponent],
   templateUrl: './user-posts.component.html',
   styleUrl: './user-posts.component.scss'
 })
