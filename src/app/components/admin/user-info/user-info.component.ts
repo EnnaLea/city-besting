@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../../interfaces/user.model';
 import { UserService } from '../../../services/user.service';
@@ -16,7 +16,7 @@ import { AdminPostComponent } from '../admin-post/admin-post.component';
   templateUrl: './user-info.component.html',
   styleUrl: './user-info.component.scss'
 })
-export class UserInfoComponent {
+export class UserInfoComponent implements AfterViewInit {
 
 @Input() user!: User;
 mail!: string;
@@ -27,7 +27,11 @@ gender!: string;
   constructor(private authService: AuthService, private userService: UserService, private route: Router) { }
 
   ngOnInit(): void {
-   this.getUser();
+  //  this.getUser();
+  }
+
+  ngAfterViewInit(){
+    this.getUser();
   }
 
   onSeePost(){

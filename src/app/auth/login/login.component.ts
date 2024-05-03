@@ -2,7 +2,6 @@ import { Component, Input, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { ToastrService } from 'ngx-toastr';
 import { MaterialModule } from '../../module/material/material.module';
 
 
@@ -24,7 +23,7 @@ export class LoginComponent {
 
 // password!: string;
 
-toasterService = inject(ToastrService);
+// toasterService = inject(ToastrService);
 
   // loginObj: Login
 

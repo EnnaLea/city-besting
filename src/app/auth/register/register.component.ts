@@ -6,7 +6,7 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../auth.service';
 import { User } from '../../interfaces/user.model';
 import { Router } from '@angular/router';
-import { response } from 'express';
+
 
 interface Gender {
   value: string;

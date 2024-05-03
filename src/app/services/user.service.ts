@@ -1,5 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { Observable, map, shareReplay, tap } from 'rxjs';
 import { User } from '../interfaces/user.model';
@@ -15,9 +15,7 @@ export class UserService {
   url: string = 'https://gorest.co.in/public/v2';
   userDetail!: UserDetail;
   userPost!: Array<Posts>;
-  // newPost!: Array<newPosts>;
   comments!: Array<Comments>;
-  // user!: User[];
   post!: Posts;
   comment!: Comments;
 
@@ -39,32 +37,12 @@ export class UserService {
     return this.httpService.get<UserDetail>(url, {headers: this.getHeaders()});
   }
 
-//   getUserPosts(id: number): Observable<Array<Posts>> {
-//     const url = `${this.url}/users/${id}/posts?page=1&per_page=10`;
-//     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(tap(data => this.userPost = data));
-        
-// }
   getUserPosts(id: number): Observable<Array<Posts>>{
     const url = `${this.url}/users/${id}/posts?page=1&per_page=20`;
     return this.httpService.get<Array<Posts>> (url, {headers: this.getHeaders()}).pipe(
       shareReplay(1)
   );
 }
-//   getAdminPosts(id: number): Observable<Array<newPosts>> {
-//     const url = `${this.url}/users/${id}/posts`;
-//     return this.httpService.get<Array<newPosts>>(url, {headers: this.getHeaders()});
-// }
-
-//   getAllAdminPosts(id: number): Observable<Array<newPosts>> {
-//     const url = `${this.url}/users/${id}/posts`;
-//     return this.httpService.get<Array<newPosts>>(url, {headers: this.getHeaders()}).pipe(
-//       shareReplay(1)
-//   );
-// }
-//   getUserPosts(id: number): Observable<Array<Posts>> {
-//     const url = `${this.url}/users/${id}/posts?page=1&per_page=10`;
-//     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(map(data => this.userPost = data));
-// }
 
   getPostComments(post_id: number): Observable<Array<Comments>>{
     const url = `${this.url}/posts/${post_id}/comments?page=1&per_page=50`;

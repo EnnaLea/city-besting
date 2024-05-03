@@ -1,11 +1,6 @@
-import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DOCUMENT } from '@angular/common';
-import { UserService } from '../services/user.service';
+import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user.model';
-import { Observable, catchError, tap, throwError } from 'rxjs';
 import { CacheService } from '../services/cache.service';
-import { Auth } from '../interfaces/auth';
 import { Router } from '@angular/router';
 import { Profile } from '../interfaces/profile-img';
 
@@ -55,6 +50,7 @@ export class AuthService {
     }, this.expirationTime - this.currentTime);
   }
   
+
   profileImg(){
 
     if(this.cacheService.getUserSaved()?.gender === 'male'){
