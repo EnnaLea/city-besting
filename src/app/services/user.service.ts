@@ -112,10 +112,6 @@ export class UserService {
     return this.httpService.delete<User>(url, {headers: this.getHeaders()});
   }
 
-
-  // getToken() {
-  //   return localStorage.getItem('token');
-  // }
   
   getHeaders(){
     const header = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
