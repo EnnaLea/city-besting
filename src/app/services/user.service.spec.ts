@@ -11,7 +11,6 @@ describe('UserService', () => {
   let service: UserService;
   let testingController: HttpTestingController;
   let user : User;
-  // let post : Posts;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

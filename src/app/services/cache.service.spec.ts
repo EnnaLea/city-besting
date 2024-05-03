@@ -14,18 +14,47 @@ describe('CacheService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should save a user in the local cahe', ()=>{
-    service.saveUser({
-      id?: 1,
+  
+  it('should save the user in the localstorage', () => {
+    const user = {
+        id: 1,
+        name: 'test',
+        email: 'test',
+        gender: 'test',
+        status: 'test'
+    };
+    service.saveUser(user);
+    const savedUser = service.getUserSaved();
+    expect(savedUser).toEqual(user);
+});
+
+  it('should get the saved user in the localstorage', () => {
+    const user = {
+      id: 1,
       name: 'test',
       email: 'test',
       gender: 'test',
       status: 'test',
-      password?: 'test',
-      token?: 'test',
-    })
+      password: 'test',
+      token: 'test',
+    };
+    service.saveUser(user);
+    const savedUser = service.getUserSaved();
+    expect(savedUser).toEqual(user);
+});
 
-    expect(localStorage.getItem('user')).toBeTruthy();
-  })
+it('should delete the saved user in the localstorage', () => {
+  const user = {
+      id: 1,
+      name: 'test',
+      email: 'test',
+      gender: 'test',
+      status: 'test'
+  };
+  service.saveUser(user);
+  service.deleteSavedUser(user);
+  const savedUser = service.getUserSaved();
+  expect(savedUser).toBeNull();
+});
 
 });
