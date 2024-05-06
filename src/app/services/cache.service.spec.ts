@@ -52,7 +52,7 @@ it('should delete the saved user in the localstorage', () => {
       status: 'test'
   };
   service.saveUser(user);
-  service.deleteSavedUser(user);
+  service.deleteSavedUser();
   const savedUser = service.getUserSaved();
   expect(savedUser).toBeNull();
 });

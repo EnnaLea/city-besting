@@ -23,7 +23,7 @@ export class CacheService {
   }
 
    /* This code snippet defines a method deleteSavedUser that removes a user object from the local storage with the key 'user'. */
-  deleteSavedUser(user: User){
+  deleteSavedUser(){
     localStorage.removeItem('user');
   }
 

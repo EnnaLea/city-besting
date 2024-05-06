@@ -33,7 +33,6 @@ export class AuthService {
   login(email: string, token: string) {
     if(this.IsLoggedIn(email, token)){
       this.expiredTime();
-        // this.userProfile = this.profileImg();
         localStorage.setItem('profile-img', this.userProfile);
         this.router.navigateByUrl('/landing');
     } else{
@@ -50,43 +49,6 @@ export class AuthService {
     }, this.expirationTime - this.currentTime);
   }
   
-
-  profileImg(){
-
-    if(this.cacheService.getUserSaved()?.gender === 'male'){
-      let maleProfile = this.profile;
-      let maleImages = ['img1', 'img2', 'img3', 'img4'];
-      let randomIndex = Math.floor(Math.random() * maleImages.length);
-      maleProfile.push()
-
-
-
-    //   maleProfile[[randomIndex]]= `assets/images/${maleImages[randomIndex]}`;
-    //   newUser.img = maleProfile[maleImages[randomIndex]];
-    // } else {
-    //   let femaleProfile = <Profile>{};
-    //   let femaleImages = ['img1', 'img2', 'img3', 'img4'];
-    //   let randomIndex = Math.floor(Math.random() * femaleImages.length);
-    //   femaleProfile[femaleImages[randomIndex]] = `assets/images/${femaleImages[randomIndex]}`;
-    //   newUser.img = femaleProfile[femaleImages[randomIndex]];
-    // }
-
-    
-    // if(this.cacheService.getUserSaved()?.gender === 'male'){
-    //   let maleProfile = '';
-    //   let maleImages = [this.profile[1].male.img1, this.profile[1].male.img2, this.profile[1].male.img3, this.profile[1].male.img4,];
-    //   let randomIndex = Math.floor(Math.random() * maleImages.length);
-    //   maleProfile = `../../../assets/mlprofile${maleImages[randomIndex]}`;
-    //   this.user.img = maleProfile;
-    // } else {
-    //   let femaleProfile = '';
-    //   let femaleImages = [this.profile[0].female.img1, this.profile[0].female.img2, this.profile[0].female.img3, this.profile[0].female.img4,];
-    //   let randomIndex = Math.floor(Math.random() * femaleImages.length);
-    //   femaleProfile = `../../../assets/fmprofile${femaleImages[randomIndex]}`;
-    //   this.user.img = femaleProfile;
-    }
-    return this.user.img;
-  }
 
   /* 
   This code defines a function called IsLoggedIn that checks if the token property is truthy or if there is a 'token' value in the local storage. If either condition is true, it returns true, otherwise it returns false.
@@ -123,4 +85,6 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('token');
   }
+
+  
 }
