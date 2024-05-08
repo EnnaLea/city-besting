@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UnsuscribeComponent } from './unsuscribe.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UnsuscribeComponent', () => {
   let component: UnsuscribeComponent;
@@ -8,7 +10,17 @@ describe('UnsuscribeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UnsuscribeComponent]
+      imports: [UnsuscribeComponent, HttpClientTestingModule],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: []
+           }, 
+          { 
+          provide: MAT_DIALOG_DATA, 
+          useValue: [] 
+          }
+      ]
     })
     .compileComponents();
     

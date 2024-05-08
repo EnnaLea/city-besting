@@ -12,7 +12,7 @@ import { AuthService } from '../../../auth/auth.service';
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [MaterialModule, UserInfoComponent],
+  imports: [MaterialModule],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.scss'
 })

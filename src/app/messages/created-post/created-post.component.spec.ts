@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreatedPostComponent } from './created-post.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 describe('CreatedPostComponent', () => {
   let component: CreatedPostComponent;
@@ -8,7 +9,18 @@ describe('CreatedPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreatedPostComponent]
+      imports: [CreatedPostComponent],
+      providers: [
+        { 
+          provide: MatDialogRef,
+          useValue: []
+           }, 
+          { 
+          provide: MAT_DIALOG_DATA, 
+          useValue: [] 
+          }
+        // MatDialogRef
+      ]
     })
     .compileComponents();
     

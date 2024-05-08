@@ -11,7 +11,7 @@ describe('RegisterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RegisterComponent, MaterialModule, HttpClientTestingModule]
+      imports: [RegisterComponent, HttpClientTestingModule]
     })
     .compileComponents();
     

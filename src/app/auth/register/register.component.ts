@@ -42,7 +42,6 @@ constructor(private authService: AuthService, private userService: UserService, 
     email: new FormControl('', [Validators.required]), 
     gender: new FormControl('', [Validators.required]), 
     status: new FormControl('', [Validators.required]), 
-    // password: new FormControl('', [Validators.required]),
     token: new FormControl('', [Validators.required]),
   }) ; 
 }

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { UserPostsComponent } from '../../user/user-posts/user-posts.component';
 import { NewPostComponent } from '../new-post/new-post.component';
 import { AdminPostComponent } from '../admin-post/admin-post.component';
+import { CacheService } from '../../../services/cache.service';
 
 @Component({
   selector: 'app-user-info',
@@ -24,14 +25,16 @@ name!: string;
 status!: string;
 gender!: string;
 
-  constructor(private authService: AuthService, private userService: UserService, private route: Router) { }
+  constructor(private authService: AuthService, private userService: UserService, private cacheService: CacheService, private route: Router) {
+    
+   }
 
   ngOnInit(): void {
-  //  this.getUser();
+   this.getUser();
   }
 
   ngAfterViewInit(){
-    this.getUser();
+    // this.getUser();
   }
 
   onSeePost(){

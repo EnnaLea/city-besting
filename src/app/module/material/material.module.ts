@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
@@ -15,19 +15,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {
-  MatDialog,
-  MatDialogRef,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogTitle,
-  MatDialogContent,
-} from '@angular/material/dialog';
-// import {
-//   MatDialog,
-//   MatDialogTitle,
-//   MatDialogContent,
-// } from '@angular/material/dialog';
+
 
 
 

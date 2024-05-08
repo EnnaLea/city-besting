@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminPostComponent } from './admin-post.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AdminPostComponent', () => {
   let component: AdminPostComponent;
@@ -8,7 +10,13 @@ describe('AdminPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminPostComponent]
+      imports: [AdminPostComponent, HttpClientTestingModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: { get: () => '1' } } }
+        },
+      ]
     })
     .compileComponents();
     

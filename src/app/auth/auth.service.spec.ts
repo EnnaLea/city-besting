@@ -27,7 +27,7 @@ describe('AuthService', () => {
   });
 
   it('should log the user in', ()=>{
-    // expect(service.IsLoggedIn).toBeTrue();
+    expect(service.IsLoggedIn).toBeTruthy();
   })
 
 

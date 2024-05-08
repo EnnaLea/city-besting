@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true,
+    "emitDecoratorMetadata": false,
     "declaration": false,
     "experimentalDecorators": true,
     "moduleResolution": "node",
