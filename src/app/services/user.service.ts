@@ -52,9 +52,26 @@ export class UserService {
   }
 
   getAllPosts(): Observable<Array<Posts>>{
-    const url = `${this.url}/posts?page=1&per_page=20`;
+    const url = `${this.url}/posts`;
     return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
         shareReplay(1)
+    );
+  }
+
+  // getTotPosts(start: number, end: number): Observable<Array<Posts>>{
+  //   const url = `${this.url}/posts`;
+  //   return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
+  //       shareReplay(1)
+  //   );
+  // }
+
+
+  getTotPosts(page: number = 1, itemsPerPage: number = 20): Observable<Array<Posts>>{
+    const url = `${this.url}/posts`;
+    return  this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()})
+    .pipe(
+        map((items: Array<Posts>)=> items.slice((page -1) * itemsPerPage, page * itemsPerPage)
+        )
     );
   }
 

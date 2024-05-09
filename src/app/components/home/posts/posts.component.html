@@ -1,6 +1,30 @@
 <div class="parent">
   <div class="container">
 
+    <app-paginator (pageChange)="loadPosts($event.pageIndex, $event.pageSize)"></app-paginator>
+
+    <!-- <mat-paginator #paginator
+               class="demo-paginator"
+               (page)="handlePageEvent($event)"
+               [length]="length"
+               [pageSize]="pageSize"
+               [disabled]="disabled"
+               [showFirstLastButtons]="showFirstLastButtons"
+               [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+               [hidePageSize]="hidePageSize"
+               [pageIndex]="pageIndex"
+               aria-label="Select page">
+    </mat-paginator> -->
+
+    <!-- <mat-paginator
+    [pageSize]="page"
+    [pageSize]="itemsPerPage"
+    (pageChange)="pageChanged()"
+    [length]="totalItems"
+    >
+
+    </mat-paginator> -->
+
     <div class="posts" >
       <mat-accordion *ngIf="!loading; else loadingTemplate" >
         <mat-card class="post" *ngFor="let post of userPost">
@@ -61,17 +85,15 @@
               </div>
   
           </mat-expansion-panel>
-        <!-- }
-        @else{
-          <p>No posts present.</p>
-        } -->
         </mat-card> 
       </mat-accordion>
       <ng-template #loadingTemplate>
         <app-loader></app-loader>
       </ng-template>
     </div>
-       
+
+
+
   </div>
 </div>
 

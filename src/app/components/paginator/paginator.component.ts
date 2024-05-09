@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MaterialModule } from '../../module/material/material.module';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-paginator',
@@ -10,16 +11,39 @@ import { MaterialModule } from '../../module/material/material.module';
 })
 export class PaginatorComponent {
 
-  firstPage = 0;
-  hasNextPage = true;
-  currentPage = this.firstPage + 1;
-  pageSizeOptions = ['5', '10', '20', '30', '50', '100'];
-  selectedOption = '10';
-  nextPage = this.currentPage + 1;
-  previousPage = this.currentPage - 1;
+  // @Input() page!:number;
+  // @Input() isForwardAvailable!:boolean;
+  // @Input() isForwardMoreAvailable!:boolean;
+  // @Output() pageEmitter:EventEmitter<number>= new EventEmitter<number>();
+
+  @Output() pageChange: EventEmitter<{ pageIndex: number, pageSize: number }> = new EventEmitter();
+
+  pageSizeOptions = [5, 10, 20, 30, 50, 100];
+  selectedPageSize = 20;
+  pageIndex = 0;
 
   constructor() { }
 
-  getNumberOfPages(){}
+  onPageChange(event: any) {
+    this.pageIndex = event.pageIndex;
+    this.selectedPageSize = event.pageSize;
+    this.pageChange.emit({ pageIndex: this.pageIndex, pageSize: this.selectedPageSize });
+  }
+
+
+  //manages pagination
+  // public nextPage(action:string) {
+  //   switch(action) {
+  //     case "next": this.page +=1;
+  //     break;
+  //     case "nextMore": this.page += 10;
+  //     break;
+  //     case "prev": this.page -=1;
+  //     break;
+  //     case "prevMore": this.page -= 10;
+  //     break;
+  //   }
+  //   this.pageEmitter.emit(this.page);
+  // }
 
 }
