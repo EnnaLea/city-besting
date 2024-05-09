@@ -13,11 +13,12 @@ import { Observable, map, tap } from 'rxjs';
 import { OnLoginFunc } from 'tinacms';
 import { Profile } from '../../../interfaces/profile-img';
 import { LoaderComponent } from '../../loader/loader.component';
+import { NoPostsComponent } from '../../../messages/no-posts/no-posts.component';
 
 @Component({
   selector: 'app-admin-post',
   standalone: true,
-  imports: [CommonModule, MaterialModule, LoaderComponent],
+  imports: [CommonModule, MaterialModule, LoaderComponent, NoPostsComponent],
   templateUrl: './admin-post.component.html',
   styleUrl: './admin-post.component.scss'
 })
@@ -38,6 +39,7 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
   imgProfile!: string;
   profile!: Array<Profile>;
   loading: boolean = true;
+  isPost: boolean= false;
 
 
   constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router) {}

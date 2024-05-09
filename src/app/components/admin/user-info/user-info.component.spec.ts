@@ -43,18 +43,13 @@ describe('UserInfoComponent', () => {
         gender: 'test',
         email: 'test',
         status: 'test'
-
     };
     fixture.detectChanges();
 }));
 
 
-
   it('should create', () => {
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(component).toBeTruthy();
-  });
-    // expect(component).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 });

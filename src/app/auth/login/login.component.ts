@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MaterialModule } from '../../module/material/material.module';
+import { LoaderComponent } from '../../components/loader/loader.component';
 
 
 
@@ -12,7 +13,7 @@ import { MaterialModule } from '../../module/material/material.module';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, LoaderComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -20,6 +21,7 @@ export class LoginComponent {
 
 @Input()email!: string;
 @Input() token!: string;
+loading: boolean = true;
 
 // password!: string;
 
@@ -39,7 +41,9 @@ export class LoginComponent {
 
 
 onLogin() {
+ 
  this.authService.login(this.email, this.token);
+ this.loading = false;
 }
 
 

@@ -1,10 +1,10 @@
 <div class="parent">
+
   <div class="container">
     <ng-container *ngIf="!isPost; else hasPosts">
       <!-- <h1 class="no-post">No Posts</h1> -->
       <app-no-posts></app-no-posts>
     </ng-container>
-
     <ng-template #hasPosts>
       <div class="posts" >
         <mat-accordion>
@@ -57,13 +57,7 @@
             </mat-expansion-panel>
           </mat-card>
         </mat-accordion>
-      </div>
-      <!-- <ng-template #noPosts>
-        <div>
-          <h1 class="no-post">No posts present.</h1>
-        </div>
-      </ng-template> -->
-      
+      </div>      
     </ng-template>
   </div>
   <!-- <app-paginator></app-paginator> -->
