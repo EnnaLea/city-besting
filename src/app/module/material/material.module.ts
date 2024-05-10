@@ -15,7 +15,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -26,7 +26,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
   imports:[],
   exports: [
     CommonModule, FormsModule, MatCardModule, MatGridListModule, MatButtonModule, MatIconModule, MatSidenavModule, ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule,  MatToolbarModule, MatInputModule, MatSelectModule,
-    MatExpansionModule, MatTabsModule, MatProgressSpinnerModule,MatPaginatorModule, 
+    MatExpansionModule, MatTabsModule, MatProgressSpinnerModule,MatPaginatorModule,
+    NgxPaginationModule, 
 
   
   ]

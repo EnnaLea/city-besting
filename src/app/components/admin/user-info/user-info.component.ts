@@ -9,6 +9,8 @@ import { UserPostsComponent } from '../../user/user-posts/user-posts.component';
 import { NewPostComponent } from '../new-post/new-post.component';
 import { AdminPostComponent } from '../admin-post/admin-post.component';
 import { CacheService } from '../../../services/cache.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModifiedComponent } from '../../../messages/modified/modified.component';
 
 @Component({
   selector: 'app-user-info',
@@ -25,7 +27,7 @@ name!: string;
 status!: string;
 gender!: string;
 
-  constructor(private authService: AuthService, private userService: UserService, private cacheService: CacheService, private route: Router) {
+  constructor(private authService: AuthService, private userService: UserService, private cacheService: CacheService, private route: Router, public dialog: MatDialog) {
     
    }
 
@@ -63,13 +65,18 @@ gender!: string;
         return this.userService.updateUser(userId, changeUser).subscribe((_user) => {
           this.user = _user;
           this.authService.setCachedUser(this.user);
-          alert('Changes saved');
-          // window.location.reload();
+          this.openDialog();
         });
       } else {
         console.error('User ID is undefined');
       }
       return;
+    }
+
+    openDialog(): void {
+      this.dialog.open(ModifiedComponent, {
+        width: '250px',
+      });
     }
 
     onClick(){

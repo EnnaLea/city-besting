@@ -1,7 +1,7 @@
 <div class="parent">
   <div class="container">
 
-    <app-paginator (pageChange)="loadPosts($event.pageIndex, $event.pageSize)"></app-paginator>
+    <!-- <app-paginator (pageChange)="loadPosts($event.pageIndex, $event.pageSize)"></app-paginator> -->
 
     <!-- <mat-paginator #paginator
                class="demo-paginator"
@@ -25,10 +25,22 @@
 
     </mat-paginator> -->
 
+    <!-- <pagination-controls (pageChange)="page = $event"></pagination-controls> -->
+    <!-- <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls> -->
+    <pagination-controls
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="onPageChange($event)">
+    </pagination-controls>
+
+    <!-- <pagination-controls (pageChange)="pageChangeEvent($event)"></pagination-controls> -->
+
+
+
+ 
     <div class="posts" >
       <mat-accordion *ngIf="!loading; else loadingTemplate" >
-        <mat-card class="post" *ngFor="let post of userPost">
-          <!-- @if(userPost){ -->
+        <mat-card class="post" *ngFor="let post of userPost | paginate: pagingConfig">
           <div class="content">
             <h2>{{ post.title }}</h2>
             <p>{{ post.body }}</p>

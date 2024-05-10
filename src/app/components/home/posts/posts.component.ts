@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Posts } from '../../../interfaces/user-post';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
@@ -7,10 +7,11 @@ import { MaterialModule } from '../../../module/material/material.module';
 // import { CommentsComponent } from '../comments/comments.component';
 import { Comments } from '../../../interfaces/comments';
 import { LoaderComponent } from '../../loader/loader.component';
-import { BehaviorSubject, Observable, finalize, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PaginatorComponent } from '../../paginator/paginator.component';
+import { PagingConfig } from '../../../interfaces/paging';
 
 
 @Component({
@@ -18,12 +19,13 @@ import { PaginatorComponent } from '../../paginator/paginator.component';
   standalone: true,
   imports: [CommonModule, MaterialModule, LoaderComponent, PaginatorComponent],
   templateUrl: './posts.component.html',
-  styleUrl: './posts.component.scss'
+  styleUrl: './posts.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostsComponent implements AfterViewInit {
 
+
   @Input() userPost!: Array<Posts>;
-  @Input() posts!: Array<Posts>
   @Input() comments!: Array<Comments>;
   @Input() comment!: Comments;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -36,19 +38,36 @@ export class PostsComponent implements AfterViewInit {
   commentEmail!: string;
   loading: boolean = true;
   isComment: boolean = false
-  totalPosts!: number;
+  total!: number;
+  page: number = 20;
+
+  pagingConfig!: PagingConfig;
+  itemsPerPage: number = 20;
+  totalItems: number = 0;
 
 
-  length = 50;
-  pageSize = 10;
-  pageIndex = 0;
-  pageSizeOptions = [5, 10, 25, 50, 100];
+  pageChange: any;
+  pageBoundsCorrection: any;
 
-  hidePageSize = false;
-  showPageSizeOptions = true;
-  showFirstLastButtons = true;
-  disabled = false;
-  pageEvent!: PageEvent;
+
+  currentPage!:number;
+  searchParam:string = "";
+  searchValue:string = "";
+  perPageParam:number = 10;
+  isForwardAvailable!:boolean;
+  isForwardMoreAvailable!:boolean;
+
+
+  // length = 50;
+  // pageSize = 10;
+  // pageIndex = 0;
+  // pageSizeOptions = [5, 10, 25, 50, 100];
+
+  // hidePageSize = false;
+  // showPageSizeOptions = true;
+  // showFirstLastButtons = true;
+  // disabled = false;
+  // pageEvent!: PageEvent;
 
 
   constructor(private route: ActivatedRoute, private userService: UserService,private authService: AuthService, private router: Router) {
@@ -56,11 +75,18 @@ export class PostsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.getAllPosts(); 
-    // this.loadPosts(0, 20);
-    // this.refreshData();
-  
+    this.getAllPosts(); 
 
+    // this.currentPage = 1;
+    // this.searchParam = "";
+    // this.searchValue = "";
+    // this.perPageParam = 10;
+
+    this.pagingConfig = {
+      itemsPerPage: this.itemsPerPage,
+      currentPage: this.currentPage,
+      totalItems: this.totalItems
+    }
   }
 
 
@@ -78,91 +104,62 @@ export class PostsComponent implements AfterViewInit {
     return this.userService.createUserComment(postId, insertComment).subscribe((_commentsSubscription)=> this.comment = _commentsSubscription); 
   }
 
+  // getAllPosts(){
+  //   this.userService.getAllPosts()
+  //   .pipe(tap(() =>     
+  //     this.loading = false))
+  //   .subscribe((_userPostSubscription)=> 
+  //   this.userPost = _userPostSubscription);    
+  // }
+
   getAllPosts(){
     this.userService.getAllPosts()
-    .pipe(tap(() =>     
-      this.loading = false))
-    .subscribe((_userPostSubscription)=> 
-    this.userPost = _userPostSubscription);    
-  }
-
-
-  // public pageChanged(page: number) {
-  //   this.page$.next(page);
-  // }
-
-  
-  // public refreshData(): void {
-  //   this.userService.getTotPosts(this.page, this.itemsPerPage)
-  //   .pipe(tap(()=> 
-  //     this.loading = false
-  //    ))
-  //   .subscribe(
-  //     (_userPostSubscription)=> 
-  //       this.userPost = _userPostSubscription
-  //     );
-  // }
-
-  // public pageChanged() {
-  //   this.refreshData();
-  // }
-
-  
-  loadPosts(pageIndex: number, pageSize: number): void {
-    this.userService.getTotPosts(pageIndex * pageSize, pageSize)
-      .pipe(
-        tap(() => this.loading = false)
-      )
-      .subscribe(posts => {
-        this.userPost = posts;
-      });
+    .subscribe(res => {
+      this.userPost = res;
+      this.pagingConfig.totalItems = res.length;
+      this.loading = false;
+    })
   }
 
 
   // getAllPosts(){
-  // //   this.userService.getAllPosts()
-  // //   .pipe(tap(posts => 
-  // //     this.length = posts.length
-  // //     ))
-  // //   .subscribe( posts=> 
-  // //   this.userPost = posts;
-  // //   this.loading = false;
-  // // ); 
-    
-  // // }
-
-
-  // getAllPosts(): void {
-  //   this.userService.getAllPosts().pipe(
-  //     tap(posts => {
-  //       this.paginator.pageSize = 20; 
-  //       this.paginator.pageIndex = 0; 
-  //       this.paginator.pageSizeOptions = [5, 10, 20, 30, 50, 100]; 
-  //     })
-  //   ).subscribe(posts => {
-  //     this.userPost = posts;
-  //     this.loading = false;
-  //   });
+  //   this.userService.getTotPosts(this.page)
+  //   .pipe(tap(() => this.loading = false))
+  //   .subscribe((res: any )=> {
+  //     this.userPost = res.data;
+  //     this.total = res.total;
+  //     this.pagingConfig.totalItems = res.length;
+  //   })
+  // }
+  
+  // getAllPosts(){
+  //   this.userService.getTotPosts(this.currentPage, this.perPageParam, this.searchParam, this.searchValue)
+  //   .pipe(tap(() => this.loading = false));
   // }
 
-  // getAllPosts(): void {
-  //   this.userService.getAllPosts().pipe(
-  //     tap(posts => {
-  //       this.totalPosts = posts.length;
-  //     })
-  //   ).subscribe(posts => {
-  //     this.userPost = posts.slice(this.pageIndex * this.pageSize, (this.pageIndex + 1) * this.pageSize);
-  //     this.loading = false;
-  //   });
+  // nextPageByPagination($event: number) {
+  //   this.userService.getTotPosts(this.currentPage, this.perPageParam, this.searchParam, this.searchValue)
+  //   .pipe(tap(() => this.loading = false));
+  //   }
+
+
+  // pageChangeEvent(event: number){
+  //     this.page = event;
+  //     this.getAllPosts();
   // }
 
 
-  handlePageEvent(e: PageEvent) {
-    this.pageEvent = e;
-    this.length = e.length;
-    this.pageSize = e.pageSize;
-    this.pageIndex = e.pageIndex;   
+  onPageChange(event: any){
+    this.pagingConfig.currentPage = event
+    this.getAllPosts();
   }
+
+  // // onPageSizeChange(event: any): void{
+  // //   this.pagingConfig.itemsPerPage = event.target.value;
+  // //   this.pagingConfig.currentPage = 1;
+  // //   this.getAllPosts();
+
+  // // }
   
   
   selectPost(postId: number){

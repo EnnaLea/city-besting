@@ -11,39 +11,40 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class PaginatorComponent {
 
-  // @Input() page!:number;
-  // @Input() isForwardAvailable!:boolean;
-  // @Input() isForwardMoreAvailable!:boolean;
-  // @Output() pageEmitter:EventEmitter<number>= new EventEmitter<number>();
+  @Input() page!:number;
+  @Input() isForwardAvailable!:boolean;
+  @Input() isForwardMoreAvailable!:boolean;
+  @Output() pageEmitter:EventEmitter<number>= new EventEmitter<number>();
 
-  @Output() pageChange: EventEmitter<{ pageIndex: number, pageSize: number }> = new EventEmitter();
+  // @Output() pageChange: EventEmitter<{ pageIndex: number, pageSize: number }> = new EventEmitter();
 
   pageSizeOptions = [5, 10, 20, 30, 50, 100];
   selectedPageSize = 20;
   pageIndex = 0;
 
+
+
   constructor() { }
 
-  onPageChange(event: any) {
-    this.pageIndex = event.pageIndex;
-    this.selectedPageSize = event.pageSize;
-    this.pageChange.emit({ pageIndex: this.pageIndex, pageSize: this.selectedPageSize });
-  }
-
-
-  //manages pagination
-  // public nextPage(action:string) {
-  //   switch(action) {
-  //     case "next": this.page +=1;
-  //     break;
-  //     case "nextMore": this.page += 10;
-  //     break;
-  //     case "prev": this.page -=1;
-  //     break;
-  //     case "prevMore": this.page -= 10;
-  //     break;
-  //   }
-  //   this.pageEmitter.emit(this.page);
+  // onPageChange(event: any) {
+  //   this.pageIndex = event.pageIndex;
+  //   this.selectedPageSize = event.pageSize;
+  //   this.pageChange.emit({ pageIndex: this.pageIndex, pageSize: this.selectedPageSize });
   // }
+
+
+  public nextPage(action:string) {
+    switch(action) {
+      case "next": this.page +=1;
+      break;
+      case "nextMore": this.page += 10;
+      break;
+      case "prev": this.page -=1;
+      break;
+      case "prevMore": this.page -= 10;
+      break;
+    }
+    this.pageEmitter.emit(this.page);
+  }
 
 }

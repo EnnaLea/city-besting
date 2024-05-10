@@ -58,22 +58,30 @@ export class UserService {
     );
   }
 
-  // getTotPosts(start: number, end: number): Observable<Array<Posts>>{
+  // getTotPosts(page: number): Observable<Array<Posts>>{
   //   const url = `${this.url}/posts`;
-  //   return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
+  //   return this.httpService.get<Array<Posts>>(url + '?page=' + page , {headers: this.getHeaders()}).pipe(
   //       shareReplay(1)
   //   );
   // }
 
 
-  getTotPosts(page: number = 1, itemsPerPage: number = 20): Observable<Array<Posts>>{
+  getTotPosts(page= 1, perPage= 10, param="", value=""): Observable<Array<Posts>>{
     const url = `${this.url}/posts`;
-    return  this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()})
-    .pipe(
-        map((items: Array<Posts>)=> items.slice((page -1) * itemsPerPage, page * itemsPerPage)
-        )
+    return this.httpService.get<Array<Posts>>(url + '?page=' + page + '&per_page=' + perPage + '&' + param + '=' + value, {headers: this.getHeaders()}).pipe(
+        shareReplay(1)
     );
   }
+
+
+  // getTotPosts(page: number = 1, itemsPerPage: number = 20): Observable<Array<Posts>>{
+  //   const url = `${this.url}/posts`;
+  //   return  this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()})
+  //   .pipe(
+  //       map((items: Array<Posts>)=> items.slice((page -1) * itemsPerPage, page * itemsPerPage)
+  //       )
+  //   );
+  // }
 
 
 
