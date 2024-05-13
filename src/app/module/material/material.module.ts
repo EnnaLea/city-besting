@@ -27,7 +27,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
   exports: [
     CommonModule, FormsModule, MatCardModule, MatGridListModule, MatButtonModule, MatIconModule, MatSidenavModule, ReactiveFormsModule, MatFormFieldModule, MatCheckboxModule,  MatToolbarModule, MatInputModule, MatSelectModule,
     MatExpansionModule, MatTabsModule, MatProgressSpinnerModule,MatPaginatorModule,
-    NgxPaginationModule, 
+    NgxPaginationModule 
 
   
   ]

@@ -13,11 +13,13 @@ import { Comments } from '../interfaces/comments';
 export class UserService {
 
   url: string = 'https://gorest.co.in/public/v2';
+  // url: string = 'https://gorest.co.in/public-api';
   userDetail!: UserDetail;
   userPost!: Array<Posts>;
   comments!: Array<Comments>;
-  post!: Posts;
   comment!: Comments;
+  itemsPerPage = 20;
+  page: number =  1;
 
 
   token = this.authService.getToken();
@@ -29,7 +31,7 @@ export class UserService {
 
 
   getUsers(): Observable<User[]>{
-    return this.httpService.get<User[]>(`${this.url}/users?page=1&per_page=20&sort=-created_at`);
+    return this.httpService.get<Array<User>>(`${this.url}/users?page=1&per_page=20`)
   }
 
   getUserDetail(id: number): Observable<UserDetail>{
@@ -51,24 +53,30 @@ export class UserService {
   );
   }
 
-  getAllPosts(): Observable<Array<Posts>>{
-    const url = `${this.url}/posts`;
-    return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
-        shareReplay(1)
-    );
+
+  getAllPosts(): Observable<Posts[]>{
+    const url = `${this.url}/posts?page=1&per_page=50`;
+    return this.httpService.get<Posts[]>(url, {headers: this.getHeaders()})
   }
 
+  // getAllPosts(): Observable<Posts[]>{
+  //   return this.httpService.get<Posts[]>(`${this.url}/posts?page=1&per_page=20`);
+  // }
+
+  // getAllPosts(): Observable<Array<Posts>>{
+  //   const url = `${this.url}/posts?page=${1}&size=${this.itemsPerPage}`;
+  //   return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()});
+  // }
+
   // getTotPosts(page: number): Observable<Array<Posts>>{
-  //   const url = `${this.url}/posts`;
-  //   return this.httpService.get<Array<Posts>>(url + '?page=' + page , {headers: this.getHeaders()}).pipe(
-  //       shareReplay(1)
-  //   );
+  //   const url = `${this.url}/posts?page=${page}&size=${this.itemsPerPage}`;
+  //   return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()});
   // }
 
 
-  getTotPosts(page= 1, perPage= 10, param="", value=""): Observable<Array<Posts>>{
-    const url = `${this.url}/posts`;
-    return this.httpService.get<Array<Posts>>(url + '?page=' + page + '&per_page=' + perPage + '&' + param + '=' + value, {headers: this.getHeaders()}).pipe(
+  getTotPosts(page: number): Observable<Array<Posts>>{
+    const url = `${this.url}/posts?page=1&per_page=20`;
+    return this.httpService.get<Array<Posts>>(url + '?page=' + page, {headers: this.getHeaders()}).pipe(
         shareReplay(1)
     );
   }

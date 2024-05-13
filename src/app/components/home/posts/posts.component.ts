@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnInit, ViewChild } from '@angular/core';
 import { Posts } from '../../../interfaces/user-post';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
@@ -7,28 +7,29 @@ import { MaterialModule } from '../../../module/material/material.module';
 // import { CommentsComponent } from '../comments/comments.component';
 import { Comments } from '../../../interfaces/comments';
 import { LoaderComponent } from '../../loader/loader.component';
-import { BehaviorSubject, Observable, finalize, of, switchMap, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { PaginatorComponent } from '../../paginator/paginator.component';
-import { PagingConfig } from '../../../interfaces/paging';
+import { HttpClient } from '@angular/common/http';
+import { MatPaginator } from '@angular/material/paginator';
+
 
 
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [CommonModule, MaterialModule, LoaderComponent, PaginatorComponent],
+  imports: [CommonModule, MaterialModule, LoaderComponent],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
+  //comment this if getAllPosts doesn't work
 })
-export class PostsComponent implements AfterViewInit {
+export class PostsComponent implements OnInit {
 
 
   @Input() userPost!: Array<Posts>;
   @Input() comments!: Array<Comments>;
   @Input() comment!: Comments;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  // @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   
   selectedPost: any;
@@ -36,57 +37,20 @@ export class PostsComponent implements AfterViewInit {
   newComment!: string;
   commentName!: string;
   commentEmail!: string;
-  loading: boolean = true;
+  loading: boolean = false;
   isComment: boolean = false
-  total!: number;
-  page: number = 20;
 
-  pagingConfig!: PagingConfig;
-  itemsPerPage: number = 20;
-  totalItems: number = 0;
+  pagination: number = 1;
+  allPosts: number = 0;
 
 
-  pageChange: any;
-  pageBoundsCorrection: any;
-
-
-  currentPage!:number;
-  searchParam:string = "";
-  searchValue:string = "";
-  perPageParam:number = 10;
-  isForwardAvailable!:boolean;
-  isForwardMoreAvailable!:boolean;
-
-
-  // length = 50;
-  // pageSize = 10;
-  // pageIndex = 0;
-  // pageSizeOptions = [5, 10, 25, 50, 100];
-
-  // hidePageSize = false;
-  // showPageSizeOptions = true;
-  // showFirstLastButtons = true;
-  // disabled = false;
-  // pageEvent!: PageEvent;
-
-
-  constructor(private route: ActivatedRoute, private userService: UserService,private authService: AuthService, private router: Router) {
-
+  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, private http: HttpClient) {
+    
   }
 
-  ngAfterViewInit(): void {
-    this.getAllPosts(); 
-
-    // this.currentPage = 1;
-    // this.searchParam = "";
-    // this.searchValue = "";
-    // this.perPageParam = 10;
-
-    this.pagingConfig = {
-      itemsPerPage: this.itemsPerPage,
-      currentPage: this.currentPage,
-      totalItems: this.totalItems
-    }
+  ngOnInit(): void {
+    this.getAllPosts();
+    console.log(this.getAllPosts()); 
   }
 
 
@@ -108,58 +72,26 @@ export class PostsComponent implements AfterViewInit {
   //   this.userService.getAllPosts()
   //   .pipe(tap(() =>     
   //     this.loading = false))
-  //   .subscribe((_userPostSubscription)=> 
-  //   this.userPost = _userPostSubscription);    
+  //   .subscribe((_postSubscription)=> 
+  //   this.userPost = _postSubscription);
   // }
 
   getAllPosts(){
-    this.userService.getAllPosts()
-    .subscribe(res => {
-      this.userPost = res;
-      this.pagingConfig.totalItems = res.length;
-      this.loading = false;
+    this.userService.getTotPosts(this.pagination)
+    // .pipe(tap(() => this.loading = false))
+    .subscribe((_postSubscription) => {
+      this.userPost = _postSubscription;
+      this.allPosts = _postSubscription.length;
+      console.log(this.allPosts);
+      
     })
   }
 
-
-  // getAllPosts(){
-  //   this.userService.getTotPosts(this.page)
-  //   .pipe(tap(() => this.loading = false))
-  //   .subscribe((res: any )=> {
-  //     this.userPost = res.data;
-  //     this.total = res.total;
-  //     this.pagingConfig.totalItems = res.length;
-  //   })
-  // }
-  
-  // getAllPosts(){
-  //   this.userService.getTotPosts(this.currentPage, this.perPageParam, this.searchParam, this.searchValue)
-  //   .pipe(tap(() => this.loading = false));
-  // }
-
-  // nextPageByPagination($event: number) {
-  //   this.userService.getTotPosts(this.currentPage, this.perPageParam, this.searchParam, this.searchValue)
-  //   .pipe(tap(() => this.loading = false));
-  //   }
-
-
-  // pageChangeEvent(event: number){
-  //     this.page = event;
-  //     this.getAllPosts();
-  // }
-
-
-  onPageChange(event: any){
-    this.pagingConfig.currentPage = event
+  renderPage(event: number){
+    this.pagination = event;
     this.getAllPosts();
   }
 
-  // // onPageSizeChange(event: any): void{
-  // //   this.pagingConfig.itemsPerPage = event.target.value;
-  // //   this.pagingConfig.currentPage = 1;
-  // //   this.getAllPosts();
-
-  // // }
   
   
   selectPost(postId: number){

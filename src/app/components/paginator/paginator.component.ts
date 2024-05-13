@@ -14,7 +14,7 @@ export class PaginatorComponent {
   @Input() page!:number;
   @Input() isForwardAvailable!:boolean;
   @Input() isForwardMoreAvailable!:boolean;
-  @Output() pageEmitter:EventEmitter<number>= new EventEmitter<number>();
+  // @Output() pageEmitter:EventEmitter<number>= new EventEmitter<number>();
 
   // @Output() pageChange: EventEmitter<{ pageIndex: number, pageSize: number }> = new EventEmitter();
 
@@ -44,7 +44,7 @@ export class PaginatorComponent {
       case "prevMore": this.page -= 10;
       break;
     }
-    this.pageEmitter.emit(this.page);
+    // this.pageEmitter.emit(this.page);
   }
 
 }
