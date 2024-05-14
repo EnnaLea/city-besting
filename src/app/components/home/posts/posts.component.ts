@@ -37,11 +37,15 @@ export class PostsComponent implements OnInit {
   newComment!: string;
   commentName!: string;
   commentEmail!: string;
-  loading: boolean = false;
+  loading: boolean = true;
   isComment: boolean = false
 
   pagination: number = 1;
   allPosts: number = 0;
+  
+  page: number = 1;
+  count: number = 0;
+  pageSizes = [20, 50, 100];
 
 
   constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, private http: HttpClient) {
@@ -50,7 +54,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllPosts();
-    console.log(this.getAllPosts()); 
+    // console.log(this.getAllPosts()); 
   }
 
 
@@ -77,8 +81,10 @@ export class PostsComponent implements OnInit {
   // }
 
   getAllPosts(){
+  
+
     this.userService.getTotPosts(this.pagination)
-    // .pipe(tap(() => this.loading = false))
+    .pipe(tap(() => this.loading = false))
     .subscribe((_postSubscription) => {
       this.userPost = _postSubscription;
       this.allPosts = _postSubscription.length;
@@ -86,6 +92,7 @@ export class PostsComponent implements OnInit {
       
     })
   }
+
 
   renderPage(event: number){
     this.pagination = event;

@@ -13,7 +13,6 @@ import { Comments } from '../interfaces/comments';
 export class UserService {
 
   url: string = 'https://gorest.co.in/public/v2';
-  // url: string = 'https://gorest.co.in/public-api';
   userDetail!: UserDetail;
   userPost!: Array<Posts>;
   comments!: Array<Comments>;
@@ -30,8 +29,8 @@ export class UserService {
   //METODI GET
 
 
-  getUsers(): Observable<User[]>{
-    return this.httpService.get<Array<User>>(`${this.url}/users?page=1&per_page=20`)
+  getUsers(): Observable<Array<User>>{
+    return this.httpService.get<Array<User>>(`${this.url}/users?page=1&per_page=50`)
   }
 
   getUserDetail(id: number): Observable<UserDetail>{

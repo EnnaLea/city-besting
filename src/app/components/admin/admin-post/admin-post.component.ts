@@ -39,14 +39,15 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
   imgProfile!: string;
   profile!: Array<Profile>;
   loading: boolean = true;
-  isPost: boolean= false;
+  isPost: boolean= true;
 
 
   constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router) {}
 
 
   ngOnInit(): void {
-
+    this.getAdminPosts();
+    console.log(this.getAdminPosts());
   }
 
   /* 
@@ -55,7 +56,7 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
   ngAfterViewInit(): void {
     // console.log(this.getAdminPosts());
     // console.log(this.getAdminId());
-    this.getAdminPosts();
+    // this.getAdminPosts();
   }  
   
   ngAfterContentInit(): void {
@@ -84,6 +85,7 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
       .pipe(tap(() => this.loading = false))
       .subscribe((_userPostSubscription)=> 
         this.userPost = _userPostSubscription);
+      
       
   }
 

@@ -29,7 +29,7 @@ describe('UserService', () => {
     service.getUsers().subscribe(data => {
       expect(data).toBeTruthy();
     });
-    const req = testingController.expectOne('https://gorest.co.in/public/v2/users?page=1&per_page=20&sort=-created_at');
+    const req = testingController.expectOne('https://gorest.co.in/public/v2/users?page=1&per_page=50');
     expect(req.request.method).toEqual('GET');
     req.flush({});
     testingController.verify();
@@ -69,7 +69,7 @@ describe('UserService', () => {
     service.getAllPosts().subscribe(data => {
       expect(data).toBeTruthy();
   })
-  const req = testingController.expectOne('https://gorest.co.in/public/v2/posts?page=1&per_page=20');
+  const req = testingController.expectOne('https://gorest.co.in/public/v2/posts?page=1&per_page=50');
   expect(req.request.method).toEqual('GET');
   req.flush({});
   testingController.verify();
