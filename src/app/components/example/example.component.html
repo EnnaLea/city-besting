@@ -19,14 +19,21 @@
     <div class="container">
 
         <mat-paginator 
-        (page)="handlePageEvent($event)"
-        [length]="length"
+        (page)="onPageChange($event)"
+        [length]="200"
         [pageSize]="pageSize"
-        [pageSizeOptions]=[5,10,30,50]
+        [pageSizeOptions]="pageSizeOptions"
         [pageIndex]="pageIndex"
+        aria-label="Select page"
         ></mat-paginator>
+
+        <!-- <div class="demo-data">
+          <div> Output event: {{(pageEvent | json) || 'No events dispatched yet'}} </div>
+          <div> getNumberOfPages: {{paginator.getNumberOfPages()}} </div>
+        </div> -->
+
    
-      <div class="posts" >
+      <div class="posts">
         <mat-accordion *ngIf="!loading; else loadingTemplate" >
           <mat-card class="post" *ngFor="let post of userPost"> 
             <div class="content">

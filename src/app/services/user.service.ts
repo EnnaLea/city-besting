@@ -18,8 +18,11 @@ export class UserService {
   comments!: Array<Comments>;
   comment!: Comments;
 
-  currentPage = 1;
-  itemsPerPage = 30;
+  posts$!: Observable<any>;
+  pageSizeOptions: number[] = [5, 10, 20, 30, 50]; // Define your page size options
+  pageSize: number = 10; // Default page size
+  currentPage: number = 1;
+  totalPosts: number = 0;
 
 
   token = this.authService.getToken();
@@ -96,18 +99,23 @@ export class UserService {
   //   );
   // }
 
-  getTotPosts(page: number, pageSize: number): Observable<Posts[]> {
-    const url = `${this.url}/posts?page=${page}&per_page=${pageSize}`;
-    const headers = this.getHeaders();
+  // getTotPosts(page: number, pageSize: number): Observable<Posts[]> {
+  //   const url = `${this.url}/posts?page=${page}&per_page=${pageSize}`;
+  //   const headers = this.getHeaders();
 
-    return this.httpService.get<Posts[]>(url, { headers }).pipe(
-      map((items: Posts[]) => {
-        const startIndex = (page - 1) * pageSize;
-        const endIndex = Math.min(startIndex + pageSize, items.length);
-        return items.slice(startIndex, endIndex);
-      })
-    );
+  //   return this.httpService.get<Posts[]>(url, { headers }).pipe(
+  //     map((items: Posts[]) => {
+  //       const startIndex = (page - 1) * pageSize;
+  //       const endIndex = Math.min(startIndex + pageSize, items.length);
+  //       return items.slice(startIndex, endIndex);
+  //     })
+  //   );
 
+  // }
+
+  getPosts(page: number, limit: number): Observable<Posts[]> {
+    const url = `${this.url}/posts?page=${page}&per_page=${limit}`;
+    return this.httpService.get<Posts[]>(url, {headers : this.getHeaders()})
   }
 
 
