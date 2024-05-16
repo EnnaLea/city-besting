@@ -54,12 +54,7 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
     };
   
     this.userService.createUserPost(userId, postBody).subscribe((_post) => this.post = _post);
-    // this.openDialog();
-
-    // console.log(userId);
-    // console.log(postBody);
-    console.log(this.userService.createUserPost(userId, postBody).subscribe((_userPostSubscription) => this.post = _userPostSubscription));
-    // window.location.reload();
+    this.openDialog();
     
   }
 

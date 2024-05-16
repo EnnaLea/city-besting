@@ -18,7 +18,13 @@
   <div class="parent">
     <div class="container">
 
-        <mat-paginator [pageSizeOptions]="[5, 20, 30, 50]"></mat-paginator>
+        <mat-paginator 
+        (page)="handlePageEvent($event)"
+        [length]="length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]=[5,10,30,50]
+        [pageIndex]="pageIndex"
+        ></mat-paginator>
    
       <div class="posts" >
         <mat-accordion *ngIf="!loading; else loadingTemplate" >

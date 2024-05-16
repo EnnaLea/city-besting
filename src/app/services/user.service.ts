@@ -78,15 +78,16 @@ export class UserService {
   // }
 
 
-  getTotPosts(): Observable<Array<Posts>>{
-    const url = `${this.url}/posts?page=${this.currentPage}&per_page=${this.itemsPerPage}`;
-    return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
-        shareReplay(1)
-    );
-  }
+  // getTotPosts(): Observable<Array<Posts>>{
+  //   const url = `${this.url}/posts?page=${this.currentPage}&per_page=${this.itemsPerPage}`;
+  //   return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
+  //       shareReplay(1)
+  //   );
+  // }
 
 
-  // getTotPosts(page: number = 1, itemsPerPage: number = 20): Observable<Array<Posts>>{
+  // change this code to take in parameter for the pagination in mat-paginator. the parameter is pageSize
+  // getTotPosts(page: number, itemsPerPage: number): Observable<Array<Posts>>{
   //   const url = `${this.url}/posts`;
   //   return  this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()})
   //   .pipe(
@@ -94,6 +95,20 @@ export class UserService {
   //       )
   //   );
   // }
+
+  getTotPosts(page: number, pageSize: number): Observable<Posts[]> {
+    const url = `${this.url}/posts?page=${page}&per_page=${pageSize}`;
+    const headers = this.getHeaders();
+
+    return this.httpService.get<Posts[]>(url, { headers }).pipe(
+      map((items: Posts[]) => {
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = Math.min(startIndex + pageSize, items.length);
+        return items.slice(startIndex, endIndex);
+      })
+    );
+
+  }
 
 
 

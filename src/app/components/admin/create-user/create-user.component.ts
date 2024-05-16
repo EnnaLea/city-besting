@@ -91,19 +91,11 @@ onSubmit() {
       next: (response) => {
         this.user = response;
         this.openDialog();
-        // alert("User created successfully:  " + JSON.stringify(response));
       }
     });
   } 
 }
 
-// openDialog(text: string) {
-//   this.dialog.open(DialogDataExampleDialog, {
-//     data: {
-//       message: text,
-//     },
-//   });
-// }
 
 
 onSave() {
@@ -151,24 +143,6 @@ onSave() {
     return this.user.id;
   }
 
-  // getToken(){
-  //   return this.authService.getToken();
-  // }
-
 
 }
 
-
-// @Component({
-//   selector: 'dialog-data-example-dialog',
-//   template: `<h2 mat-dialog-title>Alert</h2>
-//   <!-- <mat-dialog-content> -->
-//     <p>{{ data.message }}</p>
-//   <!-- </mat-dialog-content>  -->
-//   `,
-//   standalone: true,
-//   imports: [MaterialModule, CommonModule],
-// })
-// export class DialogDataExampleDialog {
-//   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-// }

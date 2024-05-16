@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../module/material/material.module';
 import { CommonModule } from '@angular/common';
-import { MatPaginator} from '@angular/material/paginator';
+import { MatPaginator, PageEvent} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table'
 import { Observable, tap } from 'rxjs';
 import { LoaderComponent } from '../loader/loader.component';
@@ -10,60 +10,6 @@ import { Comments } from '../../interfaces/comments';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../auth/auth.service';
 
-
-
-// const DATA: Card[] = [
-//   {
-//     title: 'Shiba Inu 1',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 2',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 3',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 4',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 5',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 6',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 7',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 8',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 9',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   },
-//   {
-//     title: 'Shiba Inu 10',
-//     subtitle: 'Dog Breed',
-//     text: 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.'
-//   }
-// ];
 
 @Component({
   selector: 'app-example',
@@ -87,17 +33,22 @@ export class ExampleComponent {
   loading: boolean = true;
   isComment: boolean = false
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  obs!: Observable<Posts[]>;
+  length = 50;
+  pageSize = 20;
+  pageIndex = 1;
+  pageEvent!: PageEvent;
   dataSource: MatTableDataSource<Posts> = new MatTableDataSource<Posts>(this.userPost);
 
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
+  
   constructor(private changeDetectorRef: ChangeDetectorRef, private userService: UserService, private authService: AuthService) {
   }
 
   ngOnInit() {
     this.getAllPosts();
-    this.changeDetectorRef.detectChanges();
+    // this.changeDetectorRef.detectChanges();
+    // this.obs = this.dataSource.connect();
   }
 
 
@@ -112,16 +63,46 @@ export class ExampleComponent {
   }
 
 
-  getAllPosts(){
-    this.userService.getAllPosts()
-    .pipe(tap(() =>     
-      this.loading = false))
-    .subscribe((data) => {
-      this.userPost = data;
-      this.dataSource = new MatTableDataSource<Posts>(this.userPost);
-      this.dataSource.paginator = this.paginator
-    });
+  // getAllPosts(){
+  //   this.userService.getAllPosts()
+  //   .pipe(tap(() =>     
+  //     this.loading = false))
+  //   .subscribe((data) => {
+  //     this.userPost = data;
+  //     this.dataSource = new MatTableDataSource<Posts>(this.userPost);
+  //     this.dataSource.paginator = this.paginator
+  //   });
+  // }
+
+  getAllPosts() {
+    this.userService.getTotPosts(this.pageIndex, this.pageSize)
+      .pipe(
+        tap((data: Posts[]) => {
+          this.userPost = data;
+          this.dataSource = new MatTableDataSource<Posts>(this.userPost);
+          this.dataSource.paginator = this.paginator;
+          this.loading = false;
+        })
+      )
+      .subscribe();
   }
+
+  
+  
+
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.length = e.length;
+    this.pageSize = e.pageSize;
+    this.pageIndex = e.pageIndex;
+    
+  }
+
+  // setPageSizeOptions(setPageSizeOptionsInput: string) {
+  //   if (setPageSizeOptionsInput) {
+  //     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  //   }
+  // }
 
   
   selectPost(postId: number){
