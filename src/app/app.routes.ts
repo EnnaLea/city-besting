@@ -9,7 +9,8 @@ export const routes: Routes = [
     {path:'', redirectTo:'login', pathMatch:'full'},
     {path:'login', loadComponent: ()=> import('./auth/login/login.component').then(m => m.LoginComponent), },
     {path:'register', loadComponent: ()=> import('./auth/register/register.component').then(m => m.RegisterComponent), },
-    // {path:'create-dialog', loadComponent: ()=> import('./messages/created-user/created-user.component').then(m => m.CreatedUserComponent) },
+    {path:'example', loadComponent: ()=> import('./components/example/example.component').then(m => m.ExampleComponent), },
+
     
     
     {path:'landing', loadComponent: ()=> import('./components/home/landing/landing.component').then(m => m.LandingComponent), canActivate: [authGuard], 

@@ -17,8 +17,9 @@ export class UserService {
   userPost!: Array<Posts>;
   comments!: Array<Comments>;
   comment!: Comments;
-  itemsPerPage = 20;
-  page: number =  1;
+
+  currentPage = 1;
+  itemsPerPage = 30;
 
 
   token = this.authService.getToken();
@@ -53,8 +54,12 @@ export class UserService {
   }
 
 
+  // getAllPosts(): Observable<Posts[]>{
+  //   const url = `${this.url}/posts?page=1&per_page=50`;
+  //   return this.httpService.get<Posts[]>(url, {headers: this.getHeaders()})
+  // }
   getAllPosts(): Observable<Posts[]>{
-    const url = `${this.url}/posts?page=1&per_page=50`;
+    const url = `${this.url}/posts`;
     return this.httpService.get<Posts[]>(url, {headers: this.getHeaders()})
   }
 
@@ -73,9 +78,9 @@ export class UserService {
   // }
 
 
-  getTotPosts(page: number): Observable<Array<Posts>>{
-    const url = `${this.url}/posts?page=1&per_page=20`;
-    return this.httpService.get<Array<Posts>>(url + '?page=' + page, {headers: this.getHeaders()}).pipe(
+  getTotPosts(): Observable<Array<Posts>>{
+    const url = `${this.url}/posts?page=${this.currentPage}&per_page=${this.itemsPerPage}`;
+    return this.httpService.get<Array<Posts>>(url, {headers: this.getHeaders()}).pipe(
         shareReplay(1)
     );
   }

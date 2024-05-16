@@ -5,16 +5,22 @@
     <pagination-controls
     previousLabel="Prev"
     nextLabel="Next"
-    (pageChange)="renderPage($event)"
+    (pageChange)="pageChanged($event)"
   ></pagination-controls>
+
+  <!-- <pagination-controls (pageChange)="pageChanged($event)" ></pagination-controls> -->
+
+
+
  
     <div class="posts" >
       <mat-accordion *ngIf="!loading; else loadingTemplate" >
         <mat-card class="post" *ngFor="let post of userPost | paginate
               : {
-                  itemsPerPage: 30,
-                  currentPage: pagination,
-                  totalItems: allPosts
+                  id: 'server',
+                  itemsPerPage: itemsPerPage,
+                  currentPage: currentPage,
+                  totalItems: totalItems
                 }
         "> 
           <div class="content">

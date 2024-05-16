@@ -1,0 +1,149 @@
+.parent {
+    height: 100vh;
+    background-color: #f5f1db;
+  
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f5f1db;
+  
+      mat-accordion {
+        display: flex;
+        // width: 900px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: #f5f1db;
+        // padding-bottom: 0;
+  
+        mat-card {
+          display: flex;
+          width: 650px;
+          justify-content: center;
+          flex-direction: column;
+          margin: 2rem 1rem;
+          background-color: #f3edc8;
+          color: #674903;
+          padding-bottom: 0;
+         
+  
+          .content {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 2rem 1rem;
+            padding-bottom: 0;
+          }
+  
+          mat-expansion-panel {
+            font-family: "Poppins";
+            background-color: #f3edc8;
+            color: #674903;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            
+          }
+  
+          mat-expansion-panel-header {
+            padding-bottom: 0;
+            margin-bottom: 0;
+          }
+  
+          mat-panel-title {
+            color: #674903;
+            padding-bottom: 0;
+          }
+        }
+      }
+  
+      .view-comment {
+        font-family: "Poppins";
+        font-size: 0.7rem;
+        font-weight: 800;
+        border-radius: 2rem;
+        width: 150px;
+        height: 30px;
+        background-color: #674903;
+        color: #f3edc8;
+      }
+  
+      .container-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #f3edc8;
+        padding-bottom: 0;
+      }
+  
+      .create-comment {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 600px;
+        margin: 2rem 2rem;
+        padding: 1.5rem;
+  
+        mat-form-field {
+          width: 600px;
+        }
+  
+        .add {
+          font-family: "Poppins";
+          font-size: 1.2rem;
+          border-radius: 2rem;
+          width: 200px;
+          height: 50px;
+          background-color: #f3edc8;
+          // color: #F3EDC8;
+        }
+  
+        .add-comment {
+          background-color: #674903;
+          color: #f3edc8;
+        }
+      }
+    }
+  }
+  
+  @media screen and (max-width: 380px) {
+    .parent {
+      width: 100vw !important;
+  
+      .container {
+        margin-left: -4rem;
+  
+        .post {
+          width: 200px !important;
+          margin-left: -2rem !important;
+  
+          mat-panel-title {
+              font-size: 0.8rem !important;
+            }
+  
+          p {
+            font-size: 0.8rem;
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+  
+          h2 {
+            font-size: 1rem;
+            margin: 0 0 0 0 !important;
+            padding: 0;
+          }
+        }
+      }
+  
+      .container-form{
+  
+        mat-form-field{
+          width: 30% !important;}
+  
+      }
+    }
+  }
+  
