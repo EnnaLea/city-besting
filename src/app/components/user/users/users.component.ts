@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild, numberAttribute } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../interfaces/user.model';
 import { UserService } from '../../../services/user.service';
@@ -9,6 +9,8 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { filter, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from '../../../messages/delete/delete.component';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -24,9 +26,19 @@ export class UsersComponent implements OnInit, OnDestroy{
   @Input() fullWidthMode = false;
   userSubscription!: Subscription | undefined;
   search!: String;
-  // filter = new BehaviorSubject<string>('');
   filteredUserList!: Array<User>;
   loading: boolean = true;
+
+    // pagination
+    @Input({ transform: numberAttribute }) length!: number 
+    pageSizeOptions: number[] = [10, 30, 50];
+    pageSize: number = 10;
+    currentPage: number = 1;
+    showFirstLastButtons = true;
+    pageIndex = 0;
+    pageEvent!: PageEvent;
+    dataSource: MatTableDataSource<User> = new MatTableDataSource<User>(this.users);
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
  
 
   constructor(private userService: UserService, private route: Router, public dialog: MatDialog){
@@ -41,10 +53,26 @@ export class UsersComponent implements OnInit, OnDestroy{
 
 
   ngOnInit(): void {
-      this.userSubscription = this.userService.getUsers()
-      .pipe(tap(() => this.loading = false))
-      .subscribe((_users)=> this.users = _users);
+      // this.userSubscription = this.userService.getUsers()
+      // .pipe(tap(() => this.loading = false))
+      // .subscribe((_users)=> this.users = _users);
+
+      this.getUsers();
+
   }
+
+
+  getUsers(): void{
+    this.userService.getUsers(this.pageIndex + 1, this.pageSize)
+    .subscribe((users: User[]) => {
+      this.users = users;
+      setTimeout(()=>{
+        this.dataSource = new MatTableDataSource<User>(this.users);
+      }, 0)
+      this.loading = false;
+    }); 
+  }
+
 
   filterResults(filter: string){
     this.filteredUserList = []; // Clear the array before pushing new items
@@ -94,6 +122,13 @@ export class UsersComponent implements OnInit, OnDestroy{
   
 // }
 // }
+
+onPageChange(event: PageEvent): void {
+  this.pageEvent = event;
+  this.pageIndex = event.pageIndex;
+  this.pageSize = event.pageSize;
+  this.getUsers();
+}
 
   onDeleteClick(id: number){
     this.userService.deleteUser(id).subscribe(()=> this.users = this.users.filter(user => user.id !== id));

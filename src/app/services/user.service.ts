@@ -33,8 +33,13 @@ export class UserService {
   //METODI GET
 
 
-  getUsers(): Observable<Array<User>>{
-    return this.httpService.get<Array<User>>(`${this.url}/users?page=1&per_page=50`)
+  // getUsers(): Observable<Array<User>>{
+  //   return this.httpService.get<Array<User>>(`${this.url}/users?page=1&per_page=50`)
+  // }
+
+  getUsers(page: number, limit: number): Observable<User[]> {
+    const url = `${this.url}/users?page=${page}&per_page=${limit}`;
+    return this.httpService.get<User[]>(url, {headers : this.getHeaders()})
   }
 
   getUserDetail(id: number): Observable<UserDetail>{

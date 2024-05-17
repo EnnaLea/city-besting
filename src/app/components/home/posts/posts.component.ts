@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, OnInit, ViewChild, EventEmitter, Output, numberAttribute } from '@angular/core';
 import { Posts } from '../../../interfaces/user-post';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
@@ -10,8 +10,9 @@ import { LoaderComponent } from '../../loader/loader.component';
 import { tap } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PaginationInstance } from 'ngx-pagination';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 
@@ -25,8 +26,6 @@ import { PaginationInstance } from 'ngx-pagination';
   //comment this if getAllPosts doesn't work
 })
 export class PostsComponent implements OnInit {
-
-
 
   @Input() userPost!: Array<Posts>;
   @Input() comments!: Array<Comments>;
@@ -47,17 +46,16 @@ export class PostsComponent implements OnInit {
   loading: boolean = true;
   isComment: boolean = false
 
-  pagination: number = 1;
-  allPosts: number = 0;
-  
-  page: number = 1;
-  count: number = 0;
-  pageSizes = [20, 50, 100];
-
-  currentPage = 1;
-  itemsPerPage = 20; // Imposta il numero predefinito di elementi per pagina
-  totalItems = 0; // Totale dei post disponibili
-  url: string = 'https://gorest.co.in/public/v2';
+   // pagination
+   @Input({ transform: numberAttribute }) length!: number 
+   pageSizeOptions: number[] = [10, 30, 50];
+   pageSize: number = 10;
+   currentPage: number = 1;
+   showFirstLastButtons = true;
+   pageIndex = 0;
+   pageEvent!: PageEvent;
+   dataSource: MatTableDataSource<Posts> = new MatTableDataSource<Posts>(this.userPost);
+   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   
 
@@ -107,24 +105,43 @@ export class PostsComponent implements OnInit {
   // }
 
 
-  getAllPosts() {
-    const url = `${this.url}/posts?page=${this.currentPage}&per_page=${this.itemsPerPage}`;
-    this.userService.getAllPosts()
-      .pipe(
-        tap(() => this.loading = false)
-      )
-      .subscribe((_postSubscription) => this.userPost = _postSubscription);
-  }
-  pageChanged(event: any) {
-    this.currentPage = event.page;
-    this.getAllPosts(); // Aggiorna la lista dei post quando cambia la pagina
-  }
+  // getAllPosts() {
+  //   const url = `${this.url}/posts?page=${this.currentPage}&per_page=${this.itemsPerPage}`;
+  //   this.userService.getAllPosts()
+  //     .pipe(
+  //       tap(() => this.loading = false)
+  //     )
+  //     .subscribe((_postSubscription) => this.userPost = _postSubscription);
+  // }
+  // pageChanged(event: any) {
+  //   this.currentPage = event.page;
+  //   this.getAllPosts(); 
+  // }
 
 
   // renderPage(event: number){
   //   this.pagination = event;
   //   this.getAllPosts();
   // }
+
+  getAllPosts(): void {
+    this.userService.getPosts(this.pageIndex + 1, this.pageSize)
+      .subscribe((posts: Posts[]) => {
+        this.userPost = posts;
+        setTimeout(()=>{
+          this.dataSource = new MatTableDataSource<Posts>(this.userPost);
+        }, 0)
+        this.loading = false;
+      });     
+  }
+
+  
+  onPageChange(event: PageEvent): void {
+    this.pageEvent = event;
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getAllPosts();
+  }
 
   
   

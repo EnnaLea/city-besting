@@ -1,6 +1,13 @@
 .parent {
     height: 100vh;
     background-color: #f5f1db;
+
+    .paginator{
+      margin-top: 1rem;
+      background-color: #f5f1db;
+      font-size: 0.9rem;
+
+    }
   
     .container {
       display: flex;

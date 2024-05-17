@@ -13,6 +13,18 @@
   </form>
 
   
+  <mat-paginator 
+  class="paginator"
+  (page)="onPageChange($event)"
+  [length]="2750"
+  [pageSize]="pageSize"
+  [showFirstLastButtons]="showFirstLastButtons"
+  [pageSizeOptions]="pageSizeOptions"
+  [pageIndex]="pageIndex"
+  aria-label="Select page"
+  ></mat-paginator>
+
+  
 
   @if(filteredUserList == undefined || filteredUserList.length == 0) {
     <div class="container-cards" *ngIf="!loading; else loadingTemplate" >
