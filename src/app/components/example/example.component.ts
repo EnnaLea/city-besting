@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../auth/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {JsonPipe} from '@angular/common';
+import { response } from 'express';
 
 @Component({
   selector: 'app-example',
@@ -35,6 +36,7 @@ export class ExampleComponent {
 
   // pagination
   @Input({ transform: numberAttribute }) length!: number 
+  totalArray!: number;
   pageSizeOptions: number[] = [10, 30, 50];
   pageSize: number = 10;
   currentPage: number = 1;
@@ -64,22 +66,63 @@ export class ExampleComponent {
   }
 
 
+  // loadPosts(): void {
+  //   this.userService.getPosts(this.pageIndex + 1, this.pageSize)
+  //     .subscribe((posts: Posts[]) => {
+  //       this.userPost = posts;
+  //       setTimeout(()=>{
+  //         this.dataSource = new MatTableDataSource<Posts>(this.userPost);
+  //         this.totalArray = this.dataSource.data.length;
+  //       }, 0)
+  //       this.loading = false;
+  //     });     
+  // }
+
   loadPosts(): void {
     this.userService.getPosts(this.pageIndex + 1, this.pageSize)
-      .subscribe((posts: Posts[]) => {
-        this.userPost = posts;
-        setTimeout(()=>{
+      .subscribe((response: Posts[]) => {
+        this.userPost = response.p;
+        setTimeout(() => {
           this.dataSource = new MatTableDataSource<Posts>(this.userPost);
-        }, 0)
+          this.totalArray = response.total; // Usa il valore restituito dal servizio
+          this.paginator.length = this.totalArray; // Imposta la proprietà length di mat-paginator
+        }, 0);
         this.loading = false;
-      });     
+      });
   }
+  
+  
+
+// getLength(){
+//   this.userService.getPosts(this.pageIndex + 1, this.pageSize)
+//   .subscribe(
+//     (response: Posts[]) => {
+//       this.totalArray = this.userService.getPosts(this.pageIndex + 1, this.pageSize).pipe
+//     }
+//   )
+//   console.log(this.totalArray);
+//   return this.totalArray
+  
+// }
+
+  // loadPosts(): void {
+  //   this.userService.getPosts(this.pageIndex + 1, this.pageSize, this.getLength())
+  //     .subscribe((posts: Posts[]) => {
+  //       this.userPost = posts;
+  //       setTimeout(()=>{
+  //         this.dataSource = new MatTableDataSource<Posts>(this.userPost);
+  //         this.totalArray = posts.length;
+  //       }, 0)
+  //       this.loading = false;
+  //     });     
+  // }
 
   
   onPageChange(event: PageEvent): void {
     this.pageEvent = event;
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
+    // this.totalArray = this.dataSource.data.length
     this.loadPosts();
   }
 

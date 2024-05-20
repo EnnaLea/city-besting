@@ -122,6 +122,10 @@ export class UserService {
     const url = `${this.url}/posts?page=${page}&per_page=${limit}`;
     return this.httpService.get<Posts[]>(url, {headers : this.getHeaders()})
   }
+  // getPosts(page: number, limit: number, total:number): Observable<Posts[]> {
+  //   const url = `${this.url}/posts?page=${page}&per_page=${limit}&total=${total}`;
+  //   return this.httpService.get<Posts[]>(url, {headers : this.getHeaders()})
+  // }
 
 
 
