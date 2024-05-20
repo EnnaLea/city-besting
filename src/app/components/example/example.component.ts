@@ -55,6 +55,7 @@ export class ExampleComponent {
   }
 
 
+
   createComment(postId: number){
     let insertComment : Comments ={
       post_id: postId,
@@ -72,7 +73,6 @@ export class ExampleComponent {
   //       this.userPost = posts;
   //       setTimeout(()=>{
   //         this.dataSource = new MatTableDataSource<Posts>(this.userPost);
-  //         this.totalArray = this.dataSource.data.length;
   //       }, 0)
   //       this.loading = false;
   //     });     
@@ -80,12 +80,11 @@ export class ExampleComponent {
 
   loadPosts(): void {
     this.userService.getPosts(this.pageIndex + 1, this.pageSize)
-      .subscribe((response: Posts[]) => {
-        this.userPost = response.p;
+      .subscribe((response: any) => {
+        this.userPost = response;
         setTimeout(() => {
           this.dataSource = new MatTableDataSource<Posts>(this.userPost);
-          this.totalArray = response.total; // Usa il valore restituito dal servizio
-          this.paginator.length = this.totalArray; // Imposta la proprietà length di mat-paginator
+          this.totalArray = 2864;
         }, 0);
         this.loading = false;
       });
@@ -122,7 +121,6 @@ export class ExampleComponent {
     this.pageEvent = event;
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    // this.totalArray = this.dataSource.data.length
     this.loadPosts();
   }
 
