@@ -25,7 +25,7 @@ export class ExampleComponent {
   @Input() userPost!: Array<Posts>;
   @Input() comments!: Array<Comments>;
   @Input() comment!: Comments;
-  posts!: Posts[];
+  posts!: any;
   selectedPost: any;
   commentVisibility: { [postId: number]: boolean } = {};
   newComment!: string;
@@ -85,10 +85,13 @@ export class ExampleComponent {
         setTimeout(() => {
           this.dataSource = new MatTableDataSource<Posts>(this.userPost);
           this.totalArray = 2864;
+          
         }, 0);
         this.loading = false;
       });
   }
+
+
   
   
 
