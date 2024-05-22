@@ -39,7 +39,7 @@ export class ExampleComponent {
   totalArray!: number;
   pageSizeOptions: number[] = [10, 30, 50];
   pageSize: number = 10;
-  currentPage: number = 1;
+  currentPage: number = 0;
   showFirstLastButtons = true;
   pageIndex = 0;
   pageEvent!: PageEvent;
@@ -52,6 +52,7 @@ export class ExampleComponent {
 
   ngOnInit() {
     this.loadPosts();
+    // console.log(this.getTotalPosts());
   }
 
 
@@ -67,63 +68,30 @@ export class ExampleComponent {
   }
 
 
-  // loadPosts(): void {
-  //   this.userService.getPosts(this.pageIndex + 1, this.pageSize)
-  //     .subscribe((posts: Posts[]) => {
-  //       this.userPost = posts;
-  //       setTimeout(()=>{
-  //         this.dataSource = new MatTableDataSource<Posts>(this.userPost);
-  //       }, 0)
-  //       this.loading = false;
-  //     });     
+  // getTotalPosts(){
+  //   this.userService.getTotalPosts().subscribe((count: any)=>{
+  //     this.totalArray = count;
+  //   })
   // }
+
 
   loadPosts(): void {
     this.userService.getPosts(this.pageIndex + 1, this.pageSize)
-      .subscribe((response: any) => {
-        this.userPost = response;
-        setTimeout(() => {
-          this.dataSource = new MatTableDataSource<Posts>(this.userPost);
-          this.totalArray = 2864;
-          
-        }, 0);
+      .subscribe((posts: Posts[]) => {
+        this.userPost = posts;
+        setTimeout(()=>{
+          this.dataSource = new MatTableDataSource<Posts>(posts);
+          this.totalArray = posts.length + 100;
+        }, 0)
         this.loading = false;
-      });
+      });     
   }
-
-
-  
-  
-
-// getLength(){
-//   this.userService.getPosts(this.pageIndex + 1, this.pageSize)
-//   .subscribe(
-//     (response: Posts[]) => {
-//       this.totalArray = this.userService.getPosts(this.pageIndex + 1, this.pageSize).pipe
-//     }
-//   )
-//   console.log(this.totalArray);
-//   return this.totalArray
-  
-// }
-
-  // loadPosts(): void {
-  //   this.userService.getPosts(this.pageIndex + 1, this.pageSize, this.getLength())
-  //     .subscribe((posts: Posts[]) => {
-  //       this.userPost = posts;
-  //       setTimeout(()=>{
-  //         this.dataSource = new MatTableDataSource<Posts>(this.userPost);
-  //         this.totalArray = posts.length;
-  //       }, 0)
-  //       this.loading = false;
-  //     });     
-  // }
 
   
   onPageChange(event: PageEvent): void {
     this.pageEvent = event;
-    this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
     this.loadPosts();
   }
 

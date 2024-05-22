@@ -22,28 +22,24 @@
         class="paginator"
         (page)="onPageChange($event)"
         [length]="totalArray"
-        [pageIndex]="0"
         [pageSize]="pageSize"
         [showFirstLastButtons]="showFirstLastButtons"
         [pageSizeOptions]="pageSizeOptions"
         [pageIndex]="pageIndex"
-        aria-label="select page of posts"
+        aria-label="select page"
         ></mat-paginator>
 
-        <!-- <div class="demo-data">
-          <div> Output event: {{(pageEvent | json) || 'No events dispatched yet'}} </div>
-          <div> getNumberOfPages: {{paginator.getNumberOfPages()}} </div>
-        </div> -->
 
    
       <div class="posts">
+        
         <mat-accordion *ngIf="!loading; else loadingTemplate" >
           <mat-card class="post" *ngFor="let post of userPost"> 
             <div class="content">
               <h2>{{ post.title }}</h2>
               <p>{{ post.body }}</p>
             </div>
-  
+   
             
             <mat-expansion-panel hideToggle >
               <mat-expansion-panel-header>
