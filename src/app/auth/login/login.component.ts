@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MaterialModule } from '../../module/material/material.module';
 import { LoaderComponent } from '../../components/loader/loader.component';
+import { MatDialog } from '@angular/material/dialog';
+import { InvalidLoginComponent } from '../../messages/invalid-login/invalid-login.component';
 
 
 
@@ -23,26 +25,20 @@ export class LoginComponent {
 @Input() token!: string;
 loading: boolean = true;
 
-// password!: string;
-
-// toasterService = inject(ToastrService);
-
-  // loginObj: Login
 
   constructor(private http: HttpClient,private router: Router, private authService: AuthService) {
-    // this.loginObj = new Login();
+
   }
 
   ngOnInit(){
-    // if(this.authService.IsLoggedIn(this.token, this.email, this.password)){
-    //   this.router.navigateByUrl('/landing');
-    // }
   }
 
 
+
 onLogin() {
- this.authService.login(this.email, this.token);
- this.loading = false;
+  this.authService.login(this.email, this.token);
+  this.loading = false;
+
 }
 
 

@@ -1,0 +1,10 @@
+<div class="container">
+    <h2 mat-dialog-title>Invalid Credentials</h2>
+    <mat-dialog-content>
+      The credentials you have submitted are wrong.
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button class="btn-no" mat-button mat-dialog-close (click)="onRetry()">Retry</button>
+      <button class="btn-ok" mat-button mat-dialog-close (click)="onInvalid()">Register</button>
+    </mat-dialog-actions>
+</div>

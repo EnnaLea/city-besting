@@ -16,13 +16,14 @@ import { NoPostsComponent } from '../../../messages/no-posts/no-posts.component'
 import { MatDialog } from '@angular/material/dialog';
 import { CreatedCommentComponent } from '../../../messages/created-comment/created-comment.component';
 import { PaginatorComponent } from '../../paginator/paginator.component';
+import { LoaderComponent } from "../../loader/loader.component";
 
 @Component({
-  selector: 'app-user-posts',
-  standalone: true,
-  imports: [CommonModule, MaterialModule, NoPostsComponent, PaginatorComponent],
-  templateUrl: './user-posts.component.html',
-  styleUrl: './user-posts.component.scss'
+    selector: 'app-user-posts',
+    standalone: true,
+    templateUrl: './user-posts.component.html',
+    styleUrl: './user-posts.component.scss',
+    imports: [CommonModule, MaterialModule, NoPostsComponent, PaginatorComponent, LoaderComponent]
 })
 export class UserPostsComponent implements OnInit, AfterViewInit, AfterContentInit {
 isSpinnerActive: any;
@@ -41,12 +42,12 @@ isSpinnerActive: any;
   imgProfile!: string;
   profile!: Array<Profile>;
   usersPost : boolean = false;
+  loading: boolean = true;
 
- 
   isPost: boolean= false;
 
   constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, public dialog: MatDialog) {
-    this.getUserPosts();
+    // this.getUserPosts();
   }
 
 
@@ -60,7 +61,7 @@ isSpinnerActive: any;
   This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
   */
   ngAfterViewInit(): void {
-    // this.getUserPosts();
+    this.getUserPosts();
   }  
   
   ngAfterContentInit(): void {
@@ -73,13 +74,6 @@ isSpinnerActive: any;
     });
   }
   
-  // setViewPost(){
-  //   if(this.getUserPosts == undefined){
-  //     return this.getAdminPosts();
-  //   }else{
-  //     return this.getUserPosts();
-  //   }
-  // }
   onDetailsClick(){
     this.router.navigateByUrl('/landing/new-post');
   }
@@ -91,10 +85,11 @@ isSpinnerActive: any;
   getUserPosts(){
     const id = Number(this.getUserId());        
       this.userService.getUserPosts(Number(id))
-      .pipe(tap(() => this.isPost = true))
+      .pipe(tap(() => 
+        this.isPost = true))
       .subscribe((_userPostSubscription)=> 
         this.userPost = _userPostSubscription); 
-      // this.isPost = true; 
+      this.loading = false;
   }
 
   // getAdminPosts(){   
@@ -104,9 +99,9 @@ isSpinnerActive: any;
   //       this.userPost = _userPostSubscription);  
   // }
 
-  profileImg(){
-    return localStorage.getItem('profile-img');
-  }
+  // profileImg(){
+  //   return localStorage.getItem('profile-img');
+  // }
 
   /* 
   This code defines a method createComment that creates a new comment for a specific post. It toggles the visibility of the comment, creates a new comment object with post ID, email, name, and body, then calls the createUserComment method from the userService to send the new comment to the server. It also subscribes to the response and updates the local comment object.
@@ -142,10 +137,10 @@ This code defines a function selectPost that toggles the visibility of comments 
     /* 
     This TypeScript code defines a method getAdminId which retrieves the cached user's ID from this.authService and returns it. The ?. is the optional chaining operator, which avoids errors if this.authService.getCachedUser() is null or undefined.
   */
-  getAdminId(){
-    const id = this.authService.getCachedUser()?.id;
-    return id;
-  }
+  // getAdminId(){
+  //   const id = this.authService.getCachedUser()?.id;
+  //   return id;
+  // }
 
   /*
   This code is executing in the ngOnDestroy lifecycle hook. It's checking if getUserPosts and getAdminPosts return truthy values and then calls unsubscribe on the result of these two functions. This is a common pattern for unsubscribing from observables to prevent memory leaks.

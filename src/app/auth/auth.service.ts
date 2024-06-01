@@ -3,6 +3,8 @@ import { User } from '../interfaces/user.model';
 import { CacheService } from '../services/cache.service';
 import { Router } from '@angular/router';
 import { Profile } from '../interfaces/profile-img';
+import { MatDialog } from '@angular/material/dialog';
+import { InvalidLoginComponent } from '../messages/invalid-login/invalid-login.component';
 
 @Injectable({
   providedIn: 'root',
@@ -19,46 +21,46 @@ export class AuthService {
   userProfile!: string;
   tokenExpired: boolean = false;
 
-
   constructor(
     // private httpService: HttpClient,
     private cacheService: CacheService,
     private router: Router,
-   
-  ) {
-    // console.log(this.profile =[]);
-  }
+    public dialog: MatDialog
+  ) {}
 
+  openDialog(): void {
+    this.dialog.open(InvalidLoginComponent, {
+      width: '250px',
+    });
+  }
 
   login(email: string, token: string) {
-    if(this.IsLoggedIn(email, token)){
+    if (this.IsLoggedIn(email, token)) {
       this.expiredTime();
-        localStorage.setItem('profile-img', this.userProfile);
-        this.router.navigateByUrl('/landing');
-    } else{
-      alert('Login failed');
-      window.location.reload();
-    }  
+      this.router.navigateByUrl('/landing');
+    } else {
+      this.openDialog();
+    }
   }
 
-  expiredTime(){
+  expiredTime() {
     setTimeout(() => {
       localStorage.removeItem('token');
       this.tokenExpired = true;
       this.logout();
     }, this.expirationTime - this.currentTime);
   }
-  
 
   /* 
   This code defines a function called IsLoggedIn that checks if the token property is truthy or if there is a 'token' value in the local storage. If either condition is true, it returns true, otherwise it returns false.
   */
   IsLoggedIn(email: string, token: string) {
-    if (email == this.cacheService.getUserSaved()?.email
-      && token == localStorage.getItem('token')
-  ) {
+    if (
+      email == this.cacheService.getUserSaved()?.email &&
+      token == localStorage.getItem('token')
+    ) {
       return true;
-    } else{
+    } else {
       return false;
     }
   }
@@ -85,6 +87,4 @@ export class AuthService {
   getToken() {
     return localStorage.getItem('token');
   }
-
-  
 }

@@ -1,12 +1,12 @@
 <div class="parent">
+  <div class="container" *ngIf="!loading else loadingTemplate">
 
-  <div class="container">
     <ng-container *ngIf="!isPost; else hasPosts">
-      <!-- <h1 class="no-post">No Posts</h1> -->
       <app-no-posts></app-no-posts>
     </ng-container>
+
     <ng-template #hasPosts>
-      <div class="posts" >
+      <div class="posts">
         <mat-accordion>
           <mat-card class="post" *ngFor="let post of userPost">
             <div class="content">
@@ -21,7 +21,10 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
 
-              <div class="comments" *ngIf="commentVisibility[post.id!]; else noComments">
+              <div
+                class="comments"
+                *ngIf="commentVisibility[post.id!]; else noComments"
+              >
                 <div *ngFor="let comment of comments">
                   <h2>{{ comment.name }}</h2>
                   <p>{{ comment.body }}</p>
@@ -35,33 +38,44 @@
 
             <mat-expansion-panel hideToggle>
               <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Add Comment
-                </mat-panel-title>
+                <mat-panel-title> Add Comment </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="container-form">
                 <form (submit)="createComment(post.id!)">
                   <div class="create-comment">
                     <mat-form-field>
                       <mat-label>Title</mat-label>
-                      <input matInput type="text" name="commentName" [(ngModel)]="commentName" required>
+                      <input
+                        matInput
+                        type="text"
+                        name="commentName"
+                        [(ngModel)]="commentName"
+                        required
+                      />
                     </mat-form-field>
                     <mat-form-field>
                       <mat-label>Textarea</mat-label>
-                      <textarea matInput name="newComment" [(ngModel)]="newComment" required></textarea>
+                      <textarea
+                        matInput
+                        name="newComment"
+                        [(ngModel)]="newComment"
+                        required
+                      ></textarea>
                     </mat-form-field>
-                    <button class="add-comment" mat-raised-button type="submit">Add Comment</button>
+                    <button class="add-comment" mat-raised-button type="submit">
+                      Add Comment
+                    </button>
                   </div>
                 </form>
               </div>
             </mat-expansion-panel>
           </mat-card>
         </mat-accordion>
-      </div>      
+      </div>
     </ng-template>
   </div>
-  <!-- <app-paginator></app-paginator> -->
+  <ng-template #loadingTemplate>
+    <app-loader></app-loader>
+  </ng-template>
+
 </div>
-
-
-
