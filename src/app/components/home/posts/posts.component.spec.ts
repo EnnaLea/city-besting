@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PostsComponent } from './posts.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PostsComponent', () => {
   let component: PostsComponent;
@@ -10,7 +11,7 @@ describe('PostsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PostsComponent, HttpClientTestingModule],
+      imports: [PostsComponent, HttpClientTestingModule, BrowserAnimationsModule],
       providers: [
         {
           provide: ActivatedRoute,

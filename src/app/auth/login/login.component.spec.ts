@@ -22,4 +22,11 @@ describe('LoginComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('verify login', ()=>{
+    spyOn(component, 'onLogin');
+    component.onLogin();
+    expect(component.onLogin).toHaveBeenCalled();
+  })
+
 });

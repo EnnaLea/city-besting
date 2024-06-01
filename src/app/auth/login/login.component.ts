@@ -41,7 +41,6 @@ loading: boolean = true;
 
 
 onLogin() {
- 
  this.authService.login(this.email, this.token);
  this.loading = false;
 }

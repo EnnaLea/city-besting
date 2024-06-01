@@ -6,16 +6,25 @@ import { LoginComponent } from '../auth/login/login.component';
 import { MaterialModule } from '../module/material/material.module';
 import { User } from '../interfaces/user.model';
 import { Posts } from '../interfaces/user-post';
+import { ActivatedRoute } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UserService', () => {
   let service: UserService;
   let testingController: HttpTestingController;
   let user : User;
+  let page: number;
+  let limit: number;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [UserService]
+      imports: [HttpClientTestingModule, BrowserAnimationsModule],
+      providers: [UserService,
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: { get: () => '1' } } }
+        },
+      ]
     });
     service = TestBed.inject(UserService);
     testingController = TestBed.inject(HttpTestingController);
@@ -26,10 +35,10 @@ describe('UserService', () => {
   });
 
   it('should get all the users', ()=>{
-    service.getUsers().subscribe(data => {
+    service.getUsers(page, limit).subscribe(data => {
       expect(data).toBeTruthy();
     });
-    const req = testingController.expectOne('https://gorest.co.in/public/v2/users?page=1&per_page=50');
+    const req = testingController.expectOne(`https://gorest.co.in/public/v2/users?page=${page}&per_page=${limit}`);
     expect(req.request.method).toEqual('GET');
     req.flush({});
     testingController.verify();
@@ -69,7 +78,7 @@ describe('UserService', () => {
     service.getAllPosts().subscribe(data => {
       expect(data).toBeTruthy();
   })
-  const req = testingController.expectOne('https://gorest.co.in/public/v2/posts?page=1&per_page=50');
+  const req = testingController.expectOne('https://gorest.co.in/public/v2/posts');
   expect(req.request.method).toEqual('GET');
   req.flush({});
   testingController.verify();
