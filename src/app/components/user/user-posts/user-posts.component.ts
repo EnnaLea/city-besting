@@ -25,7 +25,7 @@ import { LoaderComponent } from "../../loader/loader.component";
     styleUrl: './user-posts.component.scss',
     imports: [CommonModule, MaterialModule, NoPostsComponent, PaginatorComponent, LoaderComponent]
 })
-export class UserPostsComponent implements OnInit, AfterViewInit, AfterContentInit {
+export class UserPostsComponent implements OnInit, AfterViewInit {
 isSpinnerActive: any;
 
   @Input() userPost!: Array<Posts>;
@@ -46,16 +46,10 @@ isSpinnerActive: any;
 
   isPost: boolean= false;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, public dialog: MatDialog) {
-    // this.getUserPosts();
-  }
+  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, public dialog: MatDialog) {}
 
 
-  ngOnInit(): void {
-    // this.getAdminPosts();
-    // this.getUserPosts();
-
-  }
+  ngOnInit(): void {}
 
   /* 
   This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
@@ -64,10 +58,6 @@ isSpinnerActive: any;
     this.getUserPosts();
   }  
   
-  ngAfterContentInit(): void {
-    // this.getUserPosts();
-  }
-
   openDialog(): void {
     this.dialog.open(CreatedCommentComponent, {
       width: '250px',
