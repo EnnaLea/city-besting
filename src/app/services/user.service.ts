@@ -24,8 +24,8 @@ export class UserService {
   currentPage: number = 1;
   totalPosts: number = 0;
 
-
-  token = this.authService.getToken();
+//usare variabile d'ambiente
+  token = "2e3699e7eeac0f7d388cf4810572e3743985e04b791bf44b71dc98ee264739e1";
 
   constructor(private authService: AuthService, private httpService: HttpClient) { }
 
@@ -146,7 +146,14 @@ export class UserService {
       'Authorization',
       `Bearer ${this.token}`
     );
-    return this.httpService.post<User>(url, user, { headers: header});
+        let userBody ={
+    name: user.name,
+    email: user.email,
+    gender: user.gender,
+    status: user.status,
+    token: user.token
+    }
+    return this.httpService.post<User>(url, userBody, { headers: header});
   }
 
   createUserPost(id: number, post: Posts): Observable<Posts> {

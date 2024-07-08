@@ -11,15 +11,18 @@ import { InvalidLoginComponent } from '../messages/invalid-login/invalid-login.c
 })
 export class AuthService {
   token!: string;
-  url: string = 'https://gorest.co.in/public/v2';
+  //url: string = 'https://gorest.co.in/public/v2';
   subscribed!: boolean;
   logged: boolean | undefined;
-  currentTime = new Date().getTime();
-  expirationTime = this.currentTime + 60 * 60 * 1000;
+  currentHour = new Date().getHours();
+  currentMinutes = new Date().getMinutes();
+  currentTime = this.currentHour + ':' + this.currentMinutes;
+  expirationTime = this.currentHour + 1;
   user!: User;
   profile!: Profile[];
   userProfile!: string;
   tokenExpired: boolean = false;
+  credential!: boolean;
 
   constructor(
     // private httpService: HttpClient,
@@ -28,6 +31,11 @@ export class AuthService {
     public dialog: MatDialog
   ) {}
 
+ngOnInit() {
+
+ //console.log(this.getCurrentTime());
+}
+
   openDialog(): void {
     this.dialog.open(InvalidLoginComponent, {
       width: '250px',
@@ -35,56 +43,70 @@ export class AuthService {
   }
 
   login(email: string, token: string) {
-    if (this.IsLoggedIn(email, token)) {
-      this.expiredTime();
-      this.router.navigateByUrl('/landing');
-    } else {
-      this.openDialog();
+        
+        //localStorage.setItem('token', token);
+        if(!this.IsLoggedIn(email, token)) {
+          this.openDialog();          
+        } else{
+          this.router.navigateByUrl('/landing');
+        }
+          
+  }
+
+
+  expiredTime(){
+    let currentHour = new Date().getHours();
+    console.log("current hour is: " + currentHour);
+    let expiration = Number(localStorage.getItem('timeout'));
+    console.log("expiration hour is: " + expiration);
+    if(currentHour >= expiration){
+      setTimeout(() => {
+        //this.tokenExpired = true;
+        //localStorage.removeItem('token');       
+        //localStorage.removeItem('current');       
+        localStorage.removeItem('timeout');       
+        this.logout();
+      })
     }
   }
 
-  expiredTime() {
-    setTimeout(() => {
-      localStorage.removeItem('token');
-      this.tokenExpired = true;
-      this.logout();
-    }, this.expirationTime - this.currentTime);
-  }
 
   /* 
   This code defines a function called IsLoggedIn that checks if the token property is truthy or if there is a 'token' value in the local storage. If either condition is true, it returns true, otherwise it returns false.
   */
-  IsLoggedIn(email: string, token: string) {
+  IsLoggedIn(email: string, token: string) : boolean{
+    //console.log(email);
+    //console.log(token);
+    //console.log(this.cacheService.getUserSaved()?.email);
+    //console.log(this.cacheService.getToken());
     if (
-      email == this.cacheService.getUserSaved()?.email &&
-      token == localStorage.getItem('token')
+      email == this.cacheService.getUserSaved()?.email && token == this.cacheService.getToken()
     ) {
+
       return true;
     } else {
       return false;
     }
+    
   }
 
-  setCachedUser(user: User) {
-    this.cacheService.saveUser(user);
-  }
 
-  getCachedUser() {
-    return this.cacheService.getUserSaved();
-  }
+
+
 
   /*
   This code snippet defines a logout function that removes the 'token' from the localStorage and redirects the user to the '/login' page using Angular's router.
   */
   logout() {
-    this.tokenExpired = false;
+    //this.tokenExpired = false;
     return this.router.navigateByUrl('/login');
   }
 
   /*
   This code defines a getToken method in the AuthService class that retrieves the 'token' value from the local storage.
   */
-  getToken() {
-    return localStorage.getItem('token');
-  }
+
+
+
+
 }

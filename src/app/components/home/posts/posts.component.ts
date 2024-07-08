@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { PaginationInstance } from 'ngx-pagination';
 import { MatTableDataSource } from '@angular/material/table';
+import { CacheService } from '../../../services/cache.service';
 
 
 
@@ -60,7 +61,7 @@ export class PostsComponent implements OnInit {
   
 
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private cacheService: CacheService, private router: Router, private http: HttpClient) {
     
   }
 
@@ -77,7 +78,7 @@ export class PostsComponent implements OnInit {
     // this.commentVisibility[postId] = !this.commentVisibility[postId];
     let insertComment : Comments ={
       post_id: postId,
-      email: this.authService.getCachedUser()?.email,
+      email: this.cacheService.getUserSaved()?.email,
       name: this.commentName,
       body: this.newComment, 
     }

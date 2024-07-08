@@ -10,10 +10,11 @@ import { User } from '../../../interfaces/user.model';
 import { AuthService } from '../../../auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { Observable, map, tap } from 'rxjs';
-import { OnLoginFunc } from 'tinacms';
+
 import { Profile } from '../../../interfaces/profile-img';
 import { LoaderComponent } from '../../loader/loader.component';
 import { NoPostsComponent } from '../../../messages/no-posts/no-posts.component';
+import { CacheService } from '../../../services/cache.service';
 
 @Component({
   selector: 'app-admin-post',
@@ -42,7 +43,7 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
   isPost: boolean= true;
 
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private userService: UserService, private cacheService: CacheService, private router: Router) {}
 
 
   ngOnInit(): void {
@@ -100,7 +101,7 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
     // this.commentVisibility[postId] = !this.commentVisibility[postId];
     let insertComment : Comments ={
       post_id: postId,
-      email: this.authService.getCachedUser()?.email,
+      email: this.cacheService.getUserSaved()?.email,
       name: this.commentName,
       body: this.newComment, 
     }
@@ -127,7 +128,7 @@ This code defines a function selectPost that toggles the visibility of comments 
     This TypeScript code defines a method getAdminId which retrieves the cached user's ID from this.authService and returns it. The ?. is the optional chaining operator, which avoids errors if this.authService.getCachedUser() is null or undefined.
   */
   getAdminId(){
-    const id = this.authService.getCachedUser()?.id;
+    const id = this.cacheService.getUserSaved()?.id;
     return id;
   }
 

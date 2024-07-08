@@ -12,6 +12,7 @@ import { Comments } from '../../interfaces/comments';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../../services/user.service';
+import { CacheService } from '../../services/cache.service';
 
 @Component({
   selector: 'app-created-comment',
@@ -35,7 +36,7 @@ export class CreatedCommentComponent {
   commentName!: string;
   commentEmail!: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<CreatedCommentComponent>,private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router,){}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<CreatedCommentComponent>,private route: ActivatedRoute, private userService: UserService, private cacheService: CacheService, private router: Router,){}
 
   onCreatedComment(){
     // let insertComment : Comments ={
@@ -57,7 +58,7 @@ export class CreatedCommentComponent {
     // this.commentVisibility[postId] = !this.commentVisibility[postId];
     let insertComment : Comments ={
       post_id: postId,
-      email: this.authService.getCachedUser()?.email,
+      email: this.cacheService.getUserSaved()?.email,
       name: this.commentName,
       body: this.newComment, 
     }

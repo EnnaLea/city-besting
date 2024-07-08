@@ -24,7 +24,7 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
 
    
   
-  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private authService: AuthService, public dialog: MatDialog){
+  constructor(private router: Router, private userService: UserService, private route: ActivatedRoute, private cacheService: CacheService, public dialog: MatDialog){
   }
 
   ngOnInit(): void {
@@ -59,7 +59,7 @@ export class NewPostComponent implements OnInit,  AfterViewInit {
   }
 
   getAdminId(){
-    const id = this.authService.getCachedUser()?.id;
+    const id = this.cacheService.getUserSaved()?.id;
     return id;
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { Router, RouterOutlet } from '@angular/router';
 import { MaterialModule } from '../../../module/material/material.module';
@@ -17,7 +17,7 @@ import { AuthService } from '../../../auth/auth.service';
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })
-export class LandingComponent{
+export class LandingComponent implements AfterViewInit {
   
   user!: User;
   post!: Posts;
@@ -29,7 +29,13 @@ export class LandingComponent{
     top: 0,
   });
 
-  constructor(private _formBuilder: FormBuilder, private route: Router, private authService: AuthService) {}
+  constructor(private _formBuilder: FormBuilder, private route: Router, private authService: AuthService) {
+    //authService.expiredTime();
+  }
+  ngAfterViewInit(): void {
+    this.authService.expiredTime();
+  }
+
 
   onClick() {
     this.route.navigateByUrl('/landing/home');

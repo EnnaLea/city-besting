@@ -64,7 +64,7 @@ gender!: string;
       if (userId !== undefined){
         return this.userService.updateUser(userId, changeUser).subscribe((_user) => {
           this.user = _user;
-          this.authService.setCachedUser(this.user);
+          this.cacheService.saveUser(this.user);
           this.openDialog();
         });
       } else {
@@ -84,7 +84,7 @@ gender!: string;
     }
 
   getUser(){
-    const cachedUser = this.authService.getCachedUser();
+    const cachedUser = this.cacheService.getUserSaved();
     if (cachedUser !== null) {
         this.user = cachedUser;
     }
@@ -92,7 +92,7 @@ gender!: string;
   }
 
   getUserId(){
-    const cachedUser = this.authService.getCachedUser();
+    const cachedUser = this.cacheService.getUserSaved();
     if (cachedUser !== null) {
         this.user = cachedUser;
     }

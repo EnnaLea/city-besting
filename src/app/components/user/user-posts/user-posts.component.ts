@@ -10,13 +10,14 @@ import { User } from '../../../interfaces/user.model';
 import { AuthService } from '../../../auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { Observable, map, tap } from 'rxjs';
-import { OnLoginFunc } from 'tinacms';
+
 import { Profile } from '../../../interfaces/profile-img';
 import { NoPostsComponent } from '../../../messages/no-posts/no-posts.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatedCommentComponent } from '../../../messages/created-comment/created-comment.component';
 import { PaginatorComponent } from '../../paginator/paginator.component';
 import { LoaderComponent } from "../../loader/loader.component";
+import { CacheService } from '../../../services/cache.service';
 
 @Component({
     selector: 'app-user-posts',
@@ -46,7 +47,7 @@ isSpinnerActive: any;
 
   isPost: boolean= false;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, public dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private caheService: CacheService, private router: Router, public dialog: MatDialog) {
     // this.getUserPosts();
   }
 
@@ -110,7 +111,7 @@ isSpinnerActive: any;
     // this.commentVisibility[postId] = !this.commentVisibility[postId];
     let insertComment : Comments ={
       post_id: postId,
-      email: this.authService.getCachedUser()?.email,
+      email: this.caheService.getUserSaved()?.email,
       name: this.commentName,
       body: this.newComment, 
     }
