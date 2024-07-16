@@ -11,6 +11,7 @@ import { UserPostsComponent } from "../user/user-posts/user-posts.component";
 import { Router } from '@angular/router';
 import { NewPostComponent } from '../admin/new-post/new-post.component';
 import { CreateUserComponent } from '../admin/create-user/create-user.component';
+import { CacheService } from '../../services/cache.service';
 
 @Component({
     selector: 'app-home',
@@ -27,7 +28,7 @@ name!: string;
 staus!: string;
 gender!: string;
 
-  constructor(private authService: AuthService, private userService: UserService, private route: Router) { }
+  constructor(private cacheService: CacheService, private userService: UserService, private route: Router) { }
 
   ngOnInit(): void {
    this.getUser();
@@ -56,7 +57,7 @@ gender!: string;
       if (userId !== undefined){
         return this.userService.updateUser(userId, changeUser).subscribe((_user) => {
           this.user = _user;
-          this.authService.setCachedUser(this.user);
+          this.cacheService.saveUser(this.user);
           alert('Changes saved');
           // window.location.reload();
         });
@@ -67,7 +68,7 @@ gender!: string;
     }
 
   getUser(){
-    const cachedUser = this.authService.getCachedUser();
+    const cachedUser = this.cacheService.getUserSaved();
     if (cachedUser !== null) {
         this.user = cachedUser;
     }
@@ -75,7 +76,7 @@ gender!: string;
   }
 
   getUserId(){
-    const cachedUser = this.authService.getCachedUser();
+    const cachedUser = this.cacheService.getUserSaved();
     if (cachedUser !== null) {
         this.user = cachedUser;
     }

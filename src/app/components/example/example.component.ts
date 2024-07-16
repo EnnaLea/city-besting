@@ -12,6 +12,7 @@ import { AuthService } from '../../auth/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {JsonPipe} from '@angular/common';
 import { response } from 'express';
+import { CacheService } from '../../services/cache.service';
 
 @Component({
   selector: 'app-example',
@@ -47,7 +48,7 @@ export class ExampleComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   
-  constructor(private userService: UserService, private authService: AuthService) {
+  constructor(private userService: UserService, private cacheService: CacheService) {
   }
 
   ngOnInit() {
@@ -60,7 +61,7 @@ export class ExampleComponent {
   createComment(postId: number){
     let insertComment : Comments ={
       post_id: postId,
-      email: this.authService.getCachedUser()?.email,
+      email: this.cacheService.getUserSaved()?.email,
       name: this.commentName,
       body: this.newComment, 
     }

@@ -12,6 +12,7 @@ import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { Profile } from '../../../interfaces/profile-img';
 import { CreatedCommentComponent } from '../../../messages/created-comment/created-comment.component';
 import { CreatedUserComponent } from '../../../messages/created-user/created-user.component';
+import { CacheService } from '../../../services/cache.service';
 
 // export interface DialogData {
 //   message: string;
@@ -41,7 +42,7 @@ selectedValue!: string;
 
 registerForm!: FormGroup;
 
-constructor(private authService: AuthService, private userService: UserService, private router : Router, private fb: FormBuilder, public dialog: MatDialog){
+constructor(private cacheService: CacheService, private userService: UserService, private router : Router, private fb: FormBuilder, public dialog: MatDialog){
   this.registerForm = this.fb.group({
     name: new FormControl('', [Validators.required]),  
     email: new FormControl('', [Validators.required]), 
@@ -64,7 +65,7 @@ This code defines an onSubmit method that saves a token to local storage, create
 onSubmit() {
 //  localStorage.setItem('token', this.registerForm.value.token);
   if (!this.user) {  
-    this.token = this.authService.getToken() || ''
+    this.token = this.cacheService.getToken() || ''
     let newUser : User = {
       name : this.registerForm.value.name,
       email: this.registerForm.value.email,
@@ -112,7 +113,7 @@ onSave() {
   if (userId !== undefined){
     return this.userService.updateUser(userId, changeUser).subscribe((_user) => {
       this.user = _user;
-      this.authService.setCachedUser(this.user);
+      this.cacheService.saveUser(this.user);
       alert('Changes saved');
       // window.location.reload();
     });
@@ -128,7 +129,7 @@ onSave() {
   }
 
   getUser(){
-    const cachedUser = this.authService.getCachedUser();
+    const cachedUser = this.cacheService.getUserSaved();
     if (cachedUser !== null) {
         this.user = cachedUser;
     }
@@ -136,7 +137,7 @@ onSave() {
   }
 
   getUserId(){
-    const cachedUser = this.authService.getCachedUser();
+    const cachedUser = this.cacheService.getUserSaved();
     if (cachedUser !== null) {
         this.user = cachedUser;
     }

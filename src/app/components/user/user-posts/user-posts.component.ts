@@ -10,13 +10,14 @@ import { User } from '../../../interfaces/user.model';
 import { AuthService } from '../../../auth/auth.service';
 import { NgForm } from '@angular/forms';
 import { Observable, map, tap } from 'rxjs';
-import { OnLoginFunc } from 'tinacms';
+
 import { Profile } from '../../../interfaces/profile-img';
 import { NoPostsComponent } from '../../../messages/no-posts/no-posts.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatedCommentComponent } from '../../../messages/created-comment/created-comment.component';
 import { PaginatorComponent } from '../../paginator/paginator.component';
 import { LoaderComponent } from "../../loader/loader.component";
+import { CacheService } from '../../../services/cache.service';
 
 @Component({
     selector: 'app-user-posts',
@@ -25,7 +26,7 @@ import { LoaderComponent } from "../../loader/loader.component";
     styleUrl: './user-posts.component.scss',
     imports: [CommonModule, MaterialModule, NoPostsComponent, PaginatorComponent, LoaderComponent]
 })
-export class UserPostsComponent implements OnInit, AfterViewInit {
+export class UserPostsComponent implements OnInit, AfterViewInit, AfterContentInit {
 isSpinnerActive: any;
 
   @Input() userPost!: Array<Posts>;
@@ -46,10 +47,16 @@ isSpinnerActive: any;
 
   isPost: boolean= false;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private router: Router, public dialog: MatDialog) {}
+  constructor(private route: ActivatedRoute, private userService: UserService, private caheService: CacheService, private router: Router, public dialog: MatDialog) {
+    // this.getUserPosts();
+  }
 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.getAdminPosts();
+    // this.getUserPosts();
+
+  }
 
   /* 
   This TypeScript code defines a lifecycle hook method ngAfterViewInit in an Angular component. When the component's view has been fully initialized, it calls the getUserPosts method.
@@ -58,6 +65,10 @@ isSpinnerActive: any;
     this.getUserPosts();
   }  
   
+  ngAfterContentInit(): void {
+    // this.getUserPosts();
+  }
+
   openDialog(): void {
     this.dialog.open(CreatedCommentComponent, {
       width: '250px',
@@ -100,7 +111,7 @@ isSpinnerActive: any;
     // this.commentVisibility[postId] = !this.commentVisibility[postId];
     let insertComment : Comments ={
       post_id: postId,
-      email: this.authService.getCachedUser()?.email,
+      email: this.caheService.getUserSaved()?.email,
       name: this.commentName,
       body: this.newComment, 
     }

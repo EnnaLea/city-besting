@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../auth.service';
 import { User } from '../../interfaces/user.model';
 import { Router } from '@angular/router';
+import { CacheService } from '../../services/cache.service';
 
 
 interface Gender {
@@ -36,7 +37,7 @@ selectedValue!: string;
 
 registerForm!: FormGroup;
 
-constructor(private authService: AuthService, private userService: UserService, private router : Router, private fb: FormBuilder){
+constructor(private cacheService: CacheService, private userService: UserService, private router : Router, private fb: FormBuilder){
   this.registerForm = this.fb.group({
     name: new FormControl('', [Validators.required]),  
     email: new FormControl('', [Validators.required]), 
@@ -51,7 +52,6 @@ constructor(private authService: AuthService, private userService: UserService, 
 This code defines an onSubmit method that saves a token to local storage, creates a new user object based on form values, and sends the user data to the authService to create a new user. After creating the user, it sets the user in the cache.
 */
 onSubmit() {
-  localStorage.setItem('token', this.registerForm.value.token); 
   if (!this.user) {   
     let newUser : User = {
       name : this.registerForm.value.name,
@@ -59,11 +59,18 @@ onSubmit() {
       gender: this.registerForm.value.gender,
       status: this.registerForm.value.status,
       token: this.registerForm.value.token,
-      // password: this.registerForm.value.password,
     }
+    console.log(newUser);
+    console.log(newUser.token);
+   
     this.userService.createUser(newUser).subscribe({
       next: (response) => {
-        this.authService.setCachedUser(response);
+        this.cacheService.saveUser(response);
+        //console.log(response);
+        //console.log(this.cacheService.saveUser(response));
+        //console.log(this.cacheService.getUserSaved());
+        localStorage.setItem('token', JSON.stringify(newUser.token));
+        //console.log(localStorage.getItem('token'));
         this.router.navigateByUrl('/login');      
       }
     });
