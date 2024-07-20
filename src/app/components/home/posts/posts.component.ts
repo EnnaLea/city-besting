@@ -49,6 +49,7 @@ export class PostsComponent implements OnInit {
 
    // pagination
    @Input({ transform: numberAttribute }) length!: number 
+   totalArray!: number;
    pageSizeOptions: number[] = [10, 30, 50];
    pageSize: number = 10;
    currentPage: number = 1;
@@ -131,6 +132,7 @@ export class PostsComponent implements OnInit {
         this.userPost = posts;
         setTimeout(()=>{
           this.dataSource = new MatTableDataSource<Posts>(this.userPost);
+          this.totalArray = posts.length + 300;
         }, 0)
         this.loading = false;
       });     

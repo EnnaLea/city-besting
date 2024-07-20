@@ -31,6 +31,7 @@ export class UsersComponent implements OnInit, OnDestroy{
 
     // pagination
     @Input({ transform: numberAttribute }) length!: number 
+    totalArray!: number;
     pageSizeOptions: number[] = [10, 30, 50];
     pageSize: number = 10;
     currentPage: number = 1;
@@ -59,7 +60,7 @@ export class UsersComponent implements OnInit, OnDestroy{
 
       this.getUsers();
 
-  }
+  } 
 
 
   getUsers(): void{
@@ -68,6 +69,7 @@ export class UsersComponent implements OnInit, OnDestroy{
       this.users = users;
       setTimeout(()=>{
         this.dataSource = new MatTableDataSource<User>(this.users);
+        this.totalArray = users.length + 300;
       }, 0)
       this.loading = false;
     }); 

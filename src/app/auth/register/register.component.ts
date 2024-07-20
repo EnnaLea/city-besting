@@ -63,14 +63,14 @@ onSubmit() {
     console.log(newUser);
     console.log(newUser.token);
    
-    this.userService.createUser(newUser).subscribe({
+    this.userService.registerUser(newUser).subscribe({
       next: (response) => {
         this.cacheService.saveUser(response);
-        //console.log(response);
-        //console.log(this.cacheService.saveUser(response));
-        //console.log(this.cacheService.getUserSaved());
+        console.log(response);
+        console.log(this.cacheService.saveUser(response));
+        console.log(this.cacheService.getUserSaved());
         localStorage.setItem('token', JSON.stringify(newUser.token));
-        //console.log(localStorage.getItem('token'));
+        console.log(localStorage.getItem('token'));
         this.router.navigateByUrl('/login');      
       }
     });

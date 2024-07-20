@@ -6,6 +6,7 @@ import { User } from '../interfaces/user.model';
 import { UserDetail } from '../interfaces/user-detail';
 import { Posts } from '../interfaces/user-post';
 import { Comments } from '../interfaces/comments';
+import { CacheService } from './cache.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +26,19 @@ export class UserService {
   totalPosts: number = 0;
 
 //usare variabile d'ambiente
-  token = "2e3699e7eeac0f7d388cf4810572e3743985e04b791bf44b71dc98ee264739e1";
+  //token = "2e3699e7eeac0f7d388cf4810572e3743985e04b791bf44b71dc98ee264739e1";
 
-  constructor(private authService: AuthService, private httpService: HttpClient) { }
+  constructor(private authService: AuthService, private httpService: HttpClient, private cacheService: CacheService) { }
 
 
+
+getTokenRegistered(){
+  let token = localStorage.getItem('token');
+  if(token != null){
+    return token;
+  }
+  return null;
+}
   //METODI GET
 
 
@@ -39,12 +48,12 @@ export class UserService {
 
   getUsers(page: number, limit: number): Observable<User[]> {
     const url = `${this.url}/users?page=${page}&per_page=${limit}`;
-    return this.httpService.get<User[]>(url, {headers : this.getHeaders()})
+    return this.httpService.get<User[]>(url, {headers: this.getHeaders()});
   }
 
   getUserDetail(id: number): Observable<UserDetail>{
     const url = `${this.url}/users/${id}`;
-    return this.httpService.get<UserDetail>(url, {headers: this.getHeaders()});
+    return this.httpService.get<UserDetail>(url, {headers:this.getHeaders()});
   }
 
   getUserPosts(id: number): Observable<Array<Posts>>{
@@ -140,11 +149,11 @@ export class UserService {
 
   //METODI POST
 
-  createUser(user: User): Observable<User> {
-    const url = `${this.url}/users`;
+  registerUser(user: User): Observable<User> {
+    const url = `https://gorest.co.in/public/v2/users`;
     const header = new HttpHeaders().set(
       'Authorization',
-      `Bearer ${this.token}`
+      `Bearer ${this.getTokenRegistered()}`
     );
         let userBody ={
     name: user.name,
@@ -153,21 +162,30 @@ export class UserService {
     status: user.status,
     token: user.token
     }
+    console.log(userBody);
     return this.httpService.post<User>(url, userBody, { headers: header});
+  }
+  createNewUser(user: User): Observable<User> {
+    const url = `https://gorest.co.in/public/v2/users`;
+        let userBody ={
+    name: user.name,
+    email: user.email,
+    gender: user.gender,
+    status: user.status,
+    token: user.token
+    }
+    console.log(userBody);
+    return this.httpService.post<User>(url, userBody, { headers: this.getHeaders()});
   }
 
   createUserPost(id: number, post: Posts): Observable<Posts> {
     const url = `${this.url}/users/${id}/posts`;
-    const header = new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${this.token}`
-    );
     let postBody ={
       user_id: post.user_id,
       title: post.title,
       body: post.body,
     }
-    return this.httpService.post<Posts>(url, postBody, {headers: header});
+    return this.httpService.post<Posts>(url, postBody, {headers: this.getHeaders()});
   }
 
   createUserComment(postId: number, comment: Comments): Observable<Comments> {
@@ -198,7 +216,10 @@ export class UserService {
 
   
   getHeaders(){
-    const header = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    const header = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${this.cacheService.getToken()}`
+    );
     return header;
   }
 

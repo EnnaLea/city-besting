@@ -88,7 +88,7 @@ onSubmit() {
     //   newUser.img = femaleProfile;
     // }
 
-    this.userService.createUser(newUser).subscribe({
+    this.userService. createNewUser(newUser).subscribe({
       next: (response) => {
         this.user = response;
         this.openDialog();

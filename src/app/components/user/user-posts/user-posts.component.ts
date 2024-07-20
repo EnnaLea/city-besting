@@ -15,7 +15,6 @@ import { Profile } from '../../../interfaces/profile-img';
 import { NoPostsComponent } from '../../../messages/no-posts/no-posts.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatedCommentComponent } from '../../../messages/created-comment/created-comment.component';
-import { PaginatorComponent } from '../../paginator/paginator.component';
 import { LoaderComponent } from "../../loader/loader.component";
 import { CacheService } from '../../../services/cache.service';
 
@@ -24,7 +23,7 @@ import { CacheService } from '../../../services/cache.service';
     standalone: true,
     templateUrl: './user-posts.component.html',
     styleUrl: './user-posts.component.scss',
-    imports: [CommonModule, MaterialModule, NoPostsComponent, PaginatorComponent, LoaderComponent]
+    imports: [CommonModule, MaterialModule, NoPostsComponent, LoaderComponent]
 })
 export class UserPostsComponent implements OnInit, AfterViewInit, AfterContentInit {
 isSpinnerActive: any;
