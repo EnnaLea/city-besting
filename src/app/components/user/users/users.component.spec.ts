@@ -8,12 +8,21 @@ describe('UsersComponent', () => {
   let component: UsersComponent;
   let fixture: ComponentFixture<UsersComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [UsersComponent, HttpClientTestingModule, BrowserAnimationsModule]
-    })
-    .compileComponents();
+  // beforeEach(async () => {
+  //   await TestBed.configureTestingModule({
+  //     imports: [UsersComponent, HttpClientTestingModule, BrowserAnimationsModule]
+  //   })
+  //   .compileComponents();
     
+  //   fixture = TestBed.createComponent(UsersComponent);
+  //   component = fixture.componentInstance;
+  //   fixture.detectChanges();
+  // });
+
+  beforeEach(async() => {
+        await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, BrowserAnimationsModule]
+    })
     fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -30,33 +30,33 @@ describe('AuthService', () => {
   });
 
 
-    it('should set tokenExpired to true and call logout after expiration time', fakeAsync(() => {
-      // Mock expiration time and current time
-      const expirationTime = 5000; // 5 seconds
-      const currentTime = 0; // Start time
+  it('should set tokenExpired to true and call logout after expiration time', fakeAsync(() => {
+    // Mock expiration time and current time
+    const expirationTime = 5000; // 5 seconds
+    const currentTime = 0; // Start time
   
-      // Set expiration time and current time in the component
-      service.expirationTime = expirationTime;
-      service.currentTime = currentTime;
+    // Set expiration time and current time in the component
+    service.expirationTime = expirationTime;
+    service.currentHour = currentTime;
   
-      // Spy on the logout method
-      spyOn(service, 'logout');
+    // Spy on the logout method
+    spyOn(service, 'logout');
   
-      // Call expiredTime method
-      service.expiredTime();
+    // Call expiredTime method
+    service.expiredTime();
   
-      // Advance time by expirationTime
-      tick(expirationTime);
+    // Advance time by expirationTime
+    tick(expirationTime);
   
-      // Check if localStorage token is removed
-      expect(localStorage.getItem('token')).toBeNull();
+    // Check if localStorage token is removed
+    expect(localStorage.getItem('token')).toBeNull();
   
-      // Check if tokenExpired is set to true
-      expect(service.tokenExpired).toBeTruthy();
+    // Check if tokenExpired is set to true
+    expect(service.tokenExpired).toBeTruthy();
   
-      // Check if logout method is called
-      expect(service.logout).toHaveBeenCalled();
-    }));
+    // Check if logout method is called
+    expect(service.logout).toHaveBeenCalled();
+  }));
 
 
     it('should return false if email and token dont match', () => {
@@ -79,7 +79,7 @@ describe('AuthService', () => {
     
   it('should return null if token is not present in local storage', () => {
     localStorage.removeItem('token');
-    const tokenValue = service.getToken();
+    const tokenValue = cacheService.getToken();
     expect(tokenValue).toBeNull();
   });
 });

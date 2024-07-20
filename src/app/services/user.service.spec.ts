@@ -85,7 +85,7 @@ describe('UserService', () => {
   });
 
   it('should create a new user', ()=>{
-    service.createUser(user).subscribe(data => {
+    service.createNewUser(user).subscribe(data => {
       expect(data).toBeTruthy();
   })
   const req = testingController.expectOne('https://gorest.co.in/public/v2/users');

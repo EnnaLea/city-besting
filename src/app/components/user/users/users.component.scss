@@ -90,7 +90,7 @@
 
 }
 
-@media screen and (max-width: 380px){
+@media screen and (max-width: 480px){
   .parent{
     width: 100vw !important;
 
@@ -163,6 +163,160 @@
     }
   }
 
+  .paginator{
+    width: 25%;
+  }
+
+}
+
+@media screen and (min-width: 381px) and (max-width: 480px) {
+  .parent {
+    width: 90vw !important; /* adjust width to fit smaller screens */
+
+    h1 {
+      font-size: 0.8rem;
+      margin-left: -3rem;
+    }
+
+    h5 {
+      font-size: 0.4rem;
+      margin-left: -5rem;
+    }
+
+    form {
+      margin-right: -0.5rem;
+
+      .example-full-width {
+        width: 50%;
+        margin-bottom: 0;
+      }
+      .search {
+        font-size: 0.7rem;
+      }
+    }
+
+    mat-icon {
+      font-size: 0.9rem !important;
+      margin-left: 5rem;
+    }
+
+    .container-cards {
+      width: 320px !important;
+
+      p {
+        font-size: 0.4rem;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      h2 {
+        font-size: 0.7rem;
+        margin: 0 0 0 0 !important;
+        padding: 0;
+      }
+
+      .user-cards {
+        width: 180px !important;
+      }
+    }
+
+    button {
+      margin-right: 1.5rem;
+    }
+
+    .details-btn {
+      font-size: 0.4rem;
+      padding: 0.6rem;
+      width: 30%;
+      height: 18%;
+    }
+
+    .delete-btn {
+      font-size: 0.4rem;
+      padding: 0.6rem;
+      width: 45%;
+      height: 18%;
+    }
+  }
+
+  .paginator {
+    width: 20%;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 880px) {
+  .parent {
+    width: 80vw !important; /* adjust width to fit medium screens */
+
+    h1 {
+      font-size: 1.2rem;
+      margin-left: -2rem;
+    }
+
+    h5 {
+      font-size: 0.7rem;
+      margin-left: -4rem;
+    }
+
+    form {
+      margin-right: -0.5rem;
+
+      .example-full-width {
+        width: 60%;
+        margin-bottom: 0;
+      }
+      .search {
+        font-size: 0.9rem;
+      }
+    }
+
+    mat-icon {
+      font-size: 1.2rem !important;
+      margin-left: 4rem;
+    }
+
+    .container-cards {
+      width: 480px !important;
+
+      p {
+        font-size: 0.7rem;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      h2 {
+        font-size: 1rem;
+        margin: 0 0 0 0 !important;
+        padding: 0;
+      }
+
+      .user-cards {
+        width: 250px !important;
+      }
+    }
+
+    button {
+      margin-right: 1.5rem;
+    }
+
+    .details-btn {
+      font-size: 0.7rem;
+      padding: 0.8rem;
+      width: 40%;
+      height: 22%;
+    }
+
+    .delete-btn {
+      font-size: 0.7rem;
+      padding: 0.8rem;
+      width: 55%;
+      height: 22%;
+    }
+  }
+
+  .paginator {
+    width: 30%;
+  }
 }
 
 

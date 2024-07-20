@@ -90,9 +90,9 @@ export class AdminPostComponent implements OnInit, AfterViewInit{
       
   }
 
-  profileImg(){
-    return localStorage.getItem('profile-img');
-  }
+  // profileImg(){
+  //   return localStorage.getItem('profile-img');
+  // }
 
   /* 
   This code defines a method createComment that creates a new comment for a specific post. It toggles the visibility of the comment, creates a new comment object with post ID, email, name, and body, then calls the createUserComment method from the userService to send the new comment to the server. It also subscribes to the response and updates the local comment object.

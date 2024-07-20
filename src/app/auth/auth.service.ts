@@ -16,7 +16,7 @@ export class AuthService {
   logged: boolean | undefined;
   currentHour = new Date().getHours();
   currentMinutes = new Date().getMinutes();
-  currentTime = this.currentHour + ':' + this.currentMinutes;
+  //currentTime = this.currentHour + ':' + this.currentMinutes;
   expirationTime = this.currentHour + 1;
   user!: User;
   profile!: Profile[];
@@ -106,7 +106,13 @@ ngOnInit() {
   This code defines a getToken method in the AuthService class that retrieves the 'token' value from the local storage.
   */
 
-
+  getTokenRegistered(){
+    let token = localStorage.getItem('token');
+    if(token != null){
+      return token;
+    }
+    return null;
+  }
 
 
 }

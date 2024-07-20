@@ -28,6 +28,7 @@ export class CacheService {
       let token = localStorage.getItem('token');
       if(token != null){
         return JSON.parse(token);
+        //return token;
       }
       return null;
   }

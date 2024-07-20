@@ -32,13 +32,13 @@ export class UserService {
 
 
 
-getTokenRegistered(){
-  let token = localStorage.getItem('token');
-  if(token != null){
-    return token;
-  }
-  return null;
-}
+// getTokenRegistered(){
+//   let token = localStorage.getItem('token');
+//   if(token != null){
+//     return token;
+//   }
+//   return null;
+// }
   //METODI GET
 
 
@@ -153,7 +153,7 @@ getTokenRegistered(){
     const url = `https://gorest.co.in/public/v2/users`;
     const header = new HttpHeaders().set(
       'Authorization',
-      `Bearer ${this.getTokenRegistered()}`
+      `Bearer ${this.authService.getTokenRegistered()}`
     );
         let userBody ={
     name: user.name,

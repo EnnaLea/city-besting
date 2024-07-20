@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, numberAttribute } from '@angular/core';
+import { AfterContentChecked, Component, Input, OnDestroy, OnInit, ViewChild, numberAttribute } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { User } from '../../../interfaces/user.model';
 import { UserService } from '../../../services/user.service';
@@ -20,7 +20,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
-export class UsersComponent implements OnInit, OnDestroy{
+export class UsersComponent implements OnInit, OnDestroy, AfterContentChecked{
 
   @Input() users!: Array<User>;
   @Input() fullWidthMode = false;
@@ -44,11 +44,14 @@ export class UsersComponent implements OnInit, OnDestroy{
 
   constructor(private userService: UserService, private route: Router, public dialog: MatDialog){
     
-      this.filteredUserList = this.users;
+      //this.filteredUserList = this.users;
   
     
     // this.filteredUserList = this.allUsers();
     // this.filterResults('');
+    
+  }
+  ngAfterContentChecked(): void {
     
   }
 
@@ -57,10 +60,10 @@ export class UsersComponent implements OnInit, OnDestroy{
       // this.userSubscription = this.userService.getUsers()
       // .pipe(tap(() => this.loading = false))
       // .subscribe((_users)=> this.users = _users);
-
+      this.filteredUserList = this.users;
       this.getUsers();
 
-  } 
+  }
 
 
   getUsers(): void{
